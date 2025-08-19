@@ -1,0 +1,8 @@
+{
+    "usuarios":{
+        "fullname" : "",
+        "identifiation": "",
+        "email":"",
+        "password":""
+    }
+}
