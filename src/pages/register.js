@@ -1,54 +1,41 @@
+import { registerUser } from "./services/registerService";
 
-        // Form validation and submission
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const errorDiv = document.getElementById('passwordError');
-            
-            // Check if passwords match
-            if (password !== confirmPassword) {
-                errorDiv.classList.remove('hidden');
-                return;
-            } else {
-                errorDiv.classList.add('hidden');
-            }
-            
-            // Get form data
-            const formData = {
-                fullName: document.getElementById('fullName').value,
-                email: document.getElementById('email').value,
-                password: password
-            };
-            
-            // Here you would typically send the data to a server
-            console.log('Registration data:', formData);
-            alert('¡Registro exitoso!');
-            
-            // Reset form
-            this.reset();
-        });
+document.getElementById("registrationForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-        // Back button functionality
-        document.getElementById('backBtn').addEventListener('click', function() {
-            // You can customize this behavior
-            if (window.history.length > 1) {
-                window.history.back();
-            } else {
-                alert('Regresando...');
-            }
-        });
+  const fullName = document.getElementById("fullName").value.trim();
+  const identification = document.getElementById("identification").value.trim();
+  const email = document.getElementById("email").value.trim().toLowerCase();
+  const password = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
 
-        // Real-time password confirmation validation
-        document.getElementById('confirmPassword').addEventListener('input', function() {
-            const password = document.getElementById('password').value;
-            const confirmPassword = this.value;
-            const errorDiv = document.getElementById('passwordError');
-            
-            if (confirmPassword && password !== confirmPassword) {
-                errorDiv.classList.remove('hidden');
-            } else {
-                errorDiv.classList.add('hidden');
-            }
-        });
+  if (!fullName || !identification || !email || !password || !confirmPassword) {
+    alert("Debes rellenar todos los campos!");
+    return;
+  }
+
+  // Validar formato de nombre (solo letras y espacios, mínimo 2 palabras)
+  const fullNameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,}$/;
+  if (!fullNameRegex.test(fullName)) {
+    alert("Nombre de usuario inválido");
+    return;
+  }
+
+  // Validar email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    alert("Correo Electrónico inválido");
+    return;
+  }
+
+  // Validar contraseñas
+  if (password !== confirmPassword) {
+    document.getElementById("passwordError").classList.remove("hidden");
+    return;
+  } else {
+    document.getElementById("passwordError").classList.add("hidden");
+  }
+
+  // Llamar servicio
+  await registerUser(fullName, email, identification, password);
+});         

@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Registro</title>
-    <link rel="stylesheet" href="../css/styles.css">
-</head>
-<body>
+import { registerUser } from "./services/registerService";
 
-    <main class="min-h-screen p-6 bg-[#FBF7FC]">
+export default function register(div) {
+  div.innerHTML = `
+     <main class="min-h-screen p-6 bg-[#FBF7FC]">
     <!-- Back button -->
     <button id="backBtn" class="bg-[#f56d95] text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-[#e55a87] transition-colors">
         Regresar
@@ -37,7 +31,7 @@
 
             <!-- Identification field -->
             <section>
-                <label for="Identification" class="block text-[#f56d95] text-sm font-medium mb-2">Identificación:</label>
+                <label for="identification" class="block text-[#f56d95] text-sm font-medium mb-2">Identificación:</label>
                 <input
                     type="text"
                     id="identification"
@@ -99,8 +93,50 @@
 
     </div>
     </main>
+  `;
 
-    <script type="module" src="./register.js" ></script>
+  // Solo un listener, con validaciones correctas
+  document.getElementById("registrationForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-</body>
-</html>
+    const fullName = document.getElementById("fullName").value.trim();
+    const identification = document.getElementById("identification").value.trim();
+    const email = document.getElementById("email").value.trim().toLowerCase();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (!fullName || !identification || !email || !password || !confirmPassword) {
+      alert("Debes rellenar todos los campos!");
+      return;
+    }
+
+    // Validar formato de nombre (solo letras y espacios, mínimo 3 caracteres)
+    const fullNameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,}$/;
+    if (!fullNameRegex.test(fullName)) {
+      alert("Nombre de usuario inválido");
+      return;
+    }
+
+    // Validar email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Correo Electrónico inválido");
+      return;
+    }
+
+    // Validar contraseñas
+    if (password !== confirmPassword) {
+      document.getElementById("passwordError").classList.remove("hidden");
+      return;
+    } else {
+      document.getElementById("passwordError").classList.add("hidden");
+    }
+
+    // Llamar servicio
+    await registerUser(fullName, email, identification, password);
+  });
+
+  document.getElementById("backBtn").addEventListener("click", () => {
+    window.history.back();
+  });
+}

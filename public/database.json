@@ -1,8 +1,12 @@
 {
-    "usuarios":{
-        "fullname" : "",
-        "identifiation": "",
-        "email":"",
-        "password":""
+  "users": [
+    {
+      "id": "68ac",
+      "fullname": "valeria",
+      "email": "valecade16@gmail.com",
+      "identification": "1234",
+      "password": "123456",
+      "roleId": "0"
     }
+  ]
 }
