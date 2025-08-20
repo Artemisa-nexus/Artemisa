@@ -1,19 +1,4 @@
 
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'artemisa-pink': '#E879A6',
-                        'artemisa-orange': '#F5B041',
-                        'artemisa-light-pink': '#F8BBD9',
-                    }
-                }
-            }
-        }
-
-
-
-       
         // Simple JavaScript for button interactions
         document.addEventListener('DOMContentLoaded', function() {
             const buttons = document.querySelectorAll('button');
