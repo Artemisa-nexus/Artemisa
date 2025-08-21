@@ -1,5 +1,7 @@
 //Login view with its functionality.
 
+import { auth } from './authLogin.js'; // Importing the authentication logic.
+
 //Exported function where the HTML is with its styles and dynamics.
 export function loginPage () {
     document.getElementById('app').innerHTML = `
