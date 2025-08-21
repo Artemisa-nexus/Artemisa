@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ARTEMISA - Comunidad</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="min-h-screen bg-[#fbf7fc] font-sans">
+    <!-- Header -->
+    <header
+      class="bg-white px-4 py-0 flex items-center justify-between border-b border-gray-100"
+    >
+      <img
+        src="/public/assets/logo_color-recortado.svg"
+        alt="logo-letras"
+        class="h-25 w-25 overflow-hidden"
+      />
+
+      <div class="flex-1 max-w-md mx-8">
+        <section class="relative">
+          <img src="/public/assets/icono_buscar.svg" alt="icono-buscar" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+          <input
+            type="text"
+            class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-[#f56d95] focus:border-transparent"
+            placeholder=""
+          />
+        </section>
+      </div>
+
+      <section class="flex items-center gap-4">
+        <img
+          src="/public/assets/icono_msj.svg"
+          alt="icono-msj"
+          class="w-10 h-10"
+        />
+
+        <img
+          src="/public/assets/icono_noti.svg"
+          alt="icono-notif"
+          class="w-9 h-9"
+        />
+      </section>
+    </header>
+
+    <div class="flex">
+      <!-- Left Sidebar -->
+      <aside class="w-64 bg-[#f56d95] min-h-screen p-6 relative">
+        <nav class="space-y-4">
+          <div
+            class="bg-white rounded-full px-6 py-3 cursor-pointer"
+            id="comunidad-btn"
+          >
+            <span class="text-black font-medium">Comunidad</span>
+          </div>
+
+          <div
+            class="text-white font-medium py-3 px-6 cursor-pointer hover:bg-white hover:bg-opacity-10 rounded-full transition-colors"
+            onclick="selectMenuItem(this)"
+          >
+            Voluntariados
+          </div>
+
+          <div
+            class="text-white font-medium py-3 px-6 cursor-pointer hover:bg-white hover:bg-opacity-10 rounded-full transition-colors"
+            onclick="selectMenuItem(this)"
+          >
+            Eventos
+          </div>
+
+          <div
+            class="text-white font-medium py-3 px-6 cursor-pointer hover:bg-white hover:bg-opacity-10 rounded-full transition-colors"
+            onclick="selectMenuItem(this)"
+          >
+            Apoyo
+          </div>
+
+          <div
+            class="text-white font-medium py-3 px-6 cursor-pointer hover:bg-white hover:bg-opacity-10 rounded-full transition-colors"
+            onclick="selectMenuItem(this)"
+          >
+            Amigas
+          </div>
+
+          <div
+            class="text-white font-medium py-3 px-6 cursor-pointer hover:bg-white hover:bg-opacity-10 rounded-full transition-colors"
+            onclick="selectMenuItem(this)"
+          >
+            Emprendimientos
+          </div>
+        </nav>
+
+        <!-- User Profile at Bottom -->
+        <div class="absolute bottom-6 left-6 flex items-center gap-3">
+          <div class="w-8 h-8 bg-[#d9d9d9] rounded-lg"></div>
+          <span class="text-white font-medium">Nombre usuario</span>
+        </div>
+
+        <button id="logoutBtn">Cerrar sesión</button></li>
+      </aside>
+
+     
+
+        
+    </div>
+
+
+</html>
