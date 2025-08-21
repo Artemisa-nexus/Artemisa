@@ -1,31 +1,31 @@
+//Login function to authenticate the user
 
+export const auth = {
 
-const apiLogin = {
-    URL: 'http://localhost:3000/',
-
-    get: async param => {
+    get: async (param) => {
         try {
-            const response = await fetch(`${api.URL}${param}`);
+            const response = await fetch(`http://localhost:3000/${param}`);
             if (!response.ok) {
                 throw new Error('Error getting data');
             }
             return await response.json();
-        }catch (error) {
+        } catch (error) {
             console.error('Error in GET request:', error);
             throw error;
-        };
-    }
-};
+        }
+    },
 
-export const auth = {
-
-    //Función Login para autenticar al usuario.
     login: async (email, password) => {
-        const users = await apiLogin.get(`users?email=${email}`);//Se realiza la petición para buscar al usuario por email.
+        const users = await auth.get(`users?email=${email}`); // Fetch user by email
         if (users.length === 0 || users[0].password !== password) {
-            throw new Error('Datos inválidos'); //Si las crendenciales son inválidas, lanza error.
+            throw new Error('Invalid credentials'); // Throw error for invalid credentials
         }
         const user = users[0];
-        localStorage.setItem('user', JSON.stringify(user)); //Guarda al usuario en localStorage.
-    }
+        localStorage.setItem('user', JSON.stringify(user)); // Store user in localStorage
+    },
+    
+    isAuthenticated: () => {
+        return !!localStorage.getItem('user');
+    },
+
 };
