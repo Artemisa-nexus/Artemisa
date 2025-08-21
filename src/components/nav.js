@@ -1,35 +1,39 @@
-// Navigation bar rendering and events
-import { logoutUser, getCurrentUser } from '../utils/auth.js';
-
-// Render navigation bar based on user role
+// Render navigation bar in the dashboard
 export function renderNav() {
-  const user = getCurrentUser();
-
   return `
-    <nav>
-      <h2>Eventos</h2>
-      <ul>
-        <li><a href="/" data-link>Inicio</a></li>
-        ${user && user.role === "admin" ? `
-          <li><a href="/dashboard" data-link>Dashboard Admin</a></li>
-        ` : user && user.role === "user" ? `
-          <li><a href="/dashboard" data-link>Mis Cursos</a></li>
-        ` : ""}
-        ${user ? `
-          <li><button id="logoutBtn">Cerrar sesión</button></li>
-        ` : ""}
-      </ul>
-    </nav>
-  `;
-}
+    <header
+      class="bg-white px-4 py-0 flex items-center justify-between border-b border-gray-100"
+    >
+      <img
+        src="/public/assets/logo_color-recortado.svg"
+        alt="logo-letras"
+        class="h-25 w-25 overflow-hidden"
+      />
 
-// Attach logout event to button
-export function navEvents() {
-  const logoutBtn = document.getElementById("logoutBtn");
-  if (logoutBtn) {
-    // Logout on button click
-    logoutBtn.addEventListener("click", () => {
-      logoutUser();
-    });
-  }
+      <div class="flex-1 max-w-md mx-8">
+        <section class="relative">
+          <img src="/public/assets/icono_buscar.svg" alt="icono-buscar" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+          <input
+            type="text"
+            class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-[#f56d95] focus:border-transparent"
+            placeholder=""
+          />
+        </section>
+      </div>
+
+      <section class="flex items-center gap-4">
+        <img
+          src="/public/assets/icono_msj.svg"
+          alt="icono-msj"
+          class="w-10 h-10"
+        />
+
+        <img
+          src="/public/assets/icono_noti.svg"
+          alt="icono-notif"
+          class="w-9 h-9"
+        />
+      </section>
+    </header>
+  `;
 }
