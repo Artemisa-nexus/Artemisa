@@ -1,6 +1,8 @@
+//Authentication file.
 
-
+//Exported function of the authentication logic.
 export const auth = {
+    //API object to handle requests.
     api: {
         URL: 'http://localhost:3000/',
 
@@ -18,7 +20,8 @@ export const auth = {
         },
 
     },
-
+    
+    //Login function to authenticate the user.
     login: async (email, password) => {
         const users = await auth.api.get(`/users?email=${email}`);//The request is made to search for the user by email.
         if (users.length === 0 || users[0].password !== password) {
