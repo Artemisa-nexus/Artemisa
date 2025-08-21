@@ -1,5 +1,6 @@
-import { auth } from './authLogin.js';
+//Login view with its functionality.
 
+//Exported function where the HTML is with its styles and dynamics.
 export function loginPage () {
     document.getElementById('app').innerHTML = `
     <main class="min-h-screen bg-[#fbf7fc] p-6">
@@ -52,6 +53,7 @@ export function loginPage () {
         </article>
     </main>`;
 
+    // Event listeners for the login form and back button.
     document.getElementById('loginForm').onsubmit = async (event) => {
         event.preventDefault();
     };
@@ -67,5 +69,8 @@ export function loginPage () {
         };
     };
 
-    document.getElementById('btn-back').onclick
+    document.getElementById('btn-back').onclick = async e => {
+        e.preventDefault();
+        location.hash = '#/'; // Redirect to home page when back button is clicked.
+    }
 }
