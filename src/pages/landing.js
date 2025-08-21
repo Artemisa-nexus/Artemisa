@@ -1,16 +1,12 @@
-
-        // Simple JavaScript for button interactions
-        document.addEventListener('DOMContentLoaded', function() {
-            const buttons = document.querySelectorAll('button');
-            
-            buttons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    // Add a simple click effect
-                    this.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        this.style.transform = 'scale(1)';
-                    }, 150);
-                });
-            });
-        });
-   
+document.getElementById("btn-login").addEventListener("click", () => {
+    window.location.href = "/src/views/login.html";
+  });
+  
+  document.getElementById("btn-unete").addEventListener("click", () => {
+    window.location.href = "/src/views/register.html";
+  });
+  
+  document.getElementById("btn-conoce").addEventListener("click", () => {
+    document.querySelector("#about-us").scrollIntoView({ behavior: "smooth" });
+  });
+  

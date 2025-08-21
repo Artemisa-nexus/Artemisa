@@ -1,82 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARTEMISA - Red Social para Mujeres</title>
-    <link rel="stylesheet" href="/src/css/styles.css">
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ARTEMISA - Red Social para Mujeres</title>
+  <link rel="stylesheet" href="/src/css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Ole&display=swap" rel="stylesheet">
+  <style>
+    .font-ole {
+      font-family: 'Ole', serif;
+    }
+  </style>
 </head>
+  
 <body >
     <div class="bg-gray-50">
 
     <!-- Header -->
     <header class="bg-white shadow-sm px-6 py-4">
-        <article class="max-w-7xl mx-auto flex items-center justify-between">
+        <article class="max-w-7xl h-20  mx-auto flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <article class="w-10 h-10 relative">
+                <article class="w-20 h-20 m-4 relative">
                     <img src="/public/assets/Icono.svg" class="w-full h-full">
-                        <defs>
-                            <linearGradient id="flowerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#F5B041"/>
-                                <stop offset="50%" style="stop-color:#E879A6"/>
-                                <stop offset="100%" style="stop-color:#F8BBD9"/>
-                            </linearGradient>
-                        </defs>
                 </article>
-                <img src="/public/assets/logo_color.svg" class="w-30 h-30">
+                <img src="/public/assets/logo_color.svg" class="w-35 h-40 m-4">
             </div>
-            <button class="bg-[#f56d95] text-white px-6 py-2 rounded-full hover:bg-pink-500 transition-colors">
+            <button id="btn-login" class="bg-[#f56d95] text-white px-6 py-2 rounded-full hover:bg-pink-500 transition-colors">
                 Iniciar sesión
             </button>
         </article>
     </header>
 <main>
-    <!-- Hero Section -->
-    <section class="py-16 px-6">
-        <article class="max-w-4xl mx-auto text-center">
-            <article class="mb-8">
-                <img src="/public/assets/Icono.svg" alt="logo artemisa" viewBox="0 0 120 120" class="w-24 h-24 mx-auto mb-6">
 
-                    <defs>
-                        <linearGradient id="heroFlowerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#F5B041"/>
-                            <stop offset="50%" style="stop-color:#E879A6"/>
-                            <stop offset="100%" style="stop-color:#F8BBD9"/>
-                        </linearGradient>
-                    </defs>
+<body class="bg-gray-50">
 
-                </article>
+  <!-- Hero Section -->
+   <div class="flex items-center justify-center"></div>
+  <section class="py-16 px-6 bg-[#fdf9fb]">
+    <div class="max-w-5xl mx-auto text-center">
+      <!-- Flor central -->
+      <img src="/public/assets/Icono.svg" alt="logo artemisa" class="w-40 h-40 mx-auto mb-6">
 
-                <div class="flex items-center justify-end">
-            <h2 class="text-6xl md:text-5xl font-bold mb-4 font-cursive-custom italic text-center">Bienvenida a</h2>
+      <!-- Título con Ole en 'Bienvenida' -->
+      <div class="flex items-center justify-center">
+                    <h2 class="text-8xl md:text-10xl font-ole mb-4  text-center">Bienvenida a</h2> 
+                    <div class="w-50 ml-1.5">
+
+                        <img src="/public/assets/logo_color.svg" alt="logo de artemisa " class="w-full" >
+                    </div>
+                </div>
+     
                 
-            <img src="/public/assets/logo_color.svg" alt="logo de artemisa " class="w-80 h-60 mx-auto float-right ml-4" >
-        </div>
-            
-            <p class="text-gray-600 text-lg mb-8 max-w-3xl mx-auto leading-relaxed">
-                La red social que conecta mujeres para crear comunidad, participar en voluntariados, asistir a eventos y brindarse apoyo mutuo.
-            </p>
-            
-            <article class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button class="bg-pink-400 text-white px-8 py-3 rounded-full hover:bg-pink-500 transition-colors font-medium">
-                    Únete Ahora
-                </button>
-                <button class="bg-orange-300 text-white px-8 py-3 rounded-full hover:bg-yellow-400 transition-colors font-medium">
-                    Conoce más
-                </button>
-            </article>
-        </article>
-    </section>
+      <!-- Descripción -->
+      <p class="text-gray-600 text-xl mb-8 max-w-2xl mx-auto leading-relaxed">
+        La red social que conecta mujeres para crear comunidad, participar en voluntariados,
+        asistir a eventos y brindarse apoyo mutuo.
+      </p>
+
+      <!-- Botones -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <button  id="btn-unete" class="bg-[#f56d95] text-white px-10 py-4 rounded-full hover:bg-pink-500 transition font-medium shadow-lg text-lg">
+          Únete Ahora
+        </button>
+        <button  id="btn-conoce" class="bg-[#f9a825] text-white px-10 py-4 rounded-full hover:bg-yellow-400 transition font-medium shadow-lg text-lg">
+          Conoce más
+        </button>
+      </div>
+    </div>
+  </section>
+
 
     <!-- Features Section -->
-    <section class="py-16 px-6 bg-white">
+    <section class="py-16 px-6 bg-[#fdf9fb]">
         <div class="max-w-6xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
                 <!-- Comunidad -->
                 <article class="w-50 rounded-lg shadow-md p-4 bg-white ">
                     <div class="w-16 h-16  mx-auto mb-4   flex items-center ">
-                        <img src="/public/assets/comunidad.png" alt="icono de comunidad" class="w-20 h-25" >
+                        <img src="/public/assets/comunidad.png" alt="icono de comunidad" class="w-15 h-20" >
                     </div>
                     <h3 class="text-lg font-bold mb-2">Comunidad</h3>
                     <p class="text-sm text-gray-600 tex-center">Conecta con otras mujeres</p>
@@ -128,9 +129,9 @@
     </section>
 
     <!-- About Us Section -->
-    <section class="py-16 px-6">
+    <section id="about-us" class="py-16 px-6">
         <article class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-artemisa-pink text-center mb-12">ABOUT US</h2>
+            <h2 class="text-4xl font-bold text-[#f56d95] text-center mb-12">ABOUT US</h2>
             
             <article class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div class="relative">
@@ -157,7 +158,7 @@
     <!-- Emprendimientos Section -->
     <section class="py-16 px-6 bg-white">
         <article class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-artemisa-pink text-center mb-12">Emprendimientos</h2>
+            <h2 class="text-4xl font-bold text-[#f56d95] text-center mb-12">Emprendimientos</h2>
             
             <article class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="bg-gray-100 rounded-lg h-80 shadow-lg"></div>
