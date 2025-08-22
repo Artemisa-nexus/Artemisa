@@ -1,12 +1,18 @@
 import { renderLanding } from "./pages/landing";
 import { loginPage } from "./pages/login";
 import renderRegister from "./pages/register";
+import { renderDashboard } from "./pages/dashboard";
+import { renderDashboardVoluntariado } from "./pages/dashboardVoluntariados";
+
 
 let app = document.getElementById('app')
+
 let routes = {
     '/artemisa/landing': () => renderLanding(app),
     '/artemisa/login': () => loginPage(app),
-    '/artemisa/register': () => renderRegister(app)
+    '/artemisa/register': () => renderRegister(app),
+    '/artemisa/dashboard': () => renderDashboard(app),
+    '/artemisa/dashboard/voluntariados': () => renderDashboardVoluntariado(app)
 }
 
 export let renderRouter = () => {
@@ -15,7 +21,7 @@ export let renderRouter = () => {
 
     if (path === '/' || !path) {
         history.pushState(null, null, '/artemisa/landing');
-        path = '/artemisa/landing'; // actualizamos manualmente para que coincida
+        path = '/artemisa/landing';
     }
 
 
@@ -24,6 +30,7 @@ export let renderRouter = () => {
     if (routes[path]) {
         routes[path]();
     }
+    
     else {
         app.innerHTML = `
         <header>

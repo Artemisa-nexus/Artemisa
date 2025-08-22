@@ -27,7 +27,6 @@ export function renderNav() {
           alt="icono-msj"
           class="w-10 h-10"
         />
-
         <img
           src="/public/assets/icono_noti.svg"
           alt="icono-notif"

@@ -1,42 +1,49 @@
+import { loginUser } from "../js/api";
+import { auth } from "../utils/auth";
+
 // Render navigation bar in the dashboard
 export function renderSideBar() {
+
+   const currentHash = window.location.hash || "#inicio";
+
+  // helper para aplicar estilos activos
+  const getBtnClass = (hash) => {
+    return currentHash === hash
+      ? "w-full bg-white text-black font-medium rounded-full px-6 py-3 cursor-pointer hover:bg-opacity-90 transition"
+      : "w-full text-white font-medium py-3 px-6 rounded-full hover:bg-white hover:bg-opacity-10 transition";
+  };
+
   return `
            <!-- Left Sidebar -->
 <aside class="w-64 bg-[#f56d95] min-h-screen p-6 relative flex flex-col justify-between">
   <!-- Menú de navegación -->
   <nav class="space-y-4">
     <button id="comunidadBtn"
-      class="w-full bg-white text-black font-medium rounded-full px-6 py-3 cursor-pointer hover:bg-opacity-90 transition"
+      class="${getBtnClass("#comunidad")} w-full hover:text-black text-white font-medium rounded-full px-6 py-3 cursor-pointer hover:bg-opacity-90 transition"
     >
       Comunidad
     </button>
 
-    <button id="voluntariadosBtn"
-      class="w-full text-white font-medium py-3 px-6 rounded-full hover:bg-white hover:bg-opacity-10 transition"
-    >
-      Voluntariados
-    </button>
-
     <button id="eventsBtn"
-      class="w-full text-white font-medium py-3 px-6 rounded-full hover:bg-white hover:bg-opacity-10 transition"
+      class="${getBtnClass("#eventos")} w-full  hover:text-black text-white font-medium py-3 px-6 rounded-full hover:bg-white hover:bg-opacity-10 transition"
     >
       Eventos
     </button>
 
     <button id="supportBtn"
-      class="w-full text-white font-medium py-3 px-6 rounded-full hover:bg-white hover:bg-opacity-10 transition"
+      class="${getBtnClass("#apoyo")} w-full  hover:text-black text-white font-medium py-3 px-6 rounded-full hover:bg-white hover:bg-opacity-10 transition"
     >
       Apoyo
     </button>
 
     <button id="friendsBtn"
-      class="w-full text-white font-medium py-3 px-6 rounded-full hover:bg-white hover:bg-opacity-10 transition"
+      class="${getBtnClass("#amigas")} w-full  hover:text-black text-white font-medium py-3 px-6 rounded-full hover:bg-white hover:bg-opacity-10 transition"
     >
       Amigas
     </button>
 
     <button id="emprendimientosBtn"
-      class="w-full text-white font-medium py-3 px-6 rounded-full hover:bg-white hover:bg-opacity-10 transition"
+      class="${getBtnClass("#emprendimientos")} w-full  hover:text-black text-white font-medium py-3 px-6 rounded-full hover:bg-white hover:bg-opacity-10 transition"
     >
       Emprendimientos
     </button>
@@ -47,11 +54,11 @@ export function renderSideBar() {
     <button id="userBtn"
         class="flex items-center gap-3 mb-4">
       <div class="w-8 h-8 bg-[#d9d9d9] rounded-lg"></div>
-      <span class="text-white font-medium">${user?.name || "Usuaria"}</span>
+      <span class="text-white font-medium"></span>
     </button>
 
     <button id="logoutBtn"
-      class="w-full px-4 py-2 bg-[#ff6b6b] hover:bg-[#ff5252] text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out">
+      class="w-full px-4 py-2 bg-white hover:bg-red text-gray-600 font-semibold rounded-lg shadow-md transition duration-200 ease-in-out">
       Cerrar sesión
     </button>
   </div>
@@ -62,41 +69,49 @@ export function renderSideBar() {
 
 export function navEvents() {
   const logoutBtn = document.getElementById("logoutBtn");
-  const voluntariadosBtn = document.getElementById("voluntariadosBtn");
   const eventsBtn = document.getElementById("eventsBtn");
   const supportBtn = document.getElementById("supportBtn");
   const friendsBtn = document.getElementById("friendsBtn");
   const emprendimientosBtn = document.getElementById("emprendimientosBtn");
 
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => logoutUser());
+   if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => auth.logOut());  // ✅ corregido
   }
-
-  if (voluntariadosBtn) {
-    voluntariadosBtn.addEventListener("click", () => {
-      window.location.hash = "voluntariados";
+  if (comunidadBtn) {
+    comunidadBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      history.pushState(null, null, '/artemisa/dashboard');
+      window.dispatchEvent(new PopStateEvent('popstate'));
     });
   }
 
   if (eventsBtn) {
-    eventsBtn.addEventListener("click", () => {
-      window.location.hash = "eventos";
+    eventsBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      history.pushState(null, null, '/artemisa/dashboard/eventos');
+      window.dispatchEvent(new PopStateEvent('popstate'));
     });
   }
 
   if (supportBtn) {
-    supportBtn.addEventListener("click", () => {
-      window.location.hash = "apoyo";
+    supportBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      history.pushState(null, null, '/artemisa/dashboard/apoyo');
+      window.dispatchEvent(new PopStateEvent('popstate'));
     });
   }
   if (friendsBtn) {
-    friendsBtn.addEventListener("click", () => {
-      window.location.hash = "amigas";
+    friendsBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      history.pushState(null, null, '/artemisa/dashboard/amigas');
+      window.dispatchEvent(new PopStateEvent('popstate'));
     });
   }
   if (emprendimientosBtn) {
-    emprendimientosBtn.addEventListener("click", () => {
-      window.location.hash = "emprendimientos";
+    emprendimientosBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      history.pushState(null, null, '/artemisa/dashboard/emprendimientos');
+      window.dispatchEvent(new PopStateEvent('popstate'));
     });
   }
 }

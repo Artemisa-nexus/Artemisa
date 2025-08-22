@@ -53,24 +53,17 @@ export function loginPage () {
         </article>
     </main>`;
 
-    
 
-  document.getElementById("loginForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    try {
-      // Simulación de login (deberías validar en tu API)
-      const user = { email, password }; 
-      auth.login(user);
-
-      history.pushState({}, "", "/dashboard");
-      router(document.getElementById("app")); // 👈 redibuja la SPA
-    } catch (err) {
-      alert(err.message || "Credenciales inválidas");
-    }
-  });
+    document.getElementById("loginForm").onsubmit = async (e) => {
+      e.preventDefault();
+      try {
+        await auth.login(e.target.email.value, e.target.password.value);
+        history.pushState(null, null, '/artemisa/dashboard')
+        window.dispatchEvent(new PopStateEvent('popstate'));
+      } catch (err) {
+        alert(err.message || "Credenciales inválidas");
+      };
+    };
 
   document.getElementById('btn-back').addEventListener('click', (e) => {
         e.preventDefault();
