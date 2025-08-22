@@ -53,6 +53,8 @@ export function loginPage () {
         </article>
     </main>`;
 
+    
+
   document.getElementById("loginForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const email = document.getElementById("email").value;
@@ -70,8 +72,9 @@ export function loginPage () {
     }
   });
 
-  document.getElementById("btn-back").addEventListener("click", () => {
-    history.pushState({}, "", "/");
-    router(document.getElementById("app"));
-  });
+  document.getElementById('btn-back').addEventListener('click', (e) => {
+        e.preventDefault();
+        history.pushState(null, null, '/artemisa/landing')
+        window.dispatchEvent(new PopStateEvent('popstate'));
+    })
 }

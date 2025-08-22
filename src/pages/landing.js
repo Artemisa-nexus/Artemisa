@@ -45,7 +45,7 @@ export function renderLanding(app) {
 
       <!-- Botones -->
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <button  id="btn-unete" class="bg-[#f56d95] text-white px-10 py-4 rounded-full hover:bg-pink-500 transition font-medium shadow-lg text-lg">
+        <button  id="btn-join" class="bg-[#f56d95] text-white px-10 py-4 rounded-full hover:bg-pink-500 transition font-medium shadow-lg text-lg">
           Únete Ahora
         </button>
         <button  id="btn-conoce" class="bg-[#f9a825] text-white px-10 py-4 rounded-full hover:bg-yellow-400 transition font-medium shadow-lg text-lg">
@@ -176,16 +176,21 @@ export function renderLanding(app) {
     </footer>
   `;
 
-  document.getElementById("btn-login").addEventListener("click", () => {
-    window.location.href = "/login";
-  });
-  
-  document.getElementById("btn-unete").addEventListener("click", () => {
-    window.location.href = "/register";
-  });
-  
-  document.getElementById("btn-conoce").addEventListener("click", () => {
-    document.querySelector("#about-us").scrollIntoView({ behavior: "smooth" });
-  });
+
+document.getElementById('btn-login').addEventListener('click', (e) => {
+        e.preventDefault();
+        history.pushState(null, null, '/artemisa/login')
+        window.dispatchEvent(new PopStateEvent('popstate'));
+    })
+
+    document.getElementById('btn-join').addEventListener('click', (e) => {
+        e.preventDefault();
+        history.pushState(null, null, '/artemisa/register')
+        window.dispatchEvent(new PopStateEvent('popstate'));
+    })
+
+    document.getElementById("btn-conoce").addEventListener("click", () => {
+        document.querySelector("#about-us").scrollIntoView({ behavior: "smooth" });
+    });
 }
   

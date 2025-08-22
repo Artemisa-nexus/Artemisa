@@ -1,6 +1,6 @@
-import { registerUser } from "./services/registerService";
+import { registerUser } from "../services/registerService.js";
 
-export default function register(div) {
+export default function renderRegister(div) {
   div.innerHTML = `
      <main class="min-h-screen p-6 bg-[#FBF7FC]">
     <!-- Back button -->
@@ -95,7 +95,6 @@ export default function register(div) {
     </main>
   `;
 
-  // Solo un listener, con validaciones correctas
   document.getElementById("registrationForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -134,9 +133,14 @@ export default function register(div) {
 
     // Llamar servicio
     await registerUser(fullName, email, identification, password);
+    history.pushState({}, "", "/artemisa/login");
+    window.dispatchEvent(new PopStateEvent('popstate'));
   });
 
-  document.getElementById("backBtn").addEventListener("click", () => {
-    window.history.back();
-  });
+  document.getElementById('backBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        history.pushState(null, null, '/artemisa/landing');
+        window.dispatchEvent(new PopStateEvent('popstate'));
+    })
+
 }

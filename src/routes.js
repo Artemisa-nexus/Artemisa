@@ -1,37 +1,46 @@
-import { auth } from "./utils/auth.js";
-import { renderLanding } from "./pages/landing.js";
-import { loginPage } from "./pages/login.js";
+import { renderLanding } from "./pages/landing";
+import { loginPage } from "./pages/login";
+import renderRegister from "./pages/register";
 
-// Router principal
-export function router(div) {
-  const path = window.location.pathname;
-
-  // Guard de autenticación
-  if (!auth.isAuthenticated() && path === "/dashboard") {
-    history.replaceState({}, "", "/");
-    return renderLanding(div);
-  }
-
-  if (auth.isAuthenticated() && (path === "/login" || path === "/register")) {
-    history.replaceState({}, "", "/dashboard");
-    return renderDashboard(div);
-  }
-
-  switch (path) {
-    case "/":
-      return renderLanding(div);
-    case "/login":
-      return loginPage(div);
-    case "/register":
-      return register(div);
-    case "/dashboard":
-      return renderDashboard(div);
-    default:
-      div.innerHTML = "<h1>404 - Página no encontrada</h1>";
-  }
+let app = document.getElementById('app')
+let routes = {
+    '/artemisa/landing': () => renderLanding(app),
+    '/artemisa/login': () => loginPage(app),
+    '/artemisa/register': () => renderRegister(app)
 }
 
-// 👇 importante para que al usar el navegador SPA siga funcionando
-window.onpopstate = () => {
-  router(document.getElementById("app"));
-};
+export let renderRouter = () => {
+
+    let path = window.location.pathname;
+
+    if (path === '/' || !path) {
+        history.pushState(null, null, '/artemisa/landing');
+        path = '/artemisa/landing'; // actualizamos manualmente para que coincida
+    }
+
+
+    path = window.location.pathname;
+
+    if (routes[path]) {
+        routes[path]();
+    }
+    else {
+        app.innerHTML = `
+        <header>
+            <nav>
+                <a href="/artemisa/home" data-link>Home</a>
+                <a href="/artemisa/login" data-link>Log in</a>
+                <a href="/artemisa/register" data-link>Sign up</a>
+            </nav>
+        </header>
+
+        <main>
+            <h1>HTTP NOT FOUND</h1>
+
+        </main>
+        
+        `
+
+    }
+
+}
