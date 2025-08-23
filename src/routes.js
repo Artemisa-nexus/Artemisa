@@ -2,7 +2,10 @@ import { renderLanding } from "./pages/landing";
 import { loginPage } from "./pages/login";
 import renderRegister from "./pages/register";
 import { renderDashboard } from "./pages/dashboard";
-import { renderDashboardVoluntariado } from "./pages/dashboardVoluntariados";
+import { renderDashboardEvents } from "./pages/dashboardEvents";
+import { renderDashboardSupport } from "./pages/dashboardApoyo";
+import { renderDashboardEmprendimientos } from "./pages/dashboardEmprendimientos";
+import { renderDashboardAmigas } from "./pages/dashboardAmigas";
 
 
 let app = document.getElementById('app')
@@ -12,7 +15,10 @@ let routes = {
     '/artemisa/login': () => loginPage(app),
     '/artemisa/register': () => renderRegister(app),
     '/artemisa/dashboard': () => renderDashboard(app),
-    '/artemisa/dashboard/voluntariados': () => renderDashboardVoluntariado(app)
+    '/artemisa/dashboard/events': () => renderDashboardEvents(app),
+    '/artemisa/dashboard/support': () => renderDashboardSupport(app),
+    '/artemisa/dashboard/emprendimientos': () => renderDashboardEmprendimientos(app),
+    '/artemisa/dashboard/amigas': () => renderDashboardAmigas(app)
 }
 
 export let renderRouter = () => {

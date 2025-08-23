@@ -1,8 +1,7 @@
-import { loginUser } from "../js/api";
 import { auth } from "../utils/auth";
 
 // Render navigation bar in the dashboard
-export function renderSideBar() {
+export function renderSideBar(user = { name: "Usuaria" }) {
 
    const currentHash = window.location.hash || "#inicio";
 
@@ -54,7 +53,7 @@ export function renderSideBar() {
     <button id="userBtn"
         class="flex items-center gap-3 mb-4">
       <div class="w-8 h-8 bg-[#d9d9d9] rounded-lg"></div>
-      <span class="text-white font-medium"></span>
+      <span class="text-white font-medium">${user?.name || "Usuaria"}</span>
     </button>
 
     <button id="logoutBtn"
@@ -85,10 +84,11 @@ export function navEvents() {
     });
   }
 
+
   if (eventsBtn) {
     eventsBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      history.pushState(null, null, '/artemisa/dashboard/eventos');
+      history.pushState(null, null, '/artemisa/dashboard/events');
       window.dispatchEvent(new PopStateEvent('popstate'));
     });
   }
@@ -96,7 +96,7 @@ export function navEvents() {
   if (supportBtn) {
     supportBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      history.pushState(null, null, '/artemisa/dashboard/apoyo');
+      history.pushState(null, null, '/artemisa/dashboard/support');
       window.dispatchEvent(new PopStateEvent('popstate'));
     });
   }

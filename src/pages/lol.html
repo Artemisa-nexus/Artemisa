@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artemisa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="w-64 bg-pink-400 text-white flex flex-col">
+            <!-- Logo -->
+            <div class="p-6">
+                <h1 class="text-2xl font-bold tracking-wide">ARTEMISA</h1>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="flex-1 px-6 space-y-2">
+                <a href="#" class="block py-3 px-4 text-white hover:bg-pink-500 rounded-lg transition-colors">
+                    Comunidad
+                </a>
+                <a href="#" class="block py-3 px-4 text-white hover:bg-pink-500 rounded-lg transition-colors">
+                    Eventos
+                </a>
+                <a href="#" class="block py-3 px-4 text-white hover:bg-pink-500 rounded-lg transition-colors">
+                    Apoyo
+                </a>
+                <a href="#" class="block py-3 px-4 text-white hover:bg-pink-500 rounded-lg transition-colors">
+                    Amigas
+                </a>
+                <a href="#" class="block py-3 px-4 bg-white text-gray-800 rounded-lg font-medium">
+                    Emprendimientos
+                </a>
+            </nav>
+            
+            <!-- User Profile -->
+            <div class="p-6 border-t border-pink-300">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-white bg-opacity-30 rounded-lg"></div>
+                    <span class="text-sm">Nombre usuaria</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col">
+            <!-- Header -->
+            <header class="bg-white border-b border-gray-200 px-8 py-4">
+                <div class="flex items-center justify-between">
+                    <div></div>
+                    <div class="flex-1 max-w-md mx-auto">
+                        <input 
+                            type="text" 
+                            placeholder="Buscar..." 
+                            class="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent"
+                        >
+                    </div>
+                    <div></div>
+                </div>
+            </header>
+            
+
+            
+            <!-- Content -->
+            <main class="flex-1 p-8">
+                <!-- Tus emprendimientos section -->
+                <section class="bg-white rounded-2xl p-6 mb-8 shadow-sm border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-2xl font-semibold text-pink-400">Tus emprendimientos</h2>
+                        <button class="bg-pink-400 text-white px-4 py-2 rounded-lg hover:bg-pink-500 transition-colors">
+                            Add
+                        </button>
+                    </div>
+                </section>
+                
+                <!-- Market Place section -->
+                <div>
+                    <h2 class="text-3xl font-semibold text-pink-400 mb-6">Market Place</h2>
+                    
+                    <!-- Grid of cards -->
+                    <section class="grid grid-cols-3 gap-6">
+                        <!-- Row 1 -->
+                        <article class="bg-white rounded-2xl h-64 shadow-sm border border-gray-200"></article>
+                        <article class="bg-white rounded-2xl h-64 shadow-sm border border-gray-200"></article>
+                        <article class="bg-white rounded-2xl h-64 shadow-sm border border-gray-200"></article>
+
+                        <!-- Row 2 -->
+                        <article class="bg-white rounded-2xl h-64 shadow-sm border border-gray-200"></article>
+                        <article class="bg-white rounded-2xl h-64 shadow-sm border border-gray-200"></article>
+                        <article class="bg-white rounded-2xl h-64 shadow-sm border border-gray-200"></article>
+
+                    </section>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
