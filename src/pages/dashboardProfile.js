@@ -1,8 +1,9 @@
 import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
+import { deleteUser, updateUser } from "../js/api";
 
 export function renderDashboardProfile(app) {
-  const user = { name: "" }; // 🔹 prueba
+const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" };
   app.innerHTML = `
       ${renderNav()}
       <div class="flex">
@@ -10,12 +11,16 @@ export function renderDashboardProfile(app) {
       <!-- Main Dashboard Content -->
             <main class="flex-1 p-8 space-y-8">
                 <!-- User Profile Section -->
-                <section class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-                    <article class="flex items-center space-x-4">
-                        <div class="w-20 h-20 bg-gray-300 rounded-lg"></div>
-                        <h2 class="text-xl font-semibold text-artemisa-pink">Nombre Usuario</h2>
-                    </article>
-                </section>
+                <article class="flex items-center space-x-4 mb-6">
+                    <div class="w-20 h-20 bg-gray-300 rounded-lg"></div>
+                    <h2 class="text-xl font-semibold text-artemisa-pink">${user.fullname}</h2>
+                </article>
+
+                <div class="mt-4 flex space-x-4 ml-160">
+                    <button id="editBtn" class="bg-[#f56d95] text-white px-4 py-2 rounded-lg hover:bg-[#f84e81]"> Editar </button>
+                    <button id="deleteBtn" class="bg-[#f9a825] text-white px-4 py-2 rounded-lg hover:bg-[#ff9f05]"> Eliminar cuenta </button>
+                </div>
+
 
                 <!-- Cards Section -->
                 <section class="grid grid-cols-2 gap-6">
@@ -26,6 +31,8 @@ export function renderDashboardProfile(app) {
                             <div class="h-64 bg-gray-50 rounded-lg"></div>
                         </div>
                     </article>
+
+                    
 
                     <!-- Metas Card -->
                     <article class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
@@ -40,4 +47,27 @@ export function renderDashboardProfile(app) {
     </div>
   `;
   navEvents();
+   const editBtn = document.getElementById("editBtn");
+  const deleteBtn = document.getElementById("deleteBtn");
+
+  // Editar
+  editBtn.addEventListener("click", async () => {
+    const newName = prompt("Nuevo nombre:", user.fullname);
+    if (newName) {
+      user.fullname = newName;
+      await updateUser(user.id, user);
+      localStorage.setItem("user", JSON.stringify(user));
+      renderDashboardProfile(app); // refrescar vista
+    }
+  });
+
+  // Eliminar
+  deleteBtn.addEventListener("click", async () => {
+    if (confirm("¿Seguro que quieres eliminar tu cuenta? Esta acción no se puede deshacer.")) {
+      await deleteUser(user.id);
+      auth.logOut(); // limpiar session y redirigir
+    }
+  });
+
 }
+

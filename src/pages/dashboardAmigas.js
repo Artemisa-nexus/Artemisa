@@ -2,7 +2,8 @@ import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
 
 export function renderDashboardAmigas(app) {
-  const user = { name: "" }; // 🔹 prueba
+const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" };
+
   app.innerHTML = `
       ${renderNav()}
       <div class="flex">

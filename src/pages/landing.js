@@ -10,7 +10,7 @@ export function renderLanding(app) {
           </article>
           <img src="/public/assets/logo_color.svg" class="w-35 h-40 m-4">
         </div>
-        <button id="btn-login" class="bg-[#f56d95] text-white px-6 py-2 rounded-full hover:bg-pink-500 transition-colors">
+        <button id="btn-login" class="bg-[#f56d95] text-white px-6 py-2 rounded-full hover:bg-[#f84e81] transition-colors">
           Iniciar sesión
         </button>
       </article>
@@ -46,10 +46,10 @@ export function renderLanding(app) {
 
       <!-- Botones -->
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <button  id="btn-join" class="bg-[#f56d95] text-white px-10 py-4 rounded-full hover:bg-pink-500 transition font-medium shadow-lg text-lg">
+        <button  id="btn-join" class="bg-[#f56d95] text-white px-10 py-4 rounded-full hover:bg-[#f84e81] transition font-medium shadow-lg text-lg">
           Únete Ahora
         </button>
-        <button  id="btn-conoce" class="bg-[#f9a825] text-white px-10 py-4 rounded-full hover:bg-yellow-400 transition font-medium shadow-lg text-lg">
+        <button  id="btn-conoce" class="bg-[#f9a825] text-white px-10 py-4 rounded-full hover:bg-[#ff9f05] transition font-medium shadow-lg text-lg">
           Conoce más
         </button>
       </div>

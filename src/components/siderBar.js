@@ -1,7 +1,7 @@
 import { auth } from "../utils/auth";
 
 // Render navigation bar in the dashboard
-export function renderSideBar(user = { name: "Usuaria" }) {
+export function renderSideBar(user = { fullname: "Usuaria" }) {
 
    const currentHash = window.location.hash || "#inicio";
 
@@ -53,7 +53,7 @@ export function renderSideBar(user = { name: "Usuaria" }) {
     <button id="profileBtn"
         class="flex items-center gap-3 mb-4">
       <div class="w-8 h-8 bg-[#d9d9d9] rounded-lg"></div>
-      <span class="text-white font-medium">${user?.name || "Usuaria"}</span>
+      <span class="text-white font-medium">${user.fullname}</span>
     </button>
 
     <button id="logoutBtn"
