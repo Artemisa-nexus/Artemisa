@@ -1,0 +1,44 @@
+{
+  "users": [
+    {
+      "id": "68ac",
+      "fullname": "valeria cadena",
+      "email": "valecade16@gmail.com",
+      "identification": "1234",
+      "password": "123456",
+      "roleId": "0"
+    },
+    {
+      "id": "2b8c",
+      "fullname": "oliver",
+      "email": "oliver@email.com",
+      "identification": "876543",
+      "password": "1234567",
+      "roleId": "0"
+    },
+    {
+      "id": "021f",
+      "fullname": "Mariana",
+      "email": "mariana@email.com",
+      "identification": "5637333",
+      "password": "123456",
+      "roleId": "0"
+    },
+    {
+      "id": "71b9",
+      "fullname": "lol",
+      "email": "lol@email.com",
+      "identification": "678352",
+      "password": "123456",
+      "roleId": "0"
+    },
+    {
+      "id": "b614",
+      "fullname": "luisa",
+      "email": "luisa@email.com",
+      "identification": "67473",
+      "password": "123456",
+      "roleId": "0"
+    }
+  ]
+}
