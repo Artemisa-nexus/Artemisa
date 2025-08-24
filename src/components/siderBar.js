@@ -50,7 +50,7 @@ export function renderSideBar(user = { name: "Usuaria" }) {
 
   <!-- Usuario y botón de cerrar sesión -->
   <div class="mt-8">
-    <button id="userBtn"
+    <button id="profileBtn"
         class="flex items-center gap-3 mb-4">
       <div class="w-8 h-8 bg-[#d9d9d9] rounded-lg"></div>
       <span class="text-white font-medium">${user?.name || "Usuaria"}</span>
@@ -72,6 +72,7 @@ export function navEvents() {
   const supportBtn = document.getElementById("supportBtn");
   const friendsBtn = document.getElementById("friendsBtn");
   const emprendimientosBtn = document.getElementById("emprendimientosBtn");
+  const profileBtn = document.getElementById("profileBtn");
 
    if (logoutBtn) {
     logoutBtn.addEventListener("click", () => auth.logOut());  // ✅ corregido
@@ -111,6 +112,13 @@ export function navEvents() {
     emprendimientosBtn.addEventListener("click", (e) => {
       e.preventDefault();
       history.pushState(null, null, '/artemisa/dashboard/emprendimientos');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    });
+  }
+  if (profileBtn) {
+    profileBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      history.pushState(null, null, '/artemisa/dashboard/profile');
       window.dispatchEvent(new PopStateEvent('popstate'));
     });
   }

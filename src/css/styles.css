@@ -1,1 +1,41 @@
 @import "tailwindcss";
+
+/* crecer */
+.logo-grow {
+  animation: grow 0.8s forwards;
+}
+
+/* encoger */
+.logo-shrink {
+  animation: shrink 0.8s forwards;
+}
+
+@keyframes grow {
+  from { transform: scale(1); }
+  to { transform: scale(1.5); }
+}
+
+@keyframes shrink {
+  from { transform: scale(1); }
+  to { transform: scale(0.5); }
+}
+
+/* Animación del logo */
+
+.logo-animate {
+  transition: transform 0.8s ease-in-out;
+}
+
+.flower-login.shrink {
+  transform: scale(1); /* Se vuelve a su tamaño normal */
+}
+
+@keyframes spin-once {
+  0% { transform: rotate(0deg) scale(0.5); opacity: 0; }
+  50% { transform: rotate(180deg) scale(1.2); opacity: 1; }
+  100% { transform: rotate(360deg) scale(1); opacity: 1; }
+}
+
+.logo-spin {
+  animation: spin-once 1s ease-in-out forwards;
+}

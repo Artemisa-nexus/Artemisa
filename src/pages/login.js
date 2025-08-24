@@ -13,7 +13,7 @@ export function loginPage () {
         <article class="flex flex-col items-center justify-center min-h-[calc(100vh-120px)] max-w-md mx-auto">
             <!-- Flower Illustration -->
             <div class="mb-16">
-                <img src="/public/assets/Icono.svg" alt="Decorative lily flower" class="w-32 h-32">
+            <img id="logoLogin" src="/public/assets/Icono.svg" alt="Decorative lily flower" class="w-32 h-32">
             </div>
 
             <!-- Login Form -->
@@ -52,6 +52,21 @@ export function loginPage () {
             </form>
         </article>
     </main>`;
+
+        // Animación al cargar la vista
+    const logo = document.getElementById("logoLogin");
+    setTimeout(() => {
+    logo.classList.add("logo-spin");
+    }, 100); // pequeño delay para que se note la entrada
+
+    window.addEventListener("DOMContentLoaded", () => {
+    const loginFlower = document.querySelector(".flower-login");
+
+    setTimeout(() => {
+        loginFlower.classList.add("shrink");
+    }, 100); // pequeño delay para que se note la transición
+    });
+
 
 
     document.getElementById("loginForm").onsubmit = async (e) => {

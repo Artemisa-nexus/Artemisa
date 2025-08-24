@@ -1,20 +1,19 @@
 export function renderLanding(app) {
    app.innerHTML = `
   <div class="bg-gray-50">
-
     <!-- Header -->
     <header class="bg-white shadow-sm px-6 py-4">
-        <article class="max-w-7xl h-20  mx-auto flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <article class="w-20 h-20 m-4 relative">
-                    <img src="/public/assets/Icono.svg" class="w-full h-full">
-                </article>
-                <img src="/public/assets/logo_color.svg" class="w-35 h-40 m-4">
-            </div>
-            <button id="btn-login" class="bg-[#f56d95] text-white px-6 py-2 rounded-full hover:bg-pink-500 transition-colors">
-                Iniciar sesión
-            </button>
-        </article>
+      <article class="max-w-7xl h-20 mx-auto flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <article class="w-20 h-20 m-4 relative cursor-pointer">
+            <img src="/public/assets/Icono.svg" class="w-full h-full">
+          </article>
+          <img src="/public/assets/logo_color.svg" class="w-35 h-40 m-4">
+        </div>
+        <button id="btn-login" class="bg-[#f56d95] text-white px-6 py-2 rounded-full hover:bg-pink-500 transition-colors">
+          Iniciar sesión
+        </button>
+      </article>
     </header>
 <main>
 
@@ -25,7 +24,9 @@ export function renderLanding(app) {
   <section class="py-16 px-6 bg-[#fdf9fb]">
     <div class="max-w-5xl mx-auto text-center">
       <!-- Flor central -->
-      <img src="/public/assets/Icono.svg" alt="logo artemisa" class="w-40 h-40 mx-auto mb-6">
+        <article id="logoHero" class=""w-40 h-40 mx-auto mb-6 logo-animate cursor-pointer">
+            <img src="/public/assets/Icono.svg" alt="logo artemisa" class="w-40 h-40 mx-auto mb-6">
+        </article>
 
       <!-- Título con Ole en 'Bienvenida' -->
       <div class="flex items-center justify-center">
@@ -160,37 +161,41 @@ export function renderLanding(app) {
             <div class="border-t border-white/30 pt-8">
                 <div class="flex justify-center space-x-6">
                     <a href="#" class="text-white hover:text-pink-200 transition-colors">
-                        
-                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                        </svg>
+                        <img src="/public/assets/icono_linkedin.svg" alt="LinkedIn" class="w-12 h-12">
                     </a>
                     <a href="#" class="text-white hover:text-pink-200 transition-colors">
-                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                        </svg>
+                        <img src="/public/assets/icono_ig.svg" alt="Instagram" class="w-12 h-12">
                     </a>
                 </div>
             </div>
         </div>
     </footer>
   `;
+ 
+// --- JS ---
+const logoHero = document.getElementById("logoHero");
+const loginBtn = document.getElementById("btn-login");
 
+// Botón login → logo se hace pequeño y redirige a /login
+loginBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  logoHero.classList.add("logo-shrink"); // animación para encoger
+  setTimeout(() => {
+    history.pushState(null, null, "/artemisa/login");
+    window.dispatchEvent(new PopStateEvent("popstate"));
+    logoHero.classList.remove("logo-shrink"); // limpia por si vuelven
+  }, 800);
+});
 
-document.getElementById('btn-login').addEventListener('click', (e) => {
-        e.preventDefault();
-        history.pushState(null, null, '/artemisa/login')
-        window.dispatchEvent(new PopStateEvent('popstate'));
-    })
+  // Únete ahora → /register
+  document.getElementById("btn-join").addEventListener("click", (e) => {
+    e.preventDefault();
+    history.pushState(null, null, "/artemisa/register");
+    window.dispatchEvent(new PopStateEvent("popstate"));
+  });
 
-    document.getElementById('btn-join').addEventListener('click', (e) => {
-        e.preventDefault();
-        history.pushState(null, null, '/artemisa/register')
-        window.dispatchEvent(new PopStateEvent('popstate'));
-    })
-
-    document.getElementById("btn-conoce").addEventListener("click", () => {
-        document.querySelector("#about-us").scrollIntoView({ behavior: "smooth" });
-    });
+  // Conoce más → scroll
+  document.getElementById("btn-conoce").addEventListener("click", () => {
+    document.querySelector("#about-us").scrollIntoView({ behavior: "smooth" });
+  });
 }
-  

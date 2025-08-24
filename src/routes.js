@@ -6,6 +6,7 @@ import { renderDashboardEvents } from "./pages/dashboardEvents";
 import { renderDashboardSupport } from "./pages/dashboardApoyo";
 import { renderDashboardEmprendimientos } from "./pages/dashboardEmprendimientos";
 import { renderDashboardAmigas } from "./pages/dashboardAmigas";
+import { renderDashboardProfile } from "./pages/dashboardProfile";
 
 
 let app = document.getElementById('app')
@@ -18,7 +19,8 @@ let routes = {
     '/artemisa/dashboard/events': () => renderDashboardEvents(app),
     '/artemisa/dashboard/support': () => renderDashboardSupport(app),
     '/artemisa/dashboard/emprendimientos': () => renderDashboardEmprendimientos(app),
-    '/artemisa/dashboard/amigas': () => renderDashboardAmigas(app)
+    '/artemisa/dashboard/amigas': () => renderDashboardAmigas(app),
+    '/artemisa/dashboard/profile': () => renderDashboardProfile(app)
 }
 
 export let renderRouter = () => {
