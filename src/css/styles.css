@@ -1,5 +1,7 @@
 @import "tailwindcss";
-
+.font-ole {
+      font-family: 'Ole', serif;
+}
 /* grow */
 .logo-grow {
   animation: grow 0.8s forwards;
