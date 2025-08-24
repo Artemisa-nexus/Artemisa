@@ -1,3 +1,4 @@
+// Render landing view
 export function renderLanding(app) {
    app.innerHTML = `
   <div class="bg-gray-50">
@@ -172,29 +173,28 @@ export function renderLanding(app) {
     </footer>
   `;
  
-// --- JS ---
 const logoHero = document.getElementById("logoHero");
 const loginBtn = document.getElementById("btn-login");
 
-// Botón login → logo se hace pequeño y redirige a /login
+// Login button → logo becomes small and redirects to /login
 loginBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  logoHero.classList.add("logo-shrink"); // animación para encoger
+  logoHero.classList.add("logo-shrink"); // animation to shrink
   setTimeout(() => {
     history.pushState(null, null, "/artemisa/login");
     window.dispatchEvent(new PopStateEvent("popstate"));
-    logoHero.classList.remove("logo-shrink"); // limpia por si vuelven
+    logoHero.classList.remove("logo-shrink"); // clean up in case they come back
   }, 800);
 });
 
-  // Únete ahora → /register
+  // Join now/register
   document.getElementById("btn-join").addEventListener("click", (e) => {
     e.preventDefault();
     history.pushState(null, null, "/artemisa/register");
     window.dispatchEvent(new PopStateEvent("popstate"));
   });
 
-  // Conoce más → scroll
+  // Scroll to the about us section
   document.getElementById("btn-conoce").addEventListener("click", () => {
     document.querySelector("#about-us").scrollIntoView({ behavior: "smooth" });
   });

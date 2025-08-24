@@ -53,22 +53,21 @@ export function loginPage () {
         </article>
     </main>`;
 
-        // Animación al cargar la vista
+        // Animation to refresh when loading the view
     const logo = document.getElementById("logoLogin");
     setTimeout(() => {
     logo.classList.add("logo-spin");
-    }, 100); // pequeño delay para que se note la entrada
+    }, 100); // small delay to notice the entry
 
     window.addEventListener("DOMContentLoaded", () => {
     const loginFlower = document.querySelector(".flower-login");
 
     setTimeout(() => {
         loginFlower.classList.add("shrink");
-    }, 100); // pequeño delay para que se note la transición
+    }, 100); // small delay to notice the transition
     });
 
-
-
+// Handle login form submission
     document.getElementById("loginForm").onsubmit = async (e) => {
       e.preventDefault();
       try {
@@ -80,6 +79,7 @@ export function loginPage () {
       };
     };
 
+// Handle back button click
   document.getElementById('btn-back').addEventListener('click', (e) => {
         e.preventDefault();
         history.pushState(null, null, '/artemisa/landing')

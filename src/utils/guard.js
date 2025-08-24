@@ -5,27 +5,27 @@ function redirectNotFound() {
   location.reload();
 }
 
-// Bloquea si no hay usuario logeado
+// Block access if no user in localStorage
 export function authGuard() {
   if (!auth.isAuthenticated()) redirectNotFound();
 }
 
-// Bloquea si el usuario no existe en localStorage ni en la API
+// Block access if user does not exist in localStorage or API
 export async function UserGuard() {
   const localUser = auth.getCurrentUser();
   if (!localUser) return redirectNotFound();
 
   try {
-    // Validar contra la API que realmente existe
+    // Validate against the API that it really exists
     const result = await auth.api.get(`/users?email=${encodeURIComponent(localUser.email)}`);
 
     if (!result.length) {
-      // Usuario ya no existe en la base → limpiar localStorage y bloquear
-      localStorage.removeItem('currentUser');  // ✅ corregido
+      // User no longer exists in the database → clear localStorage and block
+      localStorage.removeItem('currentUser');  // ✅ fixed
       return redirectNotFound();
     }
   } catch (err) {
-    console.error("Error validando usuario:", err);
+    console.error("Error validating user:", err);
     return redirectNotFound();
   }
 }

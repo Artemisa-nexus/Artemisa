@@ -11,7 +11,7 @@ export const auth = {
     else{
     const user = users[0];
     localStorage.setItem("user", JSON.stringify(user));
-    // Redirigir al dashboard después de login
+    // Redirect to dashboard after login
     history.pushState({}, "", "/artemisa/dashboard");
     renderRouter(document.getElementById("app"));
     }

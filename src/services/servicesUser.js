@@ -1,12 +1,12 @@
-const API_URL = "http://localhost:3000/users"; // Ajusta si es otro puerto
+const API_URL = "http://localhost:3000/users"; 
 
-// Obtener usuario por id
+// Obtain user by id
 export async function getUser(id) {
   const res = await fetch(`${API_URL}/${id}`);
   return res.json();
 }
 
-// Actualizar usuario
+// Update the user
 export async function updateUser(id, data) {
   const res = await fetch(`${API_URL}/${id}`, {
     method: "PUT",
@@ -16,7 +16,7 @@ export async function updateUser(id, data) {
   return res.json();
 }
 
-// Eliminar usuario
+// Delete the user
 export async function deleteUser(id) {
   await fetch(`${API_URL}/${id}`, { method: "DELETE" });
 }

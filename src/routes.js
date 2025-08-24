@@ -1,3 +1,4 @@
+// Import all the page rendering functions
 import { renderLanding } from "./pages/landing";
 import { loginPage } from "./pages/login";
 import renderRegister from "./pages/register";
@@ -8,9 +9,10 @@ import { renderDashboardEmprendimientos } from "./pages/dashboardEmprendimientos
 import { renderDashboardAmigas } from "./pages/dashboardAmigas";
 import { renderDashboardProfile } from "./pages/dashboardProfile";
 
-
+// Reference to the main container where pages will be rendered
 let app = document.getElementById('app')
 
+// Define routes: each path points to a function that renders the corresponding page
 let routes = {
     '/artemisa/landing': () => renderLanding(app),
     '/artemisa/login': () => loginPage(app),
@@ -23,22 +25,26 @@ let routes = {
     '/artemisa/dashboard/profile': () => renderDashboardProfile(app)
 }
 
+// Main router function → decides which page to render based on the URL
 export let renderRouter = () => {
-
+  // Get current path from browser
     let path = window.location.pathname;
 
+      // If user is at root "/" or no path → redirect to landing page
     if (path === '/' || !path) {
         history.pushState(null, null, '/artemisa/landing');
         path = '/artemisa/landing';
     }
 
-
+    // Update path after potential redirect
     path = window.location.pathname;
 
+    // If the route exists in the "routes" object → render the correct page
     if (routes[path]) {
         routes[path]();
     }
     
+     // If the route does NOT exist → render a 404 page
     else {
         app.innerHTML = `
         <header>

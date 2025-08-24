@@ -1,6 +1,7 @@
 import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
 
+// Render dashboardAmigas view
 export function renderDashboardAmigas(app) {
 const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" };
 

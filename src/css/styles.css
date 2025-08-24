@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
-/* crecer */
+/* grow */
 .logo-grow {
   animation: grow 0.8s forwards;
 }
 
-/* encoger */
+/* shrink */
 .logo-shrink {
   animation: shrink 0.8s forwards;
 }
@@ -20,14 +20,14 @@
   to { transform: scale(0.5); }
 }
 
-/* Animación del logo */
+/* Animation of the logo*/
 
 .logo-animate {
   transition: transform 0.8s ease-in-out;
 }
 
 .flower-login.shrink {
-  transform: scale(1); /* Se vuelve a su tamaño normal */
+  transform: scale(1); /* Get to the normal size */
 }
 
 @keyframes spin-once {

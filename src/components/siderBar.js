@@ -64,9 +64,9 @@ export function renderSideBar(user = { fullname: "Usuaria" }) {
 </aside>
   `;
 }
-
-
+// Function that attaches navigation events to dashboard buttons
 export function navEvents() {
+    // Get references to buttons in the DOM by their IDs
   const logoutBtn = document.getElementById("logoutBtn");
   const eventsBtn = document.getElementById("eventsBtn");
   const supportBtn = document.getElementById("supportBtn");
@@ -74,9 +74,11 @@ export function navEvents() {
   const emprendimientosBtn = document.getElementById("emprendimientosBtn");
   const profileBtn = document.getElementById("profileBtn");
 
+    // Event: log out user
    if (logoutBtn) {
     logoutBtn.addEventListener("click", () => auth.logOut());  // ✅ corregido
   }
+    // Event: navigate to community view
   if (comunidadBtn) {
     comunidadBtn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -84,8 +86,7 @@ export function navEvents() {
       window.dispatchEvent(new PopStateEvent('popstate'));
     });
   }
-
-
+  // Event: navigate to events view
   if (eventsBtn) {
     eventsBtn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -94,6 +95,7 @@ export function navEvents() {
     });
   }
 
+  // Event: navigate to support view
   if (supportBtn) {
     supportBtn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -101,6 +103,8 @@ export function navEvents() {
       window.dispatchEvent(new PopStateEvent('popstate'));
     });
   }
+
+   // Event: navigate to friends view
   if (friendsBtn) {
     friendsBtn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -108,6 +112,7 @@ export function navEvents() {
       window.dispatchEvent(new PopStateEvent('popstate'));
     });
   }
+   // Event: navigate to entrepreneurship view
   if (emprendimientosBtn) {
     emprendimientosBtn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -115,6 +120,7 @@ export function navEvents() {
       window.dispatchEvent(new PopStateEvent('popstate'));
     });
   }
+  // Event: navigate to profile view
   if (profileBtn) {
     profileBtn.addEventListener("click", (e) => {
       e.preventDefault();

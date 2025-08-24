@@ -2,6 +2,7 @@ import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
 import { deleteUser, updateUser } from "../js/api";
 
+// Render dashboardProfile view
 export function renderDashboardProfile(app) {
 const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" };
   app.innerHTML = `
@@ -47,25 +48,26 @@ const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" 
     </div>
   `;
   navEvents();
+  //Buttons edit and delete
    const editBtn = document.getElementById("editBtn");
   const deleteBtn = document.getElementById("deleteBtn");
 
-  // Editar
+  // Event listener for edit the user
   editBtn.addEventListener("click", async () => {
     const newName = prompt("Nuevo nombre:", user.fullname);
     if (newName) {
       user.fullname = newName;
       await updateUser(user.id, user);
       localStorage.setItem("user", JSON.stringify(user));
-      renderDashboardProfile(app); // refrescar vista
+      renderDashboardProfile(app); 
     }
   });
 
-  // Eliminar
+  // Event listener for delete the user
   deleteBtn.addEventListener("click", async () => {
     if (confirm("¿Seguro que quieres eliminar tu cuenta? Esta acción no se puede deshacer.")) {
       await deleteUser(user.id);
-      auth.logOut(); // limpiar session y redirigir
+      auth.logOut();
     }
   });
 

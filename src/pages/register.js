@@ -94,10 +94,10 @@ export default function renderRegister(div) {
     </div>
     </main>
   `;
-
+// Handle registration form submission
   document.getElementById("registrationForm").addEventListener("submit", async (e) => {
     e.preventDefault();
-
+// Get and sanitize user input
     const fullName = document.getElementById("fullName").value.trim();
     const identification = document.getElementById("identification").value.trim();
     const email = document.getElementById("email").value.trim().toLowerCase();
@@ -109,21 +109,21 @@ export default function renderRegister(div) {
       return;
     }
 
-    // Validar formato de nombre (solo letras y espacios, mínimo 3 caracteres)
+    // Validate name format (only letters and spaces, at least 3 characters)
     const fullNameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,}$/;
     if (!fullNameRegex.test(fullName)) {
       alert("Nombre de usuario inválido");
       return;
     }
 
-    // Validar email
+    // Validate email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       alert("Correo Electrónico inválido");
       return;
     }
 
-    // Validar contraseñas
+    // Validate passwords
     if (password !== confirmPassword) {
       document.getElementById("passwordError").classList.remove("hidden");
       return;
@@ -131,7 +131,7 @@ export default function renderRegister(div) {
       document.getElementById("passwordError").classList.add("hidden");
     }
 
-    // Llamar servicio
+    // Call service
     await registerUser(fullName, email, identification, password);
     history.pushState({}, "", "/artemisa/login");
     window.dispatchEvent(new PopStateEvent('popstate'));
