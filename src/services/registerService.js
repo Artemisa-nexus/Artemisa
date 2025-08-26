@@ -1,63 +1,21 @@
-const BASE_URL = "http://localhost:3000";
+const API_URL = "http://localhost:3000";
 
-// Register new user in API
-export async function registerUser(fullName, email, identification, password) {
-  // Check if email or fullName are already registered
-  const users = await getUserCount();
-
-  if (
-    users.some(
-      (user) =>
-        user.identification === identification
-    )
-  ) {
-    alert("La identificación ya está registrada. Intenta con otra.");
-    return;
-  }
-
-  if (users.some((user) => user.email.toLowerCase() === email.toLowerCase())) {
-    alert("El email ya está registrado. Intenta con otro.");
-    return;
-  }
-
-  //Build new user info
-  const newUser = {
-    fullname: fullName,
-    email: email,
-    identification: identification,
-    password: password,
-    roleId: "0",
-  };
-
-  //Send request
+export async function addUser(user) {
   try {
-    const res = await fetch(`${BASE_URL}/users`, {
+    const res = await fetch(`${API_URL}/users`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newUser),
+      body: JSON.stringify(user),
     });
 
     if (!res.ok) {
-      alert("Ups, algo salio mal. Intentalo mas tarde");
-      return;
+      const errorData = await res.json();
+      throw new Error(errorData.message || "Error en el registro");
     }
 
-    alert("Usuario creado correctamente!");
-
-
+    return await res.json();
   } catch (error) {
-    alert(`Error ${error}, por favor intentelo mas tarde`);
-  }
-}
-
-// Get all users from API
-export async function getUserCount() {
-  try {
-    const res = await fetch(`${BASE_URL}/users`);
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    Alert.error("Error al obtener usuarios");
-    return [];
+    console.error("Error en addUser:", error.message);
+    alert("No se pudo registrar el usuario. Intenta nuevamente.");
   }
 }

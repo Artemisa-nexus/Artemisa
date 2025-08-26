@@ -1,4 +1,5 @@
-import { registerUser } from "../services/registerService.js";
+import { addUser } from "../services/registerService";
+
 
 export default function renderRegister(div) {
   div.innerHTML = `
@@ -94,17 +95,17 @@ export default function renderRegister(div) {
     </div>
     </main>
   `;
-// Handle registration form submission
-  document.getElementById("registrationForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-// Get and sanitize user input
-    const fullName = document.getElementById("fullName").value.trim();
-    const identification = document.getElementById("identification").value.trim();
-    const email = document.getElementById("email").value.trim().toLowerCase();
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
 
-    if (!fullName || !identification || !email || !password || !confirmPassword) {
+  // Handle registration form submission
+  document.getElementById("registrationForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const fullName = document.getElementById("fullName").value.trim();
+      const identification = document.getElementById("identification").value.trim();
+      const email = document.getElementById("email").value.trim().toLowerCase();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      if (!fullName || !identification || !email || !password || !confirmPassword) {
       alert("Debes rellenar todos los campos!");
       return;
     }
@@ -131,16 +132,23 @@ export default function renderRegister(div) {
       document.getElementById("passwordError").classList.add("hidden");
     }
 
-    // Call service
-    await registerUser(fullName, email, identification, password);
-    history.pushState({}, "", "/artemisa/login");
-    window.dispatchEvent(new PopStateEvent('popstate'));
+    const newUser = await addUser({
+      fullname: fullName,
+      identification,
+      email,
+      password_:password,
+      rol: "user"
+    });
+    if (newUser) {
+      alert("✅ Usuario creado con éxito");
+      history.pushState({}, "", "/artemisa/login");
+      window.dispatchEvent(new PopStateEvent("popstate"));
+    }
   });
 
-  document.getElementById('backBtn').addEventListener('click', (e) => {
-        e.preventDefault();
-        history.pushState(null, null, '/artemisa/landing');
-        window.dispatchEvent(new PopStateEvent('popstate'));
-    })
-
+  document.getElementById("backBtn").addEventListener("click", (e) => {
+    e.preventDefault();
+    history.pushState(null, null, "/artemisa/landing");
+    window.dispatchEvent(new PopStateEvent("popstate"));
+  });
 }

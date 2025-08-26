@@ -4,8 +4,8 @@ const BASE_URL = "http://localhost:3000";
 // USERS API
 
 // Login user by email and password
-export async function loginUser(email, password) {
-  const res = await fetch(`${BASE_URL}/users?email=${email}&password=${password}`);
+export async function loginUser() {
+  const res = await fetch(`${BASE_URL}/users`);
   return await res.json();
 }
 
