@@ -35,21 +35,8 @@ export function renderSideBar(user = { fullname: "Usuaria" }) {
       Apoyo
     </button>
 
-    <button id="friendsBtn"
-      class="${getBtnClass("#amigas")} w-full  hover:text-black text-white font-medium py-3 px-6 rounded-full hover:bg-white hover:bg-opacity-10 transition"
-    >
-      Amigas
-    </button>
-
-    <button id="emprendimientosBtn"
-      class="${getBtnClass("#emprendimientos")} w-full  hover:text-black text-white font-medium py-3 px-6 rounded-full hover:bg-white hover:bg-opacity-10 transition"
-    >
-      Emprendimientos
-    </button>
-  </nav>
-
   <!-- Usuario y botón de cerrar sesión -->
-  <div class="mt-8">
+  <div class="mt-8 pt-50">
     <button id="profileBtn"
         class="flex items-center gap-3 mb-4">
       <div class="w-8 h-8 bg-[#d9d9d9] rounded-lg"></div>
@@ -70,8 +57,6 @@ export function navEvents() {
   const logoutBtn = document.getElementById("logoutBtn");
   const eventsBtn = document.getElementById("eventsBtn");
   const supportBtn = document.getElementById("supportBtn");
-  const friendsBtn = document.getElementById("friendsBtn");
-  const emprendimientosBtn = document.getElementById("emprendimientosBtn");
   const profileBtn = document.getElementById("profileBtn");
 
     // Event: log out user
@@ -104,22 +89,6 @@ export function navEvents() {
     });
   }
 
-   // Event: navigate to friends view
-  if (friendsBtn) {
-    friendsBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      history.pushState(null, null, '/artemisa/dashboard/amigas');
-      window.dispatchEvent(new PopStateEvent('popstate'));
-    });
-  }
-   // Event: navigate to entrepreneurship view
-  if (emprendimientosBtn) {
-    emprendimientosBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      history.pushState(null, null, '/artemisa/dashboard/emprendimientos');
-      window.dispatchEvent(new PopStateEvent('popstate'));
-    });
-  }
   // Event: navigate to profile view
   if (profileBtn) {
     profileBtn.addEventListener("click", (e) => {
