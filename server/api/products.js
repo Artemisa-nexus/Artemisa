@@ -1,27 +1,32 @@
-import { Api } from "express";
-import db from "../db.js";
+import { Router } from "express";
+import { pool } from "../db.js";
 
-const api = Api();
+const router = Router();
 
-// GET all
-api.get("/", (req, res) => {
-  db.query("SELECT * FROM products", (err, results) => {
-    if (err) return res.status(500).json({ error: err.message });
+// GET all products
+router.get("/", async (req, res) => {
+  try {
+    const [results] = await pool.query("SELECT * FROM products");
     res.json(results);
-  });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
-// CREATE
-api.post("/", (req, res) => {
-  const { marketplace_id, product_name, description, price, stock } = req.body;
-  db.query(
-    "INSERT INTO products (marketplace_id, product_name, description, price, stock) VALUES (?, ?, ?, ?, ?)",
-    [marketplace_id, product_name, description, price, stock],
-    (err, result) => {
-      if (err) return res.status(500).json({ error: err.message });
-      res.json({ message: "Producto creado", id: result.insertId });
-    }
-  );
+// CREATE product
+router.post("/", async (req, res) => {
+  try {
+    const { marketplace_id, product_name, description, price, stock } = req.body;
+
+    const [result] = await pool.query(
+      "INSERT INTO products (marketplace_id, product_name, description, price, stock) VALUES (?, ?, ?, ?, ?)",
+      [marketplace_id, product_name, description, price, stock]
+    );
+
+    res.status(201).json({ message: "Producto creado", id: result.insertId });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
-export default api;
+export default router;

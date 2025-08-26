@@ -1,48 +1,68 @@
-import { Api } from "express";
-import db from "../db.js";
+import { Router } from "express";
+import { pool } from "../db.js";
 
-const api = Api();
+const router = Router();
 
-// GET all
-api.get("/", (req, res) => {
-  db.query("SELECT * FROM friends", (err, results) => {
-    if (err) return res.status(500).json({ error: err.message });
+// GET all friends
+router.get("/", async (req, res) => {
+  try {
+    const [results] = await pool.query("SELECT * FROM friends");
     res.json(results);
-  });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // CREATE (enviar solicitud)
-api.post("/", (req, res) => {
-  const { user_id, friend_id } = req.body;
-  db.query(
-    "INSERT INTO friends (user_id, friend_id) VALUES (?, ?)",
-    [user_id, friend_id],
-    (err, result) => {
-      if (err) return res.status(500).json({ error: err.message });
-      res.json({ message: "Solicitud enviada", id: result.insertId });
-    }
-  );
+router.post("/", async (req, res) => {
+  try {
+    const { user_id, friend_id } = req.body;
+    const [result] = await pool.query(
+      "INSERT INTO friends (user_id, friend_id) VALUES (?, ?)",
+      [user_id, friend_id]
+    );
+    res.status(201).json({ message: "Solicitud enviada", id: result.insertId });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // UPDATE (aceptar/rechazar)
-api.put("/:id", (req, res) => {
-  const { status } = req.body;
-  db.query(
-    "UPDATE friends SET status=?, accepted_date=IF(?='accepted', NOW(), NULL) WHERE friendship_id=?",
-    [status, status, req.params.id],
-    (err) => {
-      if (err) return res.status(500).json({ error: err.message });
-      res.json({ message: "Estado actualizado" });
+router.put("/:id", async (req, res) => {
+  try {
+    const { status } = req.body;
+    const [result] = await pool.query(
+      "UPDATE friends SET status=?, accepted_date=IF(?='accepted', NOW(), NULL) WHERE friendship_id=?",
+      [status, status, req.params.id]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "Amistad no encontrada" });
     }
-  );
+
+    res.json({ message: "Estado actualizado" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // DELETE
-api.delete("/:id", (req, res) => {
-  db.query("DELETE FROM friends WHERE friendship_id=?", [req.params.id], (err) => {
-    if (err) return res.status(500).json({ error: err.message });
+router.delete("/:id", async (req, res) => {
+  try {
+    const [result] = await pool.query(
+      "DELETE FROM friends WHERE friendship_id=?",
+      [req.params.id]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "Amistad no encontrada" });
+    }
+
     res.json({ message: "Amistad eliminada" });
-  });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
-export default api;
+export default router;
+

@@ -1,60 +1,120 @@
-// routes/users.routes.js
-import { Api } from "express";
-import db from "../db.js";
+import { Router } from "express";
+import { pool } from "../db.js";
 
-const api = Api();
+const router = Router();
 
-// GET all
-api.get("/", (req, res) => {
-  db.query("SELECT * FROM users", (err, results) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(results);
-  });
+// GET all users
+router.get("/", async (req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT * FROM users");
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      endpoint: req.originalUrl,
+      method: req.method,
+      message: error.message
+    });
+  }
 });
 
-// GET by id
-api.get("/:id", (req, res) => {
-  const { id } = req.params;
-  db.query("SELECT * FROM users WHERE user_id = ?", [id], (err, result) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(result[0]);
-  });
-});
+// GET user by ID
+router.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const [rows] = await pool.query("SELECT * FROM users WHERE user_id = ?", [id]);
 
-// CREATE
-api.post("/", (req, res) => {
-  const { name, identification, email, password } = req.body;
-  db.query(
-    "INSERT INTO users (name, identification, email, password) VALUES (?, ?, ?, ?)",
-    [name, identification, email, password],
-    (err, result) => {
-      if (err) return res.status(500).json({ error: err.message });
-      res.json({ message: "Usuario creado", id: result.insertId });
+    if (rows.length === 0) {
+      return res.status(404).json({ status: "error", message: "Usuario no encontrado" });
     }
-  );
+
+    res.json(rows[0]);
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      endpoint: req.originalUrl,
+      method: req.method,
+      message: error.message
+    });
+  }
 });
 
-// UPDATE
-api.put("/:id", (req, res) => {
-  const { id } = req.params;
-  const { name, identification, email, password } = req.body;
-  db.query(
-    "UPDATE users SET name=?, identification=?, email=?, password=? WHERE user_id=?",
-    [name, identification, email, password, id],
-    (err) => {
-      if (err) return res.status(500).json({ error: err.message });
-      res.json({ message: "Usuario actualizado" });
+// CREATE user
+router.post("/", async (req, res) => {
+  try {
+    const { name, identification, email, password } = req.body;
+    
+
+    if (!name || !identification || !email || !password) {
+      return res.status(400).json({ status: "error", message: "Faltan campos obligatorios" });
     }
-  );
+
+    const [result] = await pool.query(
+      "INSERT INTO users (name, identification, email, password) VALUES (?, ?, ?, ?)",
+      [name, identification, email, password]
+    );
+
+    res.status(201).json({
+      status: "ok",
+      message: "Usuario creado",
+      user_id: result.insertId
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      endpoint: req.originalUrl,
+      method: req.method,
+      message: error.message
+    });
+  }
 });
 
-// DELETE
-api.delete("/:id", (req, res) => {
-  const { id } = req.params;
-  db.query("DELETE FROM users WHERE user_id = ?", [id], (err) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json({ message: "Usuario eliminado" });
-  });
+// UPDATE user
+router.put("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, identification, email, password } = req.body;
+
+    const [result] = await pool.query(
+      "UPDATE users SET name=?, identification=?, email=?, password=? WHERE user_id=?",
+      [name, identification, email, password, id]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ status: "error", message: "Usuario no encontrado" });
+    }
+
+    res.json({ status: "ok", message: "Usuario actualizado" });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      endpoint: req.originalUrl,
+      method: req.method,
+      message: error.message
+    });
+  }
 });
 
-export default api;
+// DELETE user
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const [result] = await pool.query("DELETE FROM users WHERE user_id = ?", [id]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ status: "error", message: "Usuario no encontrado" });
+    }
+
+    res.json({ status: "ok", message: "Usuario eliminado" });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      endpoint: req.originalUrl,
+      method: req.method,
+      message: error.message
+    });
+  }
+});
+
+export default router;

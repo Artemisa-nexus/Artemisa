@@ -4,10 +4,9 @@ import cors from "cors";
 import bodyParser from "body-parser";
 
 // importar rutas
-import userApi from "./api/users.js";
+import userRouter from "./api/users.js";
 import eventApi from "./api/events.js";
 import event_participantsApi from "./api/event_participant.js";
-import marketplaceApi from "./api/marketplace.js";
 import productsApi from "./api/products.js";
 import course_blogsApi from "./api/course_blogs.js";
 import friendsApi from "./api/friends.js";
@@ -21,10 +20,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // rutas
-app.use("/users", userApi);
+app.use("/users", userRouter);
 app.use("/events", eventApi);
 app.use("/event-participants", event_participantsApi);
-app.use("/marketplaces", marketplaceApi);
 app.use("/products", productsApi);
 app.use("/course-blogs", course_blogsApi);
 app.use("/friends", friendsApi);

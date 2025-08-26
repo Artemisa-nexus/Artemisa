@@ -1,27 +1,50 @@
-import { Api } from "express";
-import db from "../db.js";
+import cors from 'cors';
+import { pool } from "../db.js";
+import { Router } from 'express';
 
-const api = Api ();
+const api = Router();
 
-// GET all
-api.get("/", (req, res) => {
-  db.query("SELECT * FROM course_blogs", (err, results) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(results);
-  });
+// GET all course blogs
+api.get('/', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM course_blogs');
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      endpoint: req.originalUrl,
+      method: req.method,
+      message: error.message
+    });
+  }
 });
 
-// CREATE
-api.post("/", (req, res) => {
-  const { type, title, content, user_id } = req.body;
-  db.query(
-    "INSERT INTO course_blogs (type, title, content, user_id) VALUES (?, ?, ?, ?)",
-    [type, title, content, user_id],
-    (err, result) => {
-      if (err) return res.status(500).json({ error: err.message });
-      res.json({ message: "Entrada creada", id: result.insertId });
+// CREATE a course blog
+api.post('/', async (req, res) => {
+  try {
+    const { type, title, content, user_id } = req.body;
+
+    if (!type || !title || !content || !user_id) {
+      return res.status(400).json({ status: 'error', message: 'Faltan campos obligatorios' });
     }
-  );
+
+    const [result] = await pool.query(
+      'INSERT INTO course_blogs (type, title, content, user_id) VALUES (?, ?, ?, ?)',
+      [type, title, content, user_id]
+    );
+
+    res.status(201).json({
+      status: 'ok',
+      course_blog_id: result.insertId
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      endpoint: req.originalUrl,
+      method: req.method,
+      message: error.message
+    });
+  }
 });
 
 export default api;

@@ -1,71 +1,97 @@
-import { Api } from "express";
-import db from "../db.js";
+import { Router } from "express";
+import { pool } from "../db.js";
 
-const api = Api();
+const router = Router();
 
 // GET all objetivos
-api.get("/", (req, res) => {
-  db.query("SELECT * FROM objetivos", (err, results) => {
-    if (err) return res.status(500).json({ error: err.message });
+router.get("/", async (req, res) => {
+  try {
+    const [results] = await pool.query("SELECT * FROM objetivos");
     res.json(results);
-  });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // GET all objetivos for a specific meta
-api.get("/meta/:meta_id", (req, res) => {
+router.get("/meta/:meta_id", async (req, res) => {
+  try {
     const { meta_id } = req.params;
-    db.query("SELECT * FROM objetivos WHERE meta_id = ?", [meta_id], (err, results) => {
-      if (err) return res.status(500).json({ error: err.message });
-      res.json(results);
-    });
-  });
+    const [results] = await pool.query("SELECT * FROM objetivos WHERE meta_id = ?", [meta_id]);
+    res.json(results);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 // GET objetivo by ID
-api.get("/:id", (req, res) => {
-  const { id } = req.params;
-  db.query("SELECT * FROM objetivos WHERE objetivo_id = ?", [id], (err, result) => {
-    if (err) return res.status(500).json({ error: err.message });
-    if (result.length === 0) return res.status(404).json({ message: "Objetivo no encontrado" });
+router.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const [result] = await pool.query("SELECT * FROM objetivos WHERE objetivo_id = ?", [id]);
+
+    if (result.length === 0) {
+      return res.status(404).json({ message: "Objetivo no encontrado" });
+    }
+
     res.json(result[0]);
-  });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // CREATE objetivo
-api.post("/", (req, res) => {
-  const { meta_id, title, description, due_date, status } = req.body;
-  db.query(
-    "INSERT INTO objetivos (meta_id, title, description, due_date, status) VALUES (?, ?, ?, ?, ?)",
-    [meta_id, title, description, due_date, status || 'pending'],
-    (err, result) => {
-      if (err) return res.status(500).json({ error: err.message });
-      res.status(201).json({ message: "Objetivo creado", id: result.insertId });
-    }
-  );
+router.post("/", async (req, res) => {
+  try {
+    const { meta_id, title, description, due_date, status } = req.body;
+
+    const [result] = await pool.query(
+      "INSERT INTO objetivos (meta_id, title, description, due_date, status) VALUES (?, ?, ?, ?, ?)",
+      [meta_id, title, description, due_date, status || "pending"]
+    );
+
+    res.status(201).json({ message: "Objetivo creado", id: result.insertId });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // UPDATE objetivo
-api.put("/:id", (req, res) => {
-  const { id } = req.params;
-  const { title, description, due_date, status } = req.body;
-  db.query(
-    "UPDATE objetivos SET title = ?, description = ?, due_date = ?, status = ? WHERE objetivo_id = ?",
-    [title, description, due_date, status, id],
-    (err, result) => {
-      if (err) return res.status(500).json({ error: err.message });
-      if (result.affectedRows === 0) return res.status(404).json({ message: "Objetivo no encontrado" });
-      res.json({ message: "Objetivo actualizado" });
+router.put("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, description, due_date, status } = req.body;
+
+    const [result] = await pool.query(
+      "UPDATE objetivos SET title = ?, description = ?, due_date = ?, status = ? WHERE objetivo_id = ?",
+      [title, description, due_date, status, id]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "Objetivo no encontrado" });
     }
-  );
+
+    res.json({ message: "Objetivo actualizado" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // DELETE objetivo
-api.delete("/:id", (req, res) => {
-  const { id } = req.params;
-  db.query("DELETE FROM objetivos WHERE objetivo_id = ?", [id], (err, result) => {
-    if (err) return res.status(500).json({ error: err.message });
-    if (result.affectedRows === 0) return res.status(404).json({ message: "Objetivo no encontrado" });
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const [result] = await pool.query("DELETE FROM objetivos WHERE objetivo_id = ?", [id]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "Objetivo no encontrado" });
+    }
+
     res.json({ message: "Objetivo eliminado" });
-  });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
-export default api;
+export default router;
