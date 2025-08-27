@@ -1,7 +1,5 @@
-import { addUser } from "../services/registerService";
 
-
-export default function renderRegister(div) {
+export default function renderForm(div) {
   div.innerHTML = `
      <main class="min-h-screen p-6 bg-[#FBF7FC]">
     <!-- Back button -->
@@ -20,19 +18,45 @@ export default function renderRegister(div) {
         <form id="registrationForm" class="space-y-6">
             <!-- Full Name field -->
             <section>
-                <label for="fullName" class="block text-[#f56d95] text-sm font-medium mb-2">Nombre Completo:</label>
+                <label for="razonSocial" class="block text-[#f56d95] text-sm font-medium mb-2">Razon Social:</label>
                 <input
                     type="text"
-                    id="fullName"
-                    name="fullName"
+                    id="razonSocial"
+                    name="razonSocial"
                     required
                     class="w-full px-4 py-3 bg-white border border-[#cbcbcb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f56d95] focus:border-transparent"
                 />
             </section>
 
-            <!-- Identification field -->
+            <!-- NIT field -->
             <section>
-                <label for="identification" class="block text-[#f56d95] text-sm font-medium mb-2">Identificación:</label>
+                <label for="nit" class="block text-[#f56d95] text-sm font-medium mb-2">NIT:</label>
+                <input
+                    type="text"
+                    id="nit"
+                    name="nit"
+                    required
+                    class="w-full px-4 py-3 bg-white border border-[#cbcbcb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f56d95] focus:border-transparent"
+                />
+            </section>
+
+             <!-- NAME LEGAL REPRESENTANTIVE field -->
+            <section>
+            <label for="name" class="block text-[#f56d95] text-sm font-medium mb-2">
+             Nombre representante legal:
+            </label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    class="w-full px-4 py-3 bg-white border border-[#cbcbcb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f56d95] focus:border-transparent"
+                />
+            </section>
+
+            <!-- identification legal representativo field -->
+            <section>
+                <label for="identification" class="block text-[#f56d95] text-sm font-medium mb-2">Identificacion representante legal:</label>
                 <input
                     type="text"
                     id="identification"
@@ -54,40 +78,37 @@ export default function renderRegister(div) {
                 />
             </section>
 
-            <!-- Password field -->
+            <!-- Telefono field -->
             <section>
-                <label for="password" class="block text-[#f56d95] text-sm font-medium mb-2">Contraseña:</label>
+                <label for="telefono" class="block text-[#f56d95] text-sm font-medium mb-2">Telefono:</label>
                 <input
-                    type="password"
-                    id="password"
-                    name="password"
+                    type="text"
+                    id="telefono"
+                    name="telefono"
                     required
-                    minlength="6"
                     class="w-full px-4 py-3 bg-white border border-[#cbcbcb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f56d95] focus:border-transparent"
                 />
             </section>
 
-            <!-- Confirm Password field -->
+            <!-- Ciudad field -->
             <section>
-                <label for="confirmPassword" class="block text-[#f56d95] text-sm font-medium mb-2">Confirmar contraseña:</label>
+                <label for="ciudad" class="block text-[#f56d95] text-sm font-medium mb-2">Ciudad:</label>
                 <input
-                    type="password"
-                    id="confirmPassword"
-                    name="confirmPassword"
+                    type="text"
+                    id="ciudad"
+                    name="ciudad"
                     required
-                    minlength="6"
                     class="w-full px-4 py-3 bg-white border border-[#cbcbcb] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f56d95] focus:border-transparent"
                 />
-                <div id="passwordError" class="text-red-500 text-xs mt-1 hidden">Las contraseñas no coinciden</div>
             </section>
 
-            <!-- Register button -->
+            <!-- Submit button -->
             <section class="pt-4">
                 <button 
                     type="submit"
                     class="w-full bg-[#f56d95] text-white py-3 rounded-full text-sm font-medium hover:bg-[#e55a87] transition-colors"
                 >
-                    Registrarse
+                    Enviar
                 </button>
             </section>
         </form>
@@ -96,59 +117,10 @@ export default function renderRegister(div) {
     </main>
   `;
 
-  // Handle registration form submission
-  document.getElementById("registrationForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const fullName = document.getElementById("fullName").value.trim();
-      const identification = document.getElementById("identification").value.trim();
-      const email = document.getElementById("email").value.trim().toLowerCase();
-      const password = document.getElementById("password").value;
-      const confirmPassword = document.getElementById("confirmPassword").value;
-
-      if (!fullName || !identification || !email || !password || !confirmPassword) {
-      alert("Debes rellenar todos los campos!");
-      return;
-    }
-
-    // Validate name format (only letters and spaces, at least 3 characters)
-    const fullNameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,}$/;
-    if (!fullNameRegex.test(fullName)) {
-      alert("Nombre de usuario inválido");
-      return;
-    }
-
-    // Validate email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      alert("Correo Electrónico inválido");
-      return;
-    }
-
-    // Validate passwords
-    if (password !== confirmPassword) {
-      document.getElementById("passwordError").classList.remove("hidden");
-      return;
-    } else {
-      document.getElementById("passwordError").classList.add("hidden");
-    }
-
-    const newUser = await addUser({
-      fullname: fullName,
-      identification,
-      email,
-      password_:password,
-      role_id: 1
-    });
-    if (newUser) {
-      alert("✅ Usuario creado con éxito");
-      history.pushState({}, "", "/artemisa/login");
-      window.dispatchEvent(new PopStateEvent("popstate"));
-    }
-  });
-
   document.getElementById("backBtn").addEventListener("click", (e) => {
     e.preventDefault();
     history.pushState(null, null, "/artemisa/landing");
     window.dispatchEvent(new PopStateEvent("popstate"));
   });
+
 }

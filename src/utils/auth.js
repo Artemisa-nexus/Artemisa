@@ -1,19 +1,32 @@
 import { renderRouter } from "../routes.js";
 import { loginUser } from "../js/api.js";
 
-
 export const auth = {
   login: async (email, password) => {
-    const users = await loginUser(email, password);
-    if (users.length === 0 || users[0].password !== password) {
-      throw new Error("Invalid credentials");
+    const users = await loginUser();
+
+    if (!users || users.length === 0) {
+      throw new Error("There aren't users");
     }
-    else{
-    const user = users[0];
-    localStorage.setItem("user", JSON.stringify(user));
-    // Redirect to dashboard after login
-    history.pushState({}, "", "/artemisa/dashboard");
-    renderRouter(document.getElementById("app"));
+
+    // Buscar un usuario que coincida
+    const user = users.find(
+      (element) => element.email === email && element.password_ === password
+    );
+
+    if (user) {
+      // Guardar el usuario en localStorage
+      localStorage.setItem("user", JSON.stringify(user));
+
+      // Redirigir al dashboard
+      if(user.role_id === 2)
+      history.pushState({}, "", "/artemisa/dashboard/volunteer");
+      else
+      history.pushState({}, "", "/artemisa/dashboard");
+      renderRouter(document.getElementById("app"));
+    } else {
+      alert("Email or password incorrect");
+      throw new Error("Email or password incorrect");
     }
   },
 

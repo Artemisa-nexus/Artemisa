@@ -41,8 +41,7 @@ export function renderLanding(app) {
                 
       <!-- Descripción -->
       <p class="text-gray-600 text-xl mb-8 max-w-2xl mx-auto leading-relaxed">
-        La red social que conecta mujeres para crear comunidad, participar en voluntariados,
-        asistir a eventos y brindarse apoyo mutuo.
+        La plataforma que conecta mujeres con fundaciones para participar en voluntariados, transformar comunidades y generar impacto social.
       </p>
 
       <!-- Botones -->
@@ -57,120 +56,175 @@ export function renderLanding(app) {
     </div>
   </section>
 
-    <!-- Features Section -->
-    <section class="py-16 px-6 bg-[#fdf9fb]">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
-                <!-- Comunidad -->
-                <article class="w-50 rounded-lg shadow-md p-4 bg-white ">
-                    <div class="w-16 h-16  mx-auto mb-4   flex items-center ">
-                        <img src="/public/assets/comunidad.png" alt="icono de comunidad" class="w-15 h-20" >
-                    </div>
-                    <h3 class="text-lg font-bold mb-2">Comunidad</h3>
-                    <p class="text-sm text-gray-600 tex-center">Conecta con otras mujeres</p>
-                </article>
-         
+<!-- Features Section -->
+<section class="py-16 px-6 bg-[#fdf9fb]">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
 
-                <!-- Voluntariados -->
-                <article class="w-50 rounded-lg shadow-md p-4 bg-white ">
-                    <article class="w-16 h-16 mx-auto mb-4  flex items-center justify-center">
-                    
-                    <img src="/public/assets/icono_voluntariado.svg" alt="icono voluntariado" class="w-40 h-40" >
-                        
-                    </article>
-                    <h3 class="font-bold text-gray-800 mb-2">Voluntariados</h3>
-                    <p class="text-sm text-gray-600">Participa en causas importantes</p>
-                </article>
-
-                <!-- Eventos -->
-                <article class="w-50 rounded-lg shadow-md p-4 bg-white ">
-                    <article class="w-16 h-16 mx-auto mb-4  flex items-center justify-center">
-                        <img src="/public/assets/icono_eventos.svg" alt="icono de eventos" class="w-40 h-40" >
-                
-                    </article>
-                    <h3 class="font-bold text-gray-800 mb-2">Eventos</h3>
-                    <p class="text-sm text-gray-600">Descubre eventos únicos</p>
-                </article>
-
-                <!-- Apoyo -->
-                <article  class="w-50 rounded-lg shadow-md p-4 bg-white ">
-                    <article class="w-16 h-16 mx-auto mb-4  flex items-center justify-center">
-                        <img src="/public/assets/icono_apoyo.svg" alt="icono de apoyo"  class="w-40 h-40" >
-            
-                    </article>
-                    <h3 class="font-bold text-gray-800 mb-2">Apoyo</h3>
-                    <p class="text-sm text-gray-600">Encuentra y brinda apoyo</p>
-                </article>
-
-                <!-- Chat -->
-                <article class="w-50 rounded-lg shadow-md p-4 bg-white ">
-                    <article class="w-16 h-16 mx-auto mb-4  flex items-center justify-center">
-                        <img src="/public/assets/icono_msj.svg" alt="icono e mensajes" class="w-40 h-40" >
-                
-                    </article>
-                    <h3 class="font-bold text-gray-800 mb-2">Chat</h3>
-                    <p class="text-sm text-gray-600">Comunícate de forma segura</p>
-                </article>
-            </div>
+      <!-- Voluntariados (principal) -->
+      <article class="w-50 rounded-lg shadow-lg p-6 bg-white border-t-4 border-[#f56d95]">
+        <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+          <img src="/public/assets/icono_voluntariado.svg" alt="icono voluntariado" class="w-40 h-40">
         </div>
-    </section>
+        <h3 class="font-bold text-[#f56d95] text-lg mb-2 text-center">Voluntariados</h3>
+        <p class="text-sm text-gray-600 text-center">
+          Conéctate con fundaciones y participa en causas que transforman comunidades.
+        </p>
+      </article>
 
-    <!-- About Us Section -->
-    <section id="about-us" class="py-16 px-6">
-        <article class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-[#f56d95] text-center mb-12">ABOUT US</h2>
-            
-            <article class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="relative">
-                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Artemisa-Fz692bLn7i6n8BDJ54SB8QQrGHjuue.png" alt="About Us" class="w-full h-80 object-cover rounded-lg shadow-lg">
-                </div>
-                
-                <article>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">
-                        Choosing The Best Audio Player Software For Your Computer
-                    </h3>
-                    <p class="text-gray-600 leading-relaxed mb-6">
-                        Your cheap internet-based banner advertising will become one of the sought for ads there are. Today, the world of Internet advertising is rapidly evolving beyond banner ads and intrusive pop-ups. Bayles A. Sommers medium for advertising on the Internet is the use of banner ads.
-                    </p>
-                    <div class="flex items-center text-sm text-gray-500">
-                        <span>11 March</span>
-                        <span class="mx-2">•</span>
-                        <span>5 Comments</span>
-                    </div>
-                </article>
-            </article>
-        </article>
-    </section>
+      <!-- Comunidad -->
+      <article class="w-50 rounded-lg shadow-lg p-6 bg-white border-t-4 border-[#f6c6fa]">
+        <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+          <img src="/public/assets/comunidad.png" alt="icono de comunidad" class="w-15 h-20">
+        </div>
+        <h3 class="text-lg font-bold text-[#8a518f] mb-2 text-center">Comunidad</h3>
+        <p class="text-sm text-gray-600 text-center">
+          Conoce mujeres con tu misma pasión por generar impacto social.
+        </p>
+      </article>
 
-    <!-- Emprendimientos Section -->
-    <section class="py-16 px-6 bg-white">
-        <article class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-[#f56d95] text-center mb-12">Emprendimientos</h2>
-            
-            <article class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-gray-100 rounded-lg h-80 shadow-lg"></div>
-                <div class="bg-gray-100 rounded-lg h-80 shadow-lg"></div>
-                <div class="bg-gray-100 rounded-lg h-80 shadow-lg"></div>
-            </aticle>
-        </article>
-    </section>
+      <!-- Eventos -->
+      <article class="w-50 rounded-lg shadow-md p-6 bg-white border-t-4 border-[#f56d95]">
+        <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+          <img src="/public/assets/icono_eventos.svg" alt="icono de eventos" class="w-40 h-40">
+        </div>
+        <h3 class="font-bold text-[#f56d95] text-lg mb-2 text-center">Eventos</h3>
+        <p class="text-sm text-gray-600 text-center">
+          Descubre talleres, charlas y actividades solidarias cerca de ti.
+        </p>
+      </article>
+
+      <!-- Apoyo -->
+      <article class="w-50 rounded-lg shadow-md p-6 bg-white border-t-4 border-[#f6c6fa]">
+        <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+          <img src="/public/assets/icono_apoyo.svg" alt="icono de apoyo" class="w-40 h-40">
+        </div>
+        <h3 class="font-bold text-[#8a518f] text-lg mb-2 text-center">Apoyo</h3>
+        <p class="text-sm text-gray-600 text-center">
+          Comparte experiencias, recibe orientación y brinda ayuda a otras voluntarias.
+        </p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- About Us Section -->
+<section id="about-us" class="py-16 px-6">
+  <article class="max-w-6xl mx-auto">
+    <h2 class="text-4xl font-bold text-[#f56d95] text-center mb-12">Acerca de nosotros</h2>
+    
+    <article class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      
+      <!-- Imagen -->
+      <div class="relative">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Artemisa-Fz692bLn7i6n8BDJ54SB8QQrGHjuue.png" 
+             alt="About Us" 
+             class="w-full h-80 object-cover rounded-lg shadow-lg">
+      </div>
+      
+      <!-- Texto -->
+      <article>
+        <h3 class="text-2xl font-bold text-gray-800 mb-4">
+          Conectamos Voluntarios y Fundaciones
+        </h3>
+        <p class="text-gray-600 leading-relaxed mb-6">
+          En <span class="font-semibold">Artemisa</span> creemos en el poder de la solidaridad. 
+          Nuestra misión es ser el puente entre personas con ganas de ayudar y 
+          organizaciones que necesitan apoyo. 
+        </p>
+        <p class="text-gray-600 leading-relaxed mb-6">
+          No solo creamos oportunidades para los voluntarios, también brindamos a las 
+          <span class="font-semibold">fundaciones y organizaciones sociales</span> la posibilidad 
+          de unirse a nuestra red y encontrar manos dispuestas a colaborar. 
+        </p>
+        
+      <!-- Botón de acción -->
+      <a href="/artemisa/formularioOng"
+         class="inline-block bg-[#f9a825] text-white px-6 py-3 rounded-lg shadow-md 
+                hover:bg-[#f09503] transition-colors duration-300 font-semibold">
+        Únete como Fundación
+      </a>
+
+      </article>
+    </article>
+  </article>
+</section>
+
+<!-- Lineas de apoyo -->
+<section class="py-16 px-6 bg-white">
+  <article class="max-w-6xl mx-auto">
+    <h2 class="text-4xl font-bold text-[#f56d95] text-center mb-12">Líneas de apoyo</h2>
+
+    <article class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- Línea Morada -->
+      <div class="bg-[#f5e0f7] rounded-lg h-80 shadow-lg p-6 flex flex-col justify-between">
+        <div>
+          <h3 class="text-2xl font-semibold text-[#f56d95] mb-4">Línea Morada</h3>
+          <p class="text-gray-700 mb-4">
+            Atención a mujeres víctimas de violencias basadas en género. 
+            Orientación psicológica y jurídica gratuita.
+          </p>
+        </div>
+        <div>
+          <p class="text-lg font-bold text-gray-800">Teléfono: 018000-112-137</p>
+          <p class="text-lg font-bold text-gray-800">WhatsApp: 300 755 1846</p>
+          <p class="text-sm text-gray-600 mt-2">Disponible 24/7</p>
+        </div>
+      </div>
+
+      <!-- Línea de la Alcaldía de Barranquilla -->
+      <div class="bg-[#fcf0d4] rounded-lg h-80 shadow-lg p-6 flex flex-col justify-between">
+        <div>
+          <h3 class="text-2xl font-semibold text-[#f56d95] mb-4">Alcaldía de Barranquilla</h3>
+          <p class="text-gray-700 mb-4">
+            Línea única de atención ciudadana para orientación en casos de violencia, emergencias 
+            y servicios de apoyo institucional.
+          </p>
+        </div>
+        <div>
+          <p class="text-lg font-bold text-gray-800">Teléfono: 195</p>
+          <p class="text-sm text-gray-600 mt-2">Disponible 24/7</p>
+        </div>
+      </div>
+
+      <!-- CAI Policía Nacional -->
+      <div class="bg-[#f5e0f7] rounded-lg h-80 shadow-lg p-6 flex flex-col justify-between">
+        <div>
+          <h3 class="text-2xl font-semibold text-[#f56d95] mb-4">CAI - Policía Nacional</h3>
+          <p class="text-gray-700 mb-4">
+            Centros de Atención Inmediata (CAI) de la Policía para reportar delitos, 
+            violencia intrafamiliar y solicitar apoyo en emergencias.
+          </p>
+        </div>
+        <div>
+          <p class="text-lg font-bold text-gray-800">Teléfono: 123</p>
+          <p class="text-sm text-gray-600 mt-2">Acércate al CAI más cercano o llama en caso de emergencia.</p>
+        </div>
+      </div>
+
+    </article>
+  </article>
+</section>
+
 </main>
-    <!-- Footer -->
-    <footer class="bg-[#f56d95] py-12 px-6">
-        <div class="max-w-4xl mx-auto text-center">
-            <img src="/public/assets/logo_blanco.svg" alt="logo artemisa blanco" class="w-100 h-100 mx-auto">
-            <div class="border-t border-white/30 pt-8">
-                <div class="flex justify-center space-x-6">
-                    <a href="#" class="text-white hover:text-pink-200 transition-colors">
-                        <img src="/public/assets/icono_linkedin.svg" alt="LinkedIn" class="w-12 h-12">
-                    </a>
-                    <a href="#" class="text-white hover:text-pink-200 transition-colors">
-                        <img src="/public/assets/icono_ig.svg" alt="Instagram" class="w-12 h-12">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
+   <!-- Footer -->
+<footer class="bg-[#f56d95] py-6 px-4">
+  <div class="max-w-3xl mx-auto text-center">
+    <img src="/public/assets/logo_blanco.svg" alt="logo artemisa blanco" class="w-28 h-auto mx-auto">
+    <div class="border-t border-white/30 pt-4 mt-4">
+      <div class="flex justify-center space-x-4">
+        <a href="#" class="text-white hover:text-pink-200 transition-colors">
+          <img src="/public/assets/icono_linkedin.svg" alt="LinkedIn" class="w-8 h-8">
+        </a>
+        <a href="#" class="text-white hover:text-pink-200 transition-colors">
+          <img src="/public/assets/icono_ig.svg" alt="Instagram" class="w-8 h-8">
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
   `;
  
 const logoHero = document.getElementById("logoHero");

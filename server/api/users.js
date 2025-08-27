@@ -39,45 +39,45 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// CREATE user
+
+// POST crear usuario
 router.post("/", async (req, res) => {
   try {
-    const { name, identification, email, password } = req.body;
-    
+    const { fullname, identification, email, password_ } = req.body;
 
-    if (!name || !identification || !email || !password) {
-      return res.status(400).json({ status: "error", message: "Faltan campos obligatorios" });
+    if (!fullname || !identification || !email || !password_) {
+      return res.status(400).json({ message: "Faltan datos obligatorios" });
     }
 
     const [result] = await pool.query(
-      "INSERT INTO users (name, identification, email, password) VALUES (?, ?, ?, ?)",
-      [name, identification, email, password]
+      "INSERT INTO users (fullname, identification, email, password_, role_id ) VALUES (?, ?, ?, ?, ?)",
+      [fullname, identification, email, password_, 1]
     );
 
-    res.status(201).json({
-      status: "ok",
-      message: "Usuario creado",
-      user_id: result.insertId
+    res.status(201).json({      fullname,
+      identification,
+      email,
+      password_,
+      role_id: 1
     });
   } catch (error) {
     res.status(500).json({
       status: "error",
-      endpoint: req.originalUrl,
-      method: req.method,
-      message: error.message
+      message: error.message,
     });
   }
 });
+
 
 // UPDATE user
 router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, identification, email, password } = req.body;
+    const { fullname, identification, email, password } = req.body;
 
     const [result] = await pool.query(
-      "UPDATE users SET name=?, identification=?, email=?, password=? WHERE user_id=?",
-      [name, identification, email, password, id]
+      "UPDATE users SET fullname=?, identification=?, email=?, password=? WHERE user_id=?",
+      [fullname, identification, email, password, id]
     );
 
     if (result.affectedRows === 0) {
