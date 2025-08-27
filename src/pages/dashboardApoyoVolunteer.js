@@ -16,16 +16,37 @@ const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" 
                 </section>
                 
                 <!-- Event Cards Container -->
-                <section class="space-y-6">
+                <section id=event-card class="space-y-6">
                     <!-- First Event Card -->
-                    <article class="bg-white rounded-2xl border border-gray-200 h-48 shadow-sm"></article>
-                    
-                    <!-- Second Event Card -->
-                    <article class="bg-white rounded-2xl border border-gray-200 h-48 shadow-sm"></article>
                 </section>
             </div> 
         </main>
         </div>
   `;
   navEvents();
+
+  const container = document.getElementById("event-card");
+
+  let citas = JSON.parse(localStorage.getItem("citas")) || [];
+
+  function renderCitas() {
+    container.innerHTML = "";
+    if (citas.length === 0) {
+      container.innerHTML = `<p class="text-gray-500 text-center">No hay citas agendadas todavía.</p>`;
+    } else {
+      citas.forEach((cita, index) => {
+        container.innerHTML += `
+          <article class="bg-white rounded-2xl border-l-4 border-[#f56d95] shadow-sm p-6">
+            <h3 class="text-lg font-bold text-gray-800">${cita.support_name}</h3>
+            <p class="text-gray-600 mb-2">${cita.description}</p>
+            <p class="text-gray-500 text-sm">📞 ${cita.email}</p>
+            <button data-index="${index}" class="deleteBtn mt-3 text-sm text-red-600 hover:underline">cancelar</button>
+          </article>
+        `;
+      });
+    }
+  }
+
+  renderCitas();
+
 }
