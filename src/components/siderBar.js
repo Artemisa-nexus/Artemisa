@@ -51,32 +51,43 @@ export function renderSideBar(user = { fullname: "Usuaria" }) {
 </aside>
   `;
 }
-// Function that attaches navigation events to dashboard buttons
 export function navEvents() {
-    // Get references to buttons in the DOM by their IDs
   const logoutBtn = document.getElementById("logoutBtn");
   const eventsBtn = document.getElementById("eventsBtn");
   const supportBtn = document.getElementById("supportBtn");
   const profileBtn = document.getElementById("profileBtn");
+  const comunidadBtn = document.getElementById("comunidadBtn");
 
-    // Event: log out user
-   if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => auth.logOut());  // corregido
+  const user = JSON.parse(localStorage.getItem("user")) || {};
+
+  // Event: log out user
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => auth.logOut());
   }
-    // Event: navigate to community view
+
+  // Event: navigate to community view
   if (comunidadBtn) {
     comunidadBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      history.pushState(null, null, '/artemisa/dashboard');
-      window.dispatchEvent(new PopStateEvent('popstate'));
+      if(user.role_id === 2){
+        history.pushState(null, null, "/artemisa/dashboard/volunteer");
+      }else{
+        history.pushState(null, null, "/artemisa/dashboard");
+      }
+      window.dispatchEvent(new PopStateEvent("popstate"));
     });
   }
+
   // Event: navigate to events view
   if (eventsBtn) {
     eventsBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      history.pushState(null, null, '/artemisa/dashboard/events');
-      window.dispatchEvent(new PopStateEvent('popstate'));
+      if (user.role_id === 2) {
+        history.pushState(null, null, "/artemisa/dashboard/events/volunteer");
+      } else {
+        history.pushState(null, null, "/artemisa/dashboard/events");
+      }
+      window.dispatchEvent(new PopStateEvent("popstate"));
     });
   }
 
@@ -84,8 +95,12 @@ export function navEvents() {
   if (supportBtn) {
     supportBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      history.pushState(null, null, '/artemisa/dashboard/support');
-      window.dispatchEvent(new PopStateEvent('popstate'));
+      if(user.role_id===2){
+        history.pushState(null, null, "/artemisa/dashboard/apoyo/volunteer");
+      }else{
+        history.pushState(null, null, "/artemisa/dashboard/support");
+      }
+      window.dispatchEvent(new PopStateEvent("popstate"));
     });
   }
 
@@ -93,9 +108,11 @@ export function navEvents() {
   if (profileBtn) {
     profileBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      history.pushState(null, null, '/artemisa/dashboard/profile');
-      window.dispatchEvent(new PopStateEvent('popstate'));
+      history.pushState(null, null, "/artemisa/dashboard/profile");
+      window.dispatchEvent(new PopStateEvent("popstate"));
     });
   }
 }
+
+
 

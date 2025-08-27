@@ -60,3 +60,21 @@
 #empOverlay.is-open .emp-modal {
     transform: translateY(0); opacity: 1;
 }
+
+#evtOverlay {
+  position: fixed; inset: 0; display: none;
+  align-items: center; justify-content: center;
+  background: rgba(0,0,0,.5);
+  z-index: 9999;
+}
+#evtOverlay.is-open { display: flex; }
+#evtOverlay .evt-modal {
+  width: min(680px, 92vw);
+  background: #fff; border-radius: 16px; padding: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.2);
+  transform: translateY(-16px); opacity: 0;
+  transition: transform .2s ease, opacity .2s ease;
+}
+#evtOverlay.is-open .evt-modal {
+  transform: translateY(0); opacity: 1;
+}
