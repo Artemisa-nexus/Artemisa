@@ -1,5 +1,6 @@
 import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
+import { addSupport } from "../services/supportService";
 
 // Render dashboardSupport view
 export function renderDashboardSupport(app) {
@@ -112,10 +113,9 @@ const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" 
       citas.forEach((cita, index) => {
         container.innerHTML += `
           <article class="bg-white rounded-2xl border-l-4 border-[#f56d95] shadow-sm p-6">
-            <h3 class="text-lg font-bold text-gray-800">${cita.nombre}</h3>
-            <p class="text-gray-600 mb-2">${cita.descripcion}</p>
-            <p class="text-gray-500 text-sm">📞 ${cita.contacto}</p>
-            <p class="text-xs text-gray-400 mt-2">Agendada el: ${cita.fecha}</p>
+            <h3 class="text-lg font-bold text-gray-800">${cita.support_name}</h3>
+            <p class="text-gray-600 mb-2">${cita.description}</p>
+            <p class="text-gray-500 text-sm">📞 ${cita.email}</p>
             <button data-index="${index}" class="deleteBtn mt-3 text-sm text-red-600 hover:underline">cancelar</button>
           </article>
         `;
@@ -126,14 +126,20 @@ const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" 
   renderCitas();
 
   // Evento submit del formulario
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const nuevaCita = {
-      nombre: document.getElementById("nombre").value,
-      descripcion: document.getElementById("descripcion").value,
-      contacto: document.getElementById("contacto").value,
-      fecha: new Date().toLocaleString()
+      support_name: document.getElementById("nombre").value,
+      description: document.getElementById("descripcion").value,
+      email: document.getElementById("contacto").value,
     };
+
+    const response = await addSupport(nuevaCita);
+
+    if (!response.status === 'ok') {
+        console.error("Error al crear el soporte:", response.message);
+        return;
+    }
 
     citas.push(nuevaCita);
     localStorage.setItem("citas", JSON.stringify(citas));

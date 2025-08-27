@@ -11,6 +11,7 @@ import course_blogsApi from "./api/course_blogs.js";
 import publicacionApi from "./api/publicacion.js";
 import metasApi from "./api/metas.js";
 import objetivesApi from "./api/objetivos.js";
+import supportApi from "./api/support.js";
 
 
 const app = express();
@@ -25,6 +26,7 @@ app.use("/course-blogs", course_blogsApi);
 app.use("/publicaciones", publicacionApi);
 app.use("/metas", metasApi);
 app.use("/objetivos", objetivesApi);
+app.use("/support", supportApi);
 
 app.get("/", (req, res) => res.send("API Artemisa funcionando 🚀"));
 
