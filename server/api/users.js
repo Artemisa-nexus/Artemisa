@@ -73,11 +73,10 @@ router.post("/", async (req, res) => {
 router.put("/:user_id", async (req, res) => {
   try {
     const { user_id } = req.params;
-    const { fullname, identification, email, password } = req.body;
+    const { fullname, identification, email, password_ } = req.body;
 
-  const [result] = await pool.query(
-    "UPDATE users SET fullname=? WHERE user_id=?",
-    [fullname, user_id]
+  const [result] = await pool.query(`UPDATE users SET fullname = ?, identification = ?, email = ?, password_ = ? WHERE user_id = ?`,
+    [fullname, identification, email,password_, user_id]
   );
 
 
@@ -91,7 +90,9 @@ router.put("/:user_id", async (req, res) => {
     // Devolvemos los datos ya actualizados
     res.json({
       user_id,
-      fullname
+      fullname,
+      identification,
+      email
     });
   } catch (error) {
     console.error("❌ Error en UPDATE:", error.message);
