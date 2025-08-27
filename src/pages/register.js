@@ -137,7 +137,7 @@ export default function renderRegister(div) {
       identification,
       email,
       password_:password,
-      rol: "user"
+      role_id: 1
     });
     if (newUser) {
       alert("✅ Usuario creado con éxito");

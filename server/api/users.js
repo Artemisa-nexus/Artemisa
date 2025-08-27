@@ -50,14 +50,15 @@ router.post("/", async (req, res) => {
     }
 
     const [result] = await pool.query(
-      "INSERT INTO users (fullname, identification, email, password_, rol) VALUES (?, ?, ?, ?, ?)",
-      [fullname, identification, email, password_, "user"]
+      "INSERT INTO users (fullname, identification, email, password_, role_id ) VALUES (?, ?, ?, ?, ?)",
+      [fullname, identification, email, password_, 1]
     );
 
     res.status(201).json({      fullname,
       identification,
       email,
-      password_
+      password_,
+      role_id: 1
     });
   } catch (error) {
     res.status(500).json({
