@@ -13,7 +13,7 @@ const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" 
             <main class="flex-1 p-8 space-y-8">
                 <!-- User Profile Section -->
                 <article class="flex items-center space-x-4 mb-6">
-                    <div class="w-20 h-20 bg-gray-300 rounded-lg"></div>
+                    <img src="/public/assets/profile_picture.svg" class="w-20 h-20">
                     <h2 class="text-xl font-semibold text-artemisa-pink">${user.fullname}</h2>
                 </article>
 

@@ -39,7 +39,7 @@ export function renderSideBar(user = { fullname: "Usuaria" }) {
   <div class="mt-8 pt-50">
     <button id="profileBtn"
         class="flex items-center gap-3 mb-4">
-      <div class="w-8 h-8 bg-[#d9d9d9] rounded-lg"></div>
+      <img src="/public/assets/profile_picture.svg" class="w-10 h-10">
       <span class="text-white font-medium">${user.fullname}</span>
     </button>
 
