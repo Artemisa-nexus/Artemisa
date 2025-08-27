@@ -1,6 +1,7 @@
 import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
-import { deleteUser, updateUser } from "../js/api";
+import { deleteUser, updateUser } from "../services/servicesUser";
+import { auth } from "../utils/auth";
 
 // Render dashboardProfile view
 export function renderDashboardProfile(app) {
@@ -48,28 +49,40 @@ const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" 
     </div>
   `;
   navEvents();
+
   //Buttons edit and delete
    const editBtn = document.getElementById("editBtn");
   const deleteBtn = document.getElementById("deleteBtn");
+editBtn.addEventListener("click", async () => {
+  const newName = prompt("Nuevo nombre:", user.fullname);
+  if (newName) {
+    user.fullname = newName;
 
-  // Event listener for edit the user
-  editBtn.addEventListener("click", async () => {
-    const newName = prompt("Nuevo nombre:", user.fullname);
-    if (newName) {
-      user.fullname = newName;
-      await updateUser(user.id, user);
-      localStorage.setItem("user", JSON.stringify(user));
-      renderDashboardProfile(app); 
-    }
-  });
+    // Asegurarse de que el campo sea 'password_' y no 'password'
+    await updateUser(user.user_id, {
+      fullname: user.fullname
+    });
 
-  // Event listener for delete the user
-  deleteBtn.addEventListener("click", async () => {
-    if (confirm("¿Seguro que quieres eliminar tu cuenta? Esta acción no se puede deshacer.")) {
-      await deleteUser(user.id);
+    localStorage.setItem("user", JSON.stringify(user));
+    renderDashboardProfile(app); 
+  }
+});
+
+
+// Eliminar usuario
+
+deleteBtn.addEventListener("click", async () => {
+  const confirmation = confirm("¿Seguro que quieres eliminar tu cuenta? Esta acción no se puede deshacer.");
+  console.log(confirmation);
+  if (confirmation) {
+    try {
+      await deleteUser(user.user_id); // ✅ usar user.user_id
       auth.logOut();
+    } catch (err) {
+      alert("No se pudo eliminar el usuario: " + err.message);
     }
-  });
+  }
+});
 
 }
 
