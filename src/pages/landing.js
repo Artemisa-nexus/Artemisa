@@ -140,9 +140,7 @@ export function renderLanding(app) {
         </p>
         
       <!-- Botón de acción -->
-      <a href="https://barranquilla.gov.co/seguridad/cai-y-estaciones-de-policia" 
-         target="_blank" 
-         rel="noopener noreferrer"
+      <a href="/artemisa/formularioOng"
          class="inline-block bg-[#f9a825] text-white px-6 py-3 rounded-lg shadow-md 
                 hover:bg-[#f09503] transition-colors duration-300 font-semibold">
         Únete como Fundación

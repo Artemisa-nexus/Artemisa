@@ -6,6 +6,7 @@ import { renderDashboard } from "./pages/dashboard";
 import { renderDashboardEvents } from "./pages/dashboardEvents";
 import { renderDashboardSupport } from "./pages/dashboardApoyo";
 import { renderDashboardProfile } from "./pages/dashboardProfile";
+import renderForm from "./pages/formularioOng";
 
 // Reference to the main container where pages will be rendered
 let app = document.getElementById('app')
@@ -18,7 +19,8 @@ let routes = {
     '/artemisa/dashboard': () => renderDashboard(app),
     '/artemisa/dashboard/events': () => renderDashboardEvents(app),
     '/artemisa/dashboard/support': () => renderDashboardSupport(app),
-    '/artemisa/dashboard/profile': () => renderDashboardProfile(app)
+    '/artemisa/dashboard/profile': () => renderDashboardProfile(app),
+    '/artemisa/formularioOng': () => renderForm(app)
 }
 
 // Main router function → decides which page to render based on the URL

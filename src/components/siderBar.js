@@ -61,7 +61,7 @@ export function navEvents() {
 
     // Event: log out user
    if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => auth.logOut());  // ✅ corregido
+    logoutBtn.addEventListener("click", () => auth.logOut());  // corregido
   }
     // Event: navigate to community view
   if (comunidadBtn) {
