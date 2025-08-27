@@ -163,7 +163,7 @@ export function renderLanding(app) {
       <!-- Línea Morada -->
       <div class="bg-[#f5e0f7] rounded-lg h-80 shadow-lg p-6 flex flex-col justify-between">
         <div>
-          <h3 class="text-2xl font-semibold text-[#f56d95] mb-4">📞 Línea Morada</h3>
+          <h3 class="text-2xl font-semibold text-[#f56d95] mb-4">Línea Morada</h3>
           <p class="text-gray-700 mb-4">
             Atención a mujeres víctimas de violencias basadas en género. 
             Orientación psicológica y jurídica gratuita.
@@ -179,7 +179,7 @@ export function renderLanding(app) {
       <!-- Línea de la Alcaldía de Barranquilla -->
       <div class="bg-[#fcf0d4] rounded-lg h-80 shadow-lg p-6 flex flex-col justify-between">
         <div>
-          <h3 class="text-2xl font-semibold text-[#f56d95] mb-4">🏛️ Alcaldía de Barranquilla</h3>
+          <h3 class="text-2xl font-semibold text-[#f56d95] mb-4">Alcaldía de Barranquilla</h3>
           <p class="text-gray-700 mb-4">
             Línea única de atención ciudadana para orientación en casos de violencia, emergencias 
             y servicios de apoyo institucional.
@@ -194,7 +194,7 @@ export function renderLanding(app) {
       <!-- CAI Policía Nacional -->
       <div class="bg-[#f5e0f7] rounded-lg h-80 shadow-lg p-6 flex flex-col justify-between">
         <div>
-          <h3 class="text-2xl font-semibold text-[#f56d95] mb-4">🚓 CAI - Policía Nacional</h3>
+          <h3 class="text-2xl font-semibold text-[#f56d95] mb-4">CAI - Policía Nacional</h3>
           <p class="text-gray-700 mb-4">
             Centros de Atención Inmediata (CAI) de la Policía para reportar delitos, 
             violencia intrafamiliar y solicitar apoyo en emergencias.
