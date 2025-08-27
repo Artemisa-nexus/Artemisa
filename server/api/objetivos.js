@@ -3,35 +3,64 @@ import { pool } from "../db.js";
 
 const router = Router();
 
-// GET all objetivos
+/**
+ * GET all achieved_goals
+ */
 router.get("/", async (req, res) => {
   try {
-    const [results] = await pool.query("SELECT * FROM objetivos");
+    const [results] = await pool.query(`
+      SELECT ag.achieved_id, ag.user_id, u.fullname, ag.goal_id, g.title AS goal_title, ag.achieved_date, ag.reward
+      FROM achieved_goals ag
+      JOIN users u ON ag.user_id = u.user_id
+      JOIN goals g ON ag.goal_id = g.goal_id
+    `);
     res.json(results);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// GET all objetivos for a specific meta
-router.get("/meta/:meta_id", async (req, res) => {
+/**
+ * GET all achieved_goals for a specific user
+ */
+router.get("/user/:user_id", async (req, res) => {
   try {
-    const { meta_id } = req.params;
-    const [results] = await pool.query("SELECT * FROM objetivos WHERE meta_id = ?", [meta_id]);
+    const { user_id } = req.params;
+    const [results] = await pool.query(
+      `
+      SELECT ag.achieved_id, ag.user_id, u.fullname, ag.goal_id, g.title AS goal_title, ag.achieved_date, ag.reward
+      FROM achieved_goals ag
+      JOIN users u ON ag.user_id = u.user_id
+      JOIN goals g ON ag.goal_id = g.goal_id
+      WHERE ag.user_id = ?
+      `,
+      [user_id]
+    );
     res.json(results);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// GET objetivo by ID
+/**
+ * GET achieved_goal by ID
+ */
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const [result] = await pool.query("SELECT * FROM objetivos WHERE objetivo_id = ?", [id]);
+    const [result] = await pool.query(
+      `
+      SELECT ag.achieved_id, ag.user_id, u.fullname, ag.goal_id, g.title AS goal_title, ag.achieved_date, ag.reward
+      FROM achieved_goals ag
+      JOIN users u ON ag.user_id = u.user_id
+      JOIN goals g ON ag.goal_id = g.goal_id
+      WHERE ag.achieved_id = ?
+      `,
+      [id]
+    );
 
     if (result.length === 0) {
-      return res.status(404).json({ message: "Objetivo no encontrado" });
+      return res.status(404).json({ message: "Logro no encontrado" });
     }
 
     res.json(result[0]);
@@ -40,55 +69,64 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// CREATE objetivo
+/**
+ * CREATE achieved_goal
+ */
 router.post("/", async (req, res) => {
   try {
-    const { meta_id, title, description, due_date, status } = req.body;
+    const { user_id, goal_id, reward } = req.body;
 
     const [result] = await pool.query(
-      "INSERT INTO objetivos (meta_id, title, description, due_date, status) VALUES (?, ?, ?, ?, ?)",
-      [meta_id, title, description, due_date, status || "pending"]
+      "INSERT INTO achieved_goals (user_id, goal_id, reward) VALUES (?, ?, ?)",
+      [user_id, goal_id, reward || "star"]
     );
 
-    res.status(201).json({ message: "Objetivo creado", id: result.insertId });
+    res.status(201).json({ message: "Logro registrado", id: result.insertId });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// UPDATE objetivo
+/**
+ * UPDATE achieved_goal
+ */
 router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description, due_date, status } = req.body;
+    const { reward } = req.body;
 
     const [result] = await pool.query(
-      "UPDATE objetivos SET title = ?, description = ?, due_date = ?, status = ? WHERE objetivo_id = ?",
-      [title, description, due_date, status, id]
+      "UPDATE achieved_goals SET reward = ? WHERE achieved_id = ?",
+      [reward, id]
     );
 
     if (result.affectedRows === 0) {
-      return res.status(404).json({ message: "Objetivo no encontrado" });
+      return res.status(404).json({ message: "Logro no encontrado" });
     }
 
-    res.json({ message: "Objetivo actualizado" });
+    res.json({ message: "Logro actualizado" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// DELETE objetivo
+/**
+ * DELETE achieved_goal
+ */
 router.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    const [result] = await pool.query("DELETE FROM objetivos WHERE objetivo_id = ?", [id]);
+    const [result] = await pool.query(
+      "DELETE FROM achieved_goals WHERE achieved_id = ?",
+      [id]
+    );
 
     if (result.affectedRows === 0) {
-      return res.status(404).json({ message: "Objetivo no encontrado" });
+      return res.status(404).json({ message: "Logro no encontrado" });
     }
 
-    res.json({ message: "Objetivo eliminado" });
+    res.json({ message: "Logro eliminado" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
