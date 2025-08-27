@@ -70,51 +70,73 @@ router.post("/", async (req, res) => {
 
 
 // UPDATE user
-router.put("/:id", async (req, res) => {
+router.put("/:user_id", async (req, res) => {
   try {
-    const { id } = req.params;
-    const { fullname, identification, email, password } = req.body;
+    const { user_id } = req.params;
+    const { fullname, identification, email, password_ } = req.body;
+
+  const [result] = await pool.query(`UPDATE users SET fullname = ?, identification = ?, email = ?, password_ = ? WHERE user_id = ?`,
+    [fullname, identification, email,password_, user_id]
+  );
+
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        status: "error",
+        message: "Usuario no encontrado",
+      });
+    }
+
+    // Devolvemos los datos ya actualizados
+    res.json({
+      user_id,
+      fullname,
+      identification,
+      email
+    });
+  } catch (error) {
+    console.error("❌ Error en UPDATE:", error.message);
+    res.status(500).json({
+      status: "error",
+      endpoint: req.originalUrl,
+      method: req.method,
+      message: error.message,
+    });
+  }
+});
+
+
+
+// DELETE user
+router.delete("/:user_id", async (req, res) => {
+  try {
+    const { user_id } = req.params;
 
     const [result] = await pool.query(
-      "UPDATE users SET fullname=?, identification=?, email=?, password=? WHERE user_id=?",
-      [fullname, identification, email, password, id]
+      "DELETE FROM users WHERE user_id = ?",
+      [user_id]
     );
 
     if (result.affectedRows === 0) {
-      return res.status(404).json({ status: "error", message: "Usuario no encontrado" });
+      return res.status(404).json({
+        status: "error",
+        message: "Usuario no encontrado",
+      });
     }
 
-    res.json({ status: "ok", message: "Usuario actualizado" });
+    res.json({
+      status: "ok",
+      message: "Usuario eliminado",
+    });
   } catch (error) {
     res.status(500).json({
       status: "error",
       endpoint: req.originalUrl,
       method: req.method,
-      message: error.message
+      message: error.message,
     });
   }
 });
 
-// DELETE user
-router.delete("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const [result] = await pool.query("DELETE FROM users WHERE user_id = ?", [id]);
-
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ status: "error", message: "Usuario no encontrado" });
-    }
-
-    res.json({ status: "ok", message: "Usuario eliminado" });
-  } catch (error) {
-    res.status(500).json({
-      status: "error",
-      endpoint: req.originalUrl,
-      method: req.method,
-      message: error.message
-    });
-  }
-});
 
 export default router;

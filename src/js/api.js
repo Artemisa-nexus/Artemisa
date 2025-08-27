@@ -18,27 +18,3 @@ export async function registerUser(user) {
   });
   return await res.json();
 }
-
-// Get user by ID
-export async function getUserById(id) {
-  const res = await fetch(`${BASE_URL}/users/${id}`);
-  return await res.json();
-}
-
-// Update user by ID
-export async function updateUser(id, updatedUser) {
-  const res = await fetch(`${BASE_URL}/users/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(updatedUser),
-  });
-  return await res.json();
-}
-
-// Delete user by ID
-export async function deleteUser(id) {
-  await fetch(`${BASE_URL}/users/${id}`, {
-    method: "DELETE",
-  });
-}
-
