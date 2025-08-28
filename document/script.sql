@@ -62,9 +62,8 @@ CREATE TABLE publications (
     user_id INT,
     content TEXT,
     publication_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    publication_type ENUM('text', 'event', 'product', 'course', 'blog'),
-    reference_id INT,
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    update_date TIMESTAMP DEFAULT current_timestamp,
+    FOREIGN KEY (user_id) references users(user_id)
 );
 
 -- =============================
@@ -74,6 +73,7 @@ CREATE TABLE support (
     support_id INT PRIMARY KEY AUTO_INCREMENT,
     support_name VARCHAR(150),
     description VARCHAR(200),
+    email varchar(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -100,7 +100,6 @@ CREATE TABLE goals (
     goal_id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(150) NOT NULL,
     description TEXT,
-    status ENUM('active', 'inactive') DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -112,7 +111,6 @@ CREATE TABLE achieved_goals (
     user_id INT NOT NULL,
     goal_id INT NOT NULL,
     achieved_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    reward VARCHAR(100) DEFAULT 'star',
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (goal_id) REFERENCES goals(goal_id) ON DELETE CASCADE
 );
@@ -125,14 +123,18 @@ CREATE TABLE achieved_goals (
 INSERT INTO roles (role_name)
 VALUES 
     ('user'),
-    ('volunteer'),
-    ('foundation');
+    ('volunteer');
 
 -- Insert general goals catalog
 INSERT INTO goals (title, description)
 VALUES
-('Asistir a un evento', 'Participar en al menos un evento de la comunidad.'),
-('Completar el perfil', 'Subir foto de perfil y completar datos personales.'),
-('Publicar un emprendimiento', 'Publicar al menos un producto o servicio en la plataforma.'),
-('Apoyar un emprendimiento', 'Comentar o dar like a un emprendimiento.'),
-('Unirse a un voluntariado', 'Registrarse en al menos un voluntariado.');
+('Primer paso solidario', 'Unirse a un voluntariado por primera vez.'),
+('Agente de cambio', 'Asistir a 3 eventos organizados por fundaciones.'),
+('Voz activa', 'Compartir una publicación de una fundación en la plataforma.'),
+('Red de apoyo', 'Invitar a otra mujer a unirse a Artemisa.'),
+('Mentora solidaria', 'Brindar apoyo o asesoría en un evento de formación.');
+
+
+INSERT INTO users (fullname, identification, email, password_, role_id)
+VALUES 
+    ('System Administrator', '0000000000', 'admin@artemisa.com', 'admin123', 2);
