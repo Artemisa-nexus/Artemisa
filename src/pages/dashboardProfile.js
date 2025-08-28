@@ -1,6 +1,7 @@
 import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
 import { deleteUser, updateUser } from "../services/servicesUser";
+import { getGoals } from "../services/usersGoalsService";
 import { auth } from "../utils/auth";
 
 // Render dashboardProfile view
@@ -30,7 +31,7 @@ export function renderDashboardProfile(app) {
             <article class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
               <div class="p-6">
                 <h3 class="text-lg font-semibold text-artemisa-pink mb-4">Logros</h3>
-                <div class="h-64 bg-gray-50 rounded-lg"></div>
+                <div id="goals-achived-container" class="h-64 bg-gray-50 rounded-lg"></div>
               </div>
             </article>
 
@@ -38,7 +39,7 @@ export function renderDashboardProfile(app) {
             <article class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
               <div class="p-6">
                 <h3 class="text-lg font-semibold text-artemisa-pink mb-4">Metas</h3>
-                <div class="h-64 bg-gray-50 rounded-lg"></div>
+                <div id="goals-container" class=" rounded-lg p-2 space-y-3 max-h-64 overflow-y-auto"></div>
               </div>
             </article>
           </section>
@@ -117,6 +118,61 @@ export function renderDashboardProfile(app) {
       }
     }
   });
+
+
+  const goalsContainer = document.getElementById("goals-container");
+  const goalsAchivedContainer = document.getElementById("goals-achived-container");
+  function renderGoalsAchived() {
+  goalsAchivedContainer.innerHTML = "";
+  
+  if (goalsAchived.length === 0) {
+    goalsAchivedContainer.innerHTML = `<p class="text-gray-500 text-center">Todavía no has logrado ninguna meta.</p>`;
+  } else {
+    goalsAchived.forEach((goal, index) => {
+      goalsAchivedContainer.innerHTML += `
+        <article class="bg-white rounded-2xl border-l-4 border-[#f56d95] shadow-sm p-4 mb-2">
+          <h4 class="text-sm font-semibold text-artemisa-pink">${goal.title || "Meta alcanzada"}</h4>
+          <p class="text-gray-600 text-sm">${goal.description || ""}</p>
+        </article>
+      `;
+    });
+  }
+}
+
+async function renderGoals() {
+  goalsContainer.innerHTML = `<p class="text-gray-500 text-center">Cargando metas...</p>`;
+
+  try {
+    const goals = await getGoals();
+
+    if (goals.length === 0) {
+      goalsContainer.innerHTML = `<p class="text-gray-500 text-center">No hay metas disponibles en este momento.</p>`;
+      return;
+    }
+
+    goalsContainer.innerHTML = ""; 
+
+    goals.forEach((goal) => {
+      goalsContainer.innerHTML += `
+        <article class="space-y-1 bg-white rounded-2xl border-l-4 border-[#f56d95] shadow-sm pl-2 pr-4 py-3 mb-2">
+        <div class="flex items-center space-x-2">
+          <img src="/public/assets/goal_icon.svg" class="w-10 h-10 inline-block">
+          <div>
+           <h4 class=" text-sm font-semibold text-artemisa-pink">${goal.title}</h4>
+          <p class=" text-gray-600 text-sm">${goal.description}</p>
+          </div>
+          </div>
+        </article>
+      `;
+    });
+  } catch (err) {
+    console.error(err);
+    goalsContainer.innerHTML = `<p class="text-red-500 text-center">Error al cargar metas.</p>`;
+  }
+}
+  renderGoals();
+  renderGoalsAchived();
+
 }
 
 

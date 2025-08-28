@@ -6,7 +6,7 @@ const router = Router();
 // GET all metas
 router.get("/", async (req, res) => {
   try {
-    const [results] = await pool.query("SELECT * FROM metas");
+    const [results] = await pool.query("SELECT * FROM goals");
     res.json(results);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const [result] = await pool.query("SELECT * FROM metas WHERE meta_id = ?", [id]);
+    const [result] = await pool.query("SELECT * FROM goals WHERE meta_id = ?", [id]);
 
     if (result.length === 0) {
       return res.status(404).json({ message: "Meta no encontrada" });
