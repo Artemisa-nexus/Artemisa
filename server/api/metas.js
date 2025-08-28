@@ -104,7 +104,7 @@ router.post("/achieved", async (req, res) => {
       [user_id, goal_id]
     );
 
-    res.json({ message: "Meta alcanzada registrada 🎉" });
+    res.json({ message: "Meta alcanzada registrada" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
