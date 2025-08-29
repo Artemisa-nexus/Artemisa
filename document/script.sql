@@ -64,7 +64,6 @@ CREATE TABLE publications (
     publication_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     content TEXT,
-    image LONGBLOB,
     publication_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     reference_id INT DEFAULT NULL,
@@ -120,6 +119,9 @@ CREATE TABLE achieved_goals (
     FOREIGN KEY (goal_id) REFERENCES goals(goal_id) ON DELETE CASCADE
 );
 
+ALTER TABLE achieved_goals 
+ADD CONSTRAINT unique_user_goal UNIQUE (user_id, goal_id);
+
 -- =============================
 -- BASE INSERTS
 -- =============================
@@ -128,18 +130,22 @@ CREATE TABLE achieved_goals (
 INSERT INTO roles (role_name)
 VALUES 
     ('user'),
-    ('volunteer');
+    ('volunteer'),
+    ('admi');
 
 -- Insert general goals catalog
 INSERT INTO goals (title, description)
 VALUES
-('Primer paso solidario', 'Unirse a un voluntariado por primera vez.'),
-('Agente de cambio', 'Asistir a 3 eventos organizados por fundaciones.'),
-('Voz activa', 'Compartir una publicación de una fundación en la plataforma.'),
-('Red de apoyo', 'Invitar a otra mujer a unirse a Artemisa.'),
-('Mentora solidaria', 'Brindar apoyo o asesoría en un evento de formación.');
+('Primer paso solidario', 'Registrarse por primera vez en la plataforma.'),
+('Participante activa', 'Asistir a 1 evento organizado por fundaciones.'),
+('Compromiso creciente', 'Asistir a 3 eventos organizados por fundaciones.'),
+('Aliada constante', 'Asistir a 5 eventos organizados por fundaciones.'),
+('Mano amiga', 'Solicitar apoyo en la plataforma por primera vez.'),
+('Constancia digital', 'Iniciar sesión en la plataforma más de 3 veces.');
+
 
 
 INSERT INTO users (fullname, identification, email, password_, role_id)
 VALUES 
-    ('System Administrator', '0000000000', 'admin@artemisa.com', 'admin123', 2);
+    ('System Administrator', '0000000000', 'admin@artemisa.com', 'admin123', 3);
+    
