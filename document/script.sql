@@ -120,6 +120,9 @@ CREATE TABLE achieved_goals (
     FOREIGN KEY (goal_id) REFERENCES goals(goal_id) ON DELETE CASCADE
 );
 
+ALTER TABLE achieved_goals 
+ADD CONSTRAINT unique_user_goal UNIQUE (user_id, goal_id);
+
 -- =============================
 -- BASE INSERTS
 -- =============================
@@ -128,34 +131,22 @@ CREATE TABLE achieved_goals (
 INSERT INTO roles (role_name)
 VALUES 
     ('user'),
-    ('volunteer');
+    ('volunteer'),
+    ('admi');
 
 -- Insert general goals catalog
 INSERT INTO goals (title, description)
 VALUES
-('Primer paso solidario', 'Unirse a un voluntariado por primera vez.'),
-('Agente de cambio', 'Asistir a 3 eventos organizados por fundaciones.'),
-('Voz activa', 'Compartir una publicación de una fundación en la plataforma.'),
-('Red de apoyo', 'Invitar a otra mujer a unirse a Artemisa.'),
-('Mentora solidaria', 'Brindar apoyo o asesoría en un evento de formación.');
+('Primer paso solidario', 'Registrarse por primera vez en la plataforma.'),
+('Participante activa', 'Asistir a 1 evento organizado por fundaciones.'),
+('Compromiso creciente', 'Asistir a 3 eventos organizados por fundaciones.'),
+('Aliada constante', 'Asistir a 5 eventos organizados por fundaciones.'),
+('Mano amiga', 'Solicitar apoyo en la plataforma por primera vez.'),
+('Constancia digital', 'Iniciar sesión en la plataforma más de 3 veces.');
 
--- =============================
--- BASE INSERTS
--- =============================
+
 
 INSERT INTO users (fullname, identification, email, password_, role_id)
 VALUES 
-    ('System Administrator', '0000000000', 'admin@artemisa.com', 'admin123', 2);
-
-INSERT INTO publications (user_id, content, image, publication_date, reference_id)
-VALUES (1, 'hola', 'dsfjdsfijdf', '2025-08-28 14:00:00', NULL);
-
-select * from publications;
-
-SELECT 
-    p.publication_id,
-    p.content,
-    p.publication_date,
-    u.fullname AS author
-FROM publications p
-INNER JOIN users u ON p.user_id = u.user_id;
+    ('System Administrator', '0000000000', 'admin@artemisa.com', 'admin123', 3);
+    
