@@ -46,3 +46,25 @@ export async function deleteUser(user_id) {
 
   return res.json();
 }
+
+//mostrar todos los usuarios
+
+export async function GetAllRollUSer() {
+  const res = await fetch(`${API_URL}/role/1`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (!res.ok) throw new Error("Error al obtener usuarios");
+  return await res.json();
+}
+
+export async function getAllRollVolunteers() {
+  const res = await fetch(`${API_URL}/role/2`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (!res.ok) throw new Error("Error al obtener usuarios");
+  return await res.json();
+}

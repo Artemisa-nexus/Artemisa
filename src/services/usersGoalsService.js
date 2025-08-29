@@ -26,3 +26,4 @@ export async function showAchievedGoal(user_id) {
   if (!res.ok) throw new Error("Error al obtener metas alcanzadas");
   return await res.json();
 }
+

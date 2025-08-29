@@ -1,8 +1,8 @@
 import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
 import { addUser } from "../services/registerService";
-import { getAllUsers } from "../services/servicesUser"; // 👈 Asegúrate que esta ruta es correcta
-import { getAllVolunteerOrgs, getVolunteerOrgById } from "../services/volunteerService";
+import { GetAllRollUSer, getAllRollVolunteers } from "../services/servicesUser";
+import { getVolunteerOrgById } from "../services/volunteerService";
 
 export function renderDashboardProfileAdmi(app) {
   const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" };
@@ -41,7 +41,7 @@ export function renderDashboardProfileAdmi(app) {
   const addVolunteerBtn = document.getElementById("add-volunteer");
   const volunteersContainer = document.getElementById("volunteers-container");
 
-  getAllUsers()
+  GetAllRollUSer()
     .then(users => {
       usersContainer.innerHTML = ""; // limpiar antes
       users.forEach(u => {
@@ -57,7 +57,22 @@ export function renderDashboardProfileAdmi(app) {
       usersContainer.innerHTML = `<p class="text-red-500">Error cargando usuarias</p>`;
     });
 
-   getAllVolunteerOrgs().then(volunteers => {
+    GetAllRollUSer().then(users => {
+      usersContainer.innerHTML = ""; // limpiar antes
+      users.forEach(u => {
+        usersContainer.innerHTML += `
+          <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+            <h4 class="text-md font-semibold text-gray-800">${u.fullname}</h4>
+            <p class="text-gray-500 text-sm">${u.email || "Sin correo"}</p>
+          </article>`;
+      });
+    })
+    .catch(error => {
+      console.error("Error fetching users:", error);
+      usersContainer.innerHTML = `<p class="text-red-500">Error cargando usuarias</p>`;
+    });
+
+   getAllRollVolunteers().then(volunteers => {
   volunteersContainer.innerHTML = ""; // limpiar antes
   volunteers.forEach(v => {
     volunteersContainer.innerHTML += `

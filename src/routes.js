@@ -11,6 +11,7 @@ import { renderDashboardEventsVolunteer } from "./pages/dashboardEventsVolunteer
 import { renderDashboardVolunteer } from "./pages/dashboardVolunteer";
 import { renderDashboardSupportVolunteer } from "./pages/dashboardApoyoVolunteer";
 import { renderDashboardProfileAdmi } from "./pages/dashboardProfileAdmi";
+import { renderDashboardProfileVolunteer } from "./pages/dashboardProfileVolunteer";
 // Reference to the main container where pages will be rendered
 let app = document.getElementById('app')
 
@@ -27,7 +28,8 @@ let routes = {
     '/artemisa/dashboard/volunteer': () => renderDashboardVolunteer(app),
     '/artemisa/dashboard/events/volunteer': () => renderDashboardEventsVolunteer(app),
     '/artemisa/dashboard/apoyo/volunteer': () => renderDashboardSupportVolunteer(app),
-    '/artemisa/dashboard/profile/administrador': () => renderDashboardProfileAdmi(app)
+    '/artemisa/dashboard/profile/administrador': () => renderDashboardProfileAdmi(app),
+    '/artemisa/dashboard/profile/voluntario': () => renderDashboardProfileVolunteer(app)
 }
 
 // Main router function → decides which page to render based on the URL
