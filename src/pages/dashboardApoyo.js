@@ -1,10 +1,12 @@
 import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
 import { addSupport } from "../services/supportService";
+import { saveAchievedGoal } from "../services/usersGoalsService"; // ⬅️ importar
 
 // Render dashboardSupport view
 export function renderDashboardSupport(app) {
-const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" };
+  const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" };
+  
   app.innerHTML = `
       ${renderNav()}
       <div class="flex">
@@ -18,7 +20,6 @@ const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" 
               <h1 class="text-3xl font-semibold text-[#f56d95]">APOYO</h1>
             </section>
                 
-            <!-- Event Cards Container -->
             <section class="space-y-6">
               
               <!-- Card Línea Púrpura -->
@@ -40,25 +41,25 @@ const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" 
                 </a>
               </article>
               
-             <!-- Card Casa de la Mujer - Barranquilla -->
-            <article class="bg-white rounded-2xl border-l-4 border-[#f56d95] shadow-sm p-6">
+              <!-- Card Casa de la Mujer - Barranquilla -->
+              <article class="bg-white rounded-2xl border-l-4 border-[#f56d95] shadow-sm p-6">
                 <h2 class="text-xl font-bold text-gray-800 mb-2">Casa de la Mujer – Barranquilla</h2>
                 <p class="text-gray-600 mb-2">
-                La <span class="font-semibold text-[#f56d95]">Casa de la Mujer</span> es un espacio de la 
-                <span class="font-semibold">Alcaldía de Barranquilla</span> que brinda atención integral a mujeres 
-                víctimas de violencias de género. Ofrece orientación psicológica, asesoría jurídica 
-                y acompañamiento social.
+                  La <span class="font-semibold text-[#f56d95]">Casa de la Mujer</span> es un espacio de la 
+                  <span class="font-semibold">Alcaldía de Barranquilla</span> que brinda atención integral a mujeres 
+                  víctimas de violencias de género. Ofrece orientación psicológica, asesoría jurídica 
+                  y acompañamiento social.
                 </p>
                 <p class="text-gray-500 text-sm mb-4">
-                📍 Dirección: Carrera 43 #44-35, Barrio El Prado, Barranquilla <br>
-                📞 Teléfono: <span class="font-semibold">(605) 379 1234</span> <br>
-                🕒 Horario: Lunes a Viernes, 8:00 a.m. – 5:00 p.m.
+                  📍 Dirección: Carrera 43 #44-35, Barrio El Prado, Barranquilla <br>
+                  📞 Teléfono: <span class="font-semibold">(605) 379 1234</span> <br>
+                  🕒 Horario: Lunes a Viernes, 8:00 a.m. – 5:00 p.m.
                 </p>
                 <a href="https://www.barranquilla.gov.co/mujer" target="_blank"
                 class="inline-block px-4 py-2 bg-[#f56d95] text-white rounded-lg shadow hover:bg-[#d94b73] transition">
                 Ir al sitio oficial
                 </a>
-            </article>
+              </article>
                     
               <!-- Formulario para agendar cita -->
               <article class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
@@ -97,14 +98,11 @@ const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" 
 
   navEvents();
 
-  // --- Lógica para manejar formulario y citas ---
   const form = document.getElementById("citaForm");
   const container = document.getElementById("citasContainer");
 
-  // Cargar citas guardadas
   let citas = JSON.parse(localStorage.getItem("citas")) || [];
 
-  // Renderizar citas en cards
   function renderCitas() {
     container.innerHTML = "";
     if (citas.length === 0) {
@@ -136,19 +134,33 @@ const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" 
 
     const response = await addSupport(nuevaCita);
 
-    if (!response.status === 'ok') {
-        console.error("Error al crear el soporte:", response.message);
-        return;
+    if (!response || response.status !== "ok") {
+      console.error("Error al crear el soporte:", response?.message);
+      return;
     }
 
+    // Guardar cita en localStorage
     citas.push(nuevaCita);
     localStorage.setItem("citas", JSON.stringify(citas));
+
+    // ✅ Registrar meta alcanzada (ejemplo: goal_id = 3 => "Solicitar apoyo")
+    try {
+      if (user.user_id) {
+        await saveAchievedGoal({
+          user_id: user.user_id,
+          goal_id: 3
+        });
+        console.log("Meta 'solicitar apoyo' registrada");
+      }
+    } catch (err) {
+      console.error("Error al registrar meta alcanzada:", err);
+    }
 
     form.reset();
     renderCitas();
   });
 
-// Delegar eventos para cancelar citas
+  // Delegar eventos para cancelar citas
   container.addEventListener("click", (e) => {
     if (e.target.classList.contains("deleteBtn")) {
       const index = e.target.dataset.index;
