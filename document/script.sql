@@ -30,12 +30,15 @@ CREATE TABLE users (
 -- =============================
 CREATE TABLE events (
     event_id INT PRIMARY KEY AUTO_INCREMENT,
-    event_name VARCHAR(100),
+    event_name VARCHAR(100) NOT NULL,
     description TEXT,
     category VARCHAR(100),
-    event_date DATETIME,
-    city VARCHAR(100),
+    event_date DATETIME NOT NULL,
+    city VARCHAR(100) NOT NULL,
     organizer_id INT,
+    image LONGBLOB,
+    max_capacity INT NOT NULL DEFAULT 0,
+    available_capacity INT NOT NULL DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (organizer_id) REFERENCES users(user_id)
@@ -59,11 +62,12 @@ CREATE TABLE event_participants (
 -- =============================
 CREATE TABLE publications (
     publication_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT,
+    user_id INT NOT NULL,
     content TEXT,
+    image LONGBLOB,
     publication_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    publication_type ENUM('text', 'event', 'product', 'course', 'blog'),
-    reference_id INT,
+    update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    reference_id INT DEFAULT NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
@@ -74,6 +78,7 @@ CREATE TABLE support (
     support_id INT PRIMARY KEY AUTO_INCREMENT,
     support_name VARCHAR(150),
     description VARCHAR(200),
+    email varchar(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -100,7 +105,6 @@ CREATE TABLE goals (
     goal_id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(150) NOT NULL,
     description TEXT,
-    status ENUM('active', 'inactive') DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -112,7 +116,6 @@ CREATE TABLE achieved_goals (
     user_id INT NOT NULL,
     goal_id INT NOT NULL,
     achieved_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    reward VARCHAR(100) DEFAULT 'star',
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (goal_id) REFERENCES goals(goal_id) ON DELETE CASCADE
 );
@@ -125,14 +128,34 @@ CREATE TABLE achieved_goals (
 INSERT INTO roles (role_name)
 VALUES 
     ('user'),
-    ('volunteer'),
-    ('foundation');
+    ('volunteer');
 
 -- Insert general goals catalog
 INSERT INTO goals (title, description)
 VALUES
-('Asistir a un evento', 'Participar en al menos un evento de la comunidad.'),
-('Completar el perfil', 'Subir foto de perfil y completar datos personales.'),
-('Publicar un emprendimiento', 'Publicar al menos un producto o servicio en la plataforma.'),
-('Apoyar un emprendimiento', 'Comentar o dar like a un emprendimiento.'),
-('Unirse a un voluntariado', 'Registrarse en al menos un voluntariado.');
+('Primer paso solidario', 'Unirse a un voluntariado por primera vez.'),
+('Agente de cambio', 'Asistir a 3 eventos organizados por fundaciones.'),
+('Voz activa', 'Compartir una publicación de una fundación en la plataforma.'),
+('Red de apoyo', 'Invitar a otra mujer a unirse a Artemisa.'),
+('Mentora solidaria', 'Brindar apoyo o asesoría en un evento de formación.');
+
+-- =============================
+-- BASE INSERTS
+-- =============================
+
+INSERT INTO users (fullname, identification, email, password_, role_id)
+VALUES 
+    ('System Administrator', '0000000000', 'admin@artemisa.com', 'admin123', 2);
+
+INSERT INTO publications (user_id, content, image, publication_date, reference_id)
+VALUES (1, 'hola', 'dsfjdsfijdf', '2025-08-28 14:00:00', NULL);
+
+select * from publications;
+
+SELECT 
+    p.publication_id,
+    p.content,
+    p.publication_date,
+    u.fullname AS author
+FROM publications p
+INNER JOIN users u ON p.user_id = u.user_id;
