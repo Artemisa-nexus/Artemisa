@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000/publications";
+const API_URL = "https://artemisa-production.up.railway.app/publications";
 
 // Crear una nueva publicaciÃ³n
 export async function addPublication(publication) {
