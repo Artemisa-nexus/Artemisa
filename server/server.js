@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 // rutas
 app.use("/users", userRouter);
 app.use("/events", eventApi);
-app.use("/event-participants", event_participantsApi);
+app.use("/event_participants", event_participantsApi);
 app.use("/course-blogs", course_blogsApi);
 app.use("/publicaciones", publicacionApi);
 app.use("/metas", metasApi);
