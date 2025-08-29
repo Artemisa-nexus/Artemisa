@@ -1,11 +1,11 @@
 import mysql from "mysql2/promise";
 
 export const pool = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  port: 5000,      
-  password: "Admin123",
-  database: "artemisa"
+  host: DB_HOST,
+  user: DB_USER,
+  port: DB_PORT,      
+  password: DB_PASSWORD,
+  database: DB_NAME
 });
 
 async function probarConexionBaseDatos() {
