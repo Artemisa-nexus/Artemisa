@@ -12,6 +12,7 @@ import publicacionApi from "./api/publicacion.js";
 import metasApi from "./api/metas.js";
 import objetivesApi from "./api/objetivos.js";
 import supportApi from "./api/support.js";
+import volunteerApi from "./api/volunteer.js";
 
 
 const app = express();
@@ -27,6 +28,7 @@ app.use("/publicaciones", publicacionApi);
 app.use("/metas", metasApi);
 app.use("/objetivos", objetivesApi);
 app.use("/support", supportApi);
+app.use("/volunteers", volunteerApi);
 
 app.get("/", (req, res) => res.send("API Artemisa funcionando 🚀"));
 

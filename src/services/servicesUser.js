@@ -1,5 +1,14 @@
 const API_URL = "http://localhost:3000/users"; 
 
+export async function getAllUsers(){
+  const res = await fetch(API_URL);
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData.message || "Error al obtener usuarios");
+  }
+  return res.json();
+}
+
 // Obtain user by id
 export async function getUser(user_id) {
   const res = await fetch(`${API_URL}/${user_id}`);
