@@ -1,6 +1,6 @@
 // src/services/servicesVolunteerOrgs.js
 
-const API_URL = "http://localhost:3000/volunteer_orgs"; 
+const API_URL = "http://localhost:3000/volunteers"; 
 // 👆 cambia el puerto si tu backend corre en otro
 
 // Obtener todas las organizaciones

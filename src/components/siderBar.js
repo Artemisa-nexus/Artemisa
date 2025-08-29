@@ -108,7 +108,7 @@ export function navEvents() {
   if (profileBtn) {
     profileBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      if(user.role_id===2){
+      if(user.role_id===3){
         history.pushState(null, null, "/artemisa/dashboard/profile/administrador");
       }else{
         history.pushState(null, null, "/artemisa/dashboard/profile");

@@ -1,6 +1,8 @@
 import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
+import { addUser } from "../services/registerService";
 import { getAllUsers } from "../services/servicesUser"; // 👈 Asegúrate que esta ruta es correcta
+import { getAllVolunteerOrgs, getVolunteerOrgById } from "../services/volunteerService";
 
 export function renderDashboardProfileAdmi(app) {
   const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" };
@@ -36,7 +38,8 @@ export function renderDashboardProfileAdmi(app) {
   
   // === Renderizar todas las usuarias ===
   const usersContainer = document.getElementById("users-container");
-  const addVolunteerBtn = document.getElementById("AddVolunteerBtn");
+  const addVolunteerBtn = document.getElementById("add-volunteer");
+  const volunteersContainer = document.getElementById("volunteers-container");
 
   getAllUsers()
     .then(users => {
@@ -54,5 +57,54 @@ export function renderDashboardProfileAdmi(app) {
       usersContainer.innerHTML = `<p class="text-red-500">Error cargando usuarias</p>`;
     });
 
+   getAllVolunteerOrgs().then(volunteers => {
+  volunteersContainer.innerHTML = ""; // limpiar antes
+  volunteers.forEach(v => {
+    volunteersContainer.innerHTML += `
+      <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+        <h4 class="text-md font-semibold text-gray-800">${v.business_name}</h4>
+        <p class="text-gray-500 text-sm">${v.email || "Sin correo"}</p>
+        <button id="add-volunteer-${v.volunteer_org_id}" 
+          class="bg-[#f56d95] text-white px-4 py-2 rounded-lg">
+          Agregar
+        </button>
+      </article>`;
+  });
+})
+.catch(error => {
+  console.error("Error fetching volunteers:", error);
+  volunteersContainer.innerHTML = `<p class="text-red-500">Error cargando voluntariados</p>`;
+});
+
+
+// === Delegación de eventos ===
+volunteersContainer.addEventListener("click", async (e) => {
+  if (e.target.id.startsWith("add-volunteer-")) {
+    const volunteerId = e.target.id.split("-")[2]; // aquí ya tienes el ID correcto
+
+    const selected = await getVolunteerOrgById(volunteerId);
+
+    if (!selected) {
+      alert("❌ Voluntariado no encontrado");
+      return;
+    }
+
+    const newUserData = {
+      fullname: selected.business_name,
+      identification: selected.tax_id,
+      email: selected.email,
+      password_: "temporal123",
+      role_id: 2
+    };
+
+    try {
+      const created = await addUser(newUserData);
+      alert(`✅ Usuario creado con éxito: ${created.fullname}`);
+    } catch (err) {
+      console.error(err);
+      alert("❌ Error al crear usuario desde voluntariado");
+    }
+  }
+});
 
 }
