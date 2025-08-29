@@ -43,22 +43,23 @@ router.get("/:id", async (req, res) => {
 // POST crear usuario
 router.post("/", async (req, res) => {
   try {
-    const { fullname, identification, email, password_ } = req.body;
+    const { fullname, identification, email, password_, role_id } = req.body;
 
-    if (!fullname || !identification || !email || !password_) {
+    if (!fullname || !identification || !email || !password_ || !role_id) {
       return res.status(400).json({ message: "Faltan datos obligatorios" });
     }
 
     const [result] = await pool.query(
-      "INSERT INTO users (fullname, identification, email, password_, role_id ) VALUES (?, ?, ?, ?, ?)",
-      [fullname, identification, email, password_, 1]
+      "INSERT INTO users (fullname, identification, email, password_, role_id) VALUES (?, ?, ?, ?, ?)",
+      [fullname, identification, email, password_, role_id]
     );
 
-    res.status(201).json({      fullname,
+    res.status(201).json({
+      fullname,
       identification,
       email,
       password_,
-      role_id: 1
+      role_id
     });
   } catch (error) {
     res.status(500).json({
@@ -138,5 +139,41 @@ router.delete("/:user_id", async (req, res) => {
   }
 });
 
+//GET ALL THE USER WITH TE ROL USER
 
+router.get("/role/1", async (req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT * FROM users WHERE role_id = 1");
+
+    if (rows.length === 0) {
+      return res.status(404).json({ status: "error", message: "No se encontraron usuarios" });
+    }
+
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      endpoint: req.originalUrl,
+      method: req.method,
+      message: error.message
+    });
+  }
+});
+
+
+//USER ROLE ID VOLUNTEER
+router.get("/role/2", async (req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT * FROM users WHERE role_id = 2");
+
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      endpoint: req.originalUrl,
+      method: req.method,
+      message: error.message
+    });
+  }
+});
 export default router;
