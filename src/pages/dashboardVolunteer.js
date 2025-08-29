@@ -40,10 +40,6 @@ export function renderDashboardVolunteer(app) {
               </div>
             </article>
           </section>
-
-          <!-- Empty Post Cards -->
-          <section class="bg-white rounded-2xl h-32 shadow-sm border border-gray-100"></section>
-          <section class="bg-white rounded-2xl h-32 shadow-sm border border-gray-100"></section>
         </div>
       </main>
     </div>

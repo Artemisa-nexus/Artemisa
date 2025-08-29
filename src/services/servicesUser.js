@@ -59,6 +59,8 @@ export async function GetAllRollUSer() {
   return await res.json();
 }
 
+//Obtener todos los usuarios role volunteer
+
 export async function getAllRollVolunteers() {
   const res = await fetch(`${API_URL}/role/2`, {
     method: "GET",

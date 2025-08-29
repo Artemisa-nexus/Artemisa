@@ -1,8 +1,8 @@
 import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
 import { addUser } from "../services/registerService";
-import { GetAllRollUSer, getAllRollVolunteers } from "../services/servicesUser";
-import { getVolunteerOrgById } from "../services/volunteerService";
+import { GetAllRollUSer, getAllRollVolunteers} from "../services/servicesUser";
+import { getAllVolunteerOrgs, getVolunteerOrgById } from "../services/volunteerService";
 
 export function renderDashboardProfileAdmi(app) {
   const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" };
@@ -29,6 +29,11 @@ export function renderDashboardProfileAdmi(app) {
             <h3 class="text-2xl font-bold text-[#f56d95] mb-4">Voluntariados</h3>
             <div id="volunteers-container" class="grid grid-cols-2 gap-6"></div>
           </section>
+
+          <section>
+            <h3 class="text-2xl font-bold text-[#f56d95] mb-4">Organizaciones de Voluntariado por aceptar</h3>
+            <div id="volunteers-container-to-accept" class="grid grid-cols-2 gap-6"></div>
+          </section>
         </main>
       </div>
 
@@ -40,6 +45,7 @@ export function renderDashboardProfileAdmi(app) {
   const usersContainer = document.getElementById("users-container");
   const addVolunteerBtn = document.getElementById("add-volunteer");
   const volunteersContainer = document.getElementById("volunteers-container");
+  const volunteersContainerToAccept = document.getElementById("volunteers-container-to-accept");
 
   GetAllRollUSer()
     .then(users => {
@@ -57,25 +63,21 @@ export function renderDashboardProfileAdmi(app) {
       usersContainer.innerHTML = `<p class="text-red-500">Error cargando usuarias</p>`;
     });
 
-    GetAllRollUSer().then(users => {
-      usersContainer.innerHTML = ""; // limpiar antes
-      users.forEach(u => {
-        usersContainer.innerHTML += `
+    getAllRollVolunteers().then(volunteers => {
+      volunteersContainer.innerHTML = ""; // limpiar antes
+      volunteers.forEach(v => {
+        volunteersContainer.innerHTML += `
           <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
-            <h4 class="text-md font-semibold text-gray-800">${u.fullname}</h4>
-            <p class="text-gray-500 text-sm">${u.email || "Sin correo"}</p>
+            <h4 class="text-md font-semibold text-gray-800">${v.fullname}</h4>
+            <p class="text-gray-500 text-sm">${v.email || "Sin correo"}</p>
           </article>`;
       });
-    })
-    .catch(error => {
-      console.error("Error fetching users:", error);
-      usersContainer.innerHTML = `<p class="text-red-500">Error cargando usuarias</p>`;
     });
 
-   getAllRollVolunteers().then(volunteers => {
-  volunteersContainer.innerHTML = ""; // limpiar antes
+   getAllVolunteerOrgs().then(volunteers => {
+  volunteersContainerToAccept.innerHTML = ""; // limpiar antes
   volunteers.forEach(v => {
-    volunteersContainer.innerHTML += `
+    volunteersContainerToAccept.innerHTML += `
       <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
         <h4 class="text-md font-semibold text-gray-800">${v.business_name}</h4>
         <p class="text-gray-500 text-sm">${v.email || "Sin correo"}</p>
@@ -84,6 +86,11 @@ export function renderDashboardProfileAdmi(app) {
           Agregar
         </button>
       </article>`;
+      if(addVolunteerBtn) {
+        addVolunteerBtn.addEventListener("click", () => {
+          
+        });
+      }
   });
 })
 .catch(error => {
@@ -93,7 +100,7 @@ export function renderDashboardProfileAdmi(app) {
 
 
 // === Delegación de eventos ===
-volunteersContainer.addEventListener("click", async (e) => {
+volunteersContainerToAccept.addEventListener("click", async (e) => {
   if (e.target.id.startsWith("add-volunteer-")) {
     const volunteerId = e.target.id.split("-")[2]; // aquí ya tienes el ID correcto
 
@@ -115,6 +122,15 @@ volunteersContainer.addEventListener("click", async (e) => {
     try {
       const created = await addUser(newUserData);
       alert(`✅ Usuario creado con éxito: ${created.fullname}`);
+      // actualizar la lista de voluntariados sin recargar la página
+      const newVolunteerArticle = document.createElement("article");
+      newVolunteerArticle.className = "bg-white rounded-2xl shadow-sm border border-gray-200 p-4";
+      newVolunteerArticle.innerHTML = `
+        <h4 class="text-md font-semibold text-gray-800">${created.fullname}</h4>
+        <p class="text-gray-500 text-sm">${created.email || "Sin correo"}</p>
+      `;
+      volunteersContainerToAccept.appendChild(newVolunteerArticle);
+
     } catch (err) {
       console.error(err);
       alert("❌ Error al crear usuario desde voluntariado");

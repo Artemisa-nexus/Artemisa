@@ -1,6 +1,6 @@
 import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
-import { getAllUsers } from "../services/servicesUser";
+import { GetAllRollUSer} from "../services/servicesUser";
 
 export function renderDashboardProfileVolunteer(app) {
   const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" };
@@ -33,7 +33,7 @@ export function renderDashboardProfileVolunteer(app) {
   // === Renderizar todas las usuarias ===
   const usersContainer = document.getElementById("users-container");
 
-  getAllUsers()
+  GetAllRollUSer()
     .then(users => {
       usersContainer.innerHTML = "";
       users.forEach(u => {
