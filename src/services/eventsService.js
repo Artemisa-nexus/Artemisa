@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000/events_participants";
+const API_URL = "http://localhost:3000/event_participants";
 
 export async function fetchEventParticipants() {
   const res = await fetch(API_URL);
@@ -11,11 +11,14 @@ export async function createEventParticipant(participantData) {
     const res = await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(participantData)
+      body: JSON.stringify(participantData),
     });
 
-    if (!res.ok) throw new Error("Error al crear participante del evento");
-    return res.json(); // 👈 retorna el participante creado
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(data.error || "Error al crear participante del evento");
+
+    return data; // participante creado
   } catch (error) {
     console.error("Error creating event participant:", error);
     throw error;

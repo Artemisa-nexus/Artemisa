@@ -7,6 +7,10 @@ import { createEventParticipant } from "../services/eventsService";
 export function renderDashboardEvents(app) {
   const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" };
 
+  if (!user.user_id) {
+    alert("Debes iniciar sesión para unirte a eventos");
+  }
+
   app.innerHTML = `
     ${renderNav()}
     <div class="flex">
@@ -50,13 +54,19 @@ export function renderDashboardEvents(app) {
       </button>
     `;
 
-    // Botón unirse
+    // Botón unirse — ¡debe ir DENTRO de renderEventCard!
     const joinBtn = card.querySelector(".join-btn");
     joinBtn.addEventListener("click", async () => {
+      if (!user.user_id) {
+        alert("Debes iniciar sesión para unirte a un evento.");
+        return;
+      }
+
       if (evt.available_capacity <= 0) {
         alert("Lo sentimos, no hay cupos disponibles para este evento.");
         return;
       }
+
       try {
         await createEventParticipant({
           event_id: evt.event_id,
@@ -68,7 +78,7 @@ export function renderDashboardEvents(app) {
         card.querySelector(".capacity").innerHTML = `<span class="font-medium">Cupos disponibles:</span> ${evt.available_capacity}`;
       } catch (err) {
         console.error("Error al unirse al evento:", err);
-        alert("No se pudo unir al evento. Intenta nuevamente.");
+        alert(err.message || "No se pudo unir al evento. Intenta nuevamente.");
       }
     });
 

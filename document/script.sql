@@ -30,12 +30,15 @@ CREATE TABLE users (
 -- =============================
 CREATE TABLE events (
     event_id INT PRIMARY KEY AUTO_INCREMENT,
-    event_name VARCHAR(100),
+    event_name VARCHAR(100) NOT NULL,
     description TEXT,
     category VARCHAR(100),
-    event_date DATETIME,
-    city VARCHAR(100),
+    event_date DATETIME NOT NULL,
+    city VARCHAR(100) NOT NULL,
     organizer_id INT,
+    image LONGBLOB,
+    max_capacity INT NOT NULL DEFAULT 0,
+    available_capacity INT NOT NULL DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (organizer_id) REFERENCES users(user_id)
@@ -59,11 +62,13 @@ CREATE TABLE event_participants (
 -- =============================
 CREATE TABLE publications (
     publication_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT,
+    user_id INT NOT NULL,
     content TEXT,
+    image LONGBLOB,
     publication_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    update_date TIMESTAMP DEFAULT current_timestamp,
-    FOREIGN KEY (user_id) references users(user_id)
+    update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    reference_id INT DEFAULT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 -- =============================
