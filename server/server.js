@@ -11,6 +11,7 @@ import course_blogsApi from "./api/course_blogs.js";
 import publicationsApi from "./api/publications.js";
 import metasApi from "./api/metas.js";
 import objetivesApi from "./api/objetivos.js";
+import supportApi from "./api/support.js";
 
 
 const app = express();
@@ -20,11 +21,12 @@ app.use(bodyParser.json());
 // rutas
 app.use("/users", userRouter);
 app.use("/events", eventApi);
-app.use("/event-participants", event_participantsApi);
+app.use("/event_participants", event_participantsApi);
 app.use("/course-blogs", course_blogsApi);
 app.use("/publications", publicationsApi);
 app.use("/metas", metasApi);
 app.use("/objetivos", objetivesApi);
+app.use("/support", supportApi);
 
 app.get("/", (req, res) => res.send("API Artemisa funcionando "));
 
