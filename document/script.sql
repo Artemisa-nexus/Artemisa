@@ -64,7 +64,6 @@ CREATE TABLE publications (
     publication_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     content TEXT,
-    image LONGBLOB,
     publication_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     reference_id INT DEFAULT NULL,
