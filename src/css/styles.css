@@ -1,1 +1,80 @@
 @import "tailwindcss";
+.font-ole {
+      font-family: 'Ole', serif;
+}
+/* grow */
+.logo-grow {
+  animation: grow 0.8s forwards;
+}
+
+/* shrink */
+.logo-shrink {
+  animation: shrink 0.8s forwards;
+}
+
+@keyframes grow {
+  from { transform: scale(1); }
+  to { transform: scale(1.5); }
+}
+
+@keyframes shrink {
+  from { transform: scale(1); }
+  to { transform: scale(0.5); }
+}
+
+/* Animation of the logo*/
+
+.logo-animate {
+  transition: transform 0.8s ease-in-out;
+}
+
+.flower-login.shrink {
+  transform: scale(1); /* Get to the normal size */
+}
+
+@keyframes spin-once {
+  0% { transform: rotate(0deg) scale(0.5); opacity: 0; }
+  50% { transform: rotate(180deg) scale(1.2); opacity: 1; }
+  100% { transform: rotate(360deg) scale(1); opacity: 1; }
+}
+
+.logo-spin {
+  animation: spin-once 1s ease-in-out forwards;
+}
+
+ /* --- Overlay styles, without relying on dynamic classes --- */
+#empOverlay {
+  position: fixed; inset: 0; display: none; 
+  align-items: center; justify-content: center;
+  background: rgba(0,0,0,.5);
+  z-index: 9999;
+}
+#empOverlay.is-open { display: flex; }
+#empOverlay .emp-modal {
+  width: min(680px, 92vw);
+  background: #fff; border-radius: 16px; padding: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.2);
+  transform: translateY(-16px); opacity: 0;
+  transition: transform .2s ease, opacity .2s ease;
+}
+#empOverlay.is-open .emp-modal {
+    transform: translateY(0); opacity: 1;
+}
+
+#evtOverlay {
+  position: fixed; inset: 0; display: none;
+  align-items: center; justify-content: center;
+  background: rgba(0,0,0,.5);
+  z-index: 9999;
+}
+#evtOverlay.is-open { display: flex; }
+#evtOverlay .evt-modal {
+  width: min(680px, 92vw);
+  background: #fff; border-radius: 16px; padding: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.2);
+  transform: translateY(-16px); opacity: 0;
+  transition: transform .2s ease, opacity .2s ease;
+}
+#evtOverlay.is-open .evt-modal {
+  transform: translateY(0); opacity: 1;
+}
