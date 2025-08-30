@@ -16,27 +16,14 @@ import volunteerApi from "./api/volunteer.js";
 
 const app = express();
 
-// Configuración de CORS
-const allowedOrigins = [
-  "http://localhost:5173",              // frontend local
-  "https://artemisa-one.vercel.app"     // frontend en Vercel
-];
-
+// Configuración de CORS (solo Vercel)
 app.use(cors({
-  origin: function (origin, callback) {
-    // permitir requests sin origin (ej: Postman) o si está en la lista
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: "https://artemisa-one.vercel.app", // frontend en producción
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
 
-// Soporte para preflight OPTIONS
+// Preflight para OPTIONS
 app.options("*", cors());
 
 // Middlewares
@@ -59,4 +46,5 @@ app.get("/", (req, res) => res.send("API Artemisa funcionando 🚀"));
 // Servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
+
 
