@@ -8,7 +8,6 @@ import { renderDashboardSupport } from "./pages/dashboardApoyo";
 import { renderDashboardProfile } from "./pages/dashboardProfile";
 import renderForm from "./pages/formularioOng";
 import { renderDashboardEventsVolunteer } from "./pages/dashboardEventsVolunteer";
-import { renderDashboardVolunteer } from "./pages/dashboardVolunteer";
 import { renderDashboardSupportVolunteer } from "./pages/dashboardApoyoVolunteer";
 import { renderDashboardProfileAdmi } from "./pages/dashboardProfileAdmi";
 import { renderDashboardProfileVolunteer } from "./pages/dashboardProfileVolunteer";
@@ -25,7 +24,6 @@ let routes = {
     '/artemisa/dashboard/support': () => renderDashboardSupport(app),
     '/artemisa/dashboard/profile': () => renderDashboardProfile(app),
     '/artemisa/formularioOng': () => renderForm(app),
-    '/artemisa/dashboard/volunteer': () => renderDashboardVolunteer(app),
     '/artemisa/dashboard/events/volunteer': () => renderDashboardEventsVolunteer(app),
     '/artemisa/dashboard/apoyo/volunteer': () => renderDashboardSupportVolunteer(app),
     '/artemisa/dashboard/profile/administrador': () => renderDashboardProfileAdmi(app),

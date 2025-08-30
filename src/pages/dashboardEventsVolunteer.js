@@ -1,7 +1,7 @@
 import { alertError, alertSuccess } from "../components/alerts";
 import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
-import { fetchEvents } from "../services/enventsVolunteerService";
+import { fetchEvents } from "../services/enventsVolunteerService.js";
 
 export function renderDashboardEventsVolunteer(app) {
   const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada", user_id: 1 };
@@ -73,7 +73,7 @@ export function renderDashboardEventsVolunteer(app) {
     const card = document.createElement("article");
     card.className = "bg-white rounded-2xl border border-gray-200 shadow-sm p-4 flex gap-4";
 
-    const imgSrc = evt.image ? `https://artemisa-production.up.railway.app/api${evt.image}` : "/uploads/default.jpg";
+    const imgSrc = evt.image ? `http://localhost:3000/api${evt.image}` : "/uploads/default.jpg";
 
     card.innerHTML = `
       <img src="${imgSrc}" alt="event" class="w-32 h-32 object-cover rounded-lg"/>
@@ -108,7 +108,7 @@ export function renderDashboardEventsVolunteer(app) {
     card.querySelector(".delete-btn").addEventListener("click", async () => {
       if (!confirm("¿Seguro que deseas eliminar este evento?")) return;
       try {
-        const res = await fetch(`https://artemisa-production.up.railway.app/api/events/${evt.event_id}`, { method: "DELETE" });
+        const res = await fetch(`http://localhost:3000/api/events/${evt.event_id}`, { method: "DELETE" });
         if (!res.ok) throw new Error("Error al eliminar");
         card.remove();
         alertSuccess("Evento eliminado con éxito");
@@ -158,10 +158,10 @@ export function renderDashboardEventsVolunteer(app) {
     }
 
     try {
-      let url = "https://artemisa-production.up.railway.app/api/events";
+      let url = "http://localhost:3000/api/events";
       let method = "POST";
       if (eventId) {
-        url = `https://artemisa-production.up.railway.app/api/events/${eventId}`;
+        url = `http://localhost:3000/api/events/${eventId}`;
         method = "PUT";
       }
 

@@ -1,9 +1,9 @@
 import { alertError } from "../components/alerts";
 import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
-import { deleteUser, updateUser } from "../services/servicesUser";
-import { getGoals, showAchievedGoal } from "../services/usersGoalsService";
-import { auth } from "../utils/auth";
+import { deleteUser, updateUser } from "../services/servicesUser.js";
+import { getGoals, showAchievedGoal } from "../services/usersGoalsService.js";
+import { auth } from "../utils/auth.js";
 
 // Render dashboardProfile view
 export function renderDashboardProfile(app) {

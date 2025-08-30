@@ -55,7 +55,7 @@ export function loginPage() {
       const user = JSON.parse(localStorage.getItem("user"));
 
       // 👉 Revisar si viene de un registro
-      if (localStorage.getItem("justRegistered")) {
+      if (localStorage.getItem("justRegistered") && user.user_id === 1) {
         try {
           await saveAchievedGoal({
             user_id: user.user_id,

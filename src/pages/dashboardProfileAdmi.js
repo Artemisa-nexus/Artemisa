@@ -1,9 +1,9 @@
 import { alertError, alertSuccess } from "../components/alerts";
 import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
-import { addUser } from "../services/registerService";
-import { GetAllRollUSer, getAllRollVolunteers} from "../services/servicesUser";
-import { getAllVolunteerOrgs, getVolunteerOrgById } from "../services/volunteerService";
+import { addUser } from "../services/registerService.js";
+import { GetAllRollUSer, getAllRollVolunteers} from "../services/servicesUser.js";
+import { getAllVolunteerOrgs, getVolunteerOrgById } from "../services/volunteerService.js";
 
 export function renderDashboardProfileAdmi(app) {
   const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" };

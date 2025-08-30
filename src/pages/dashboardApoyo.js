@@ -1,7 +1,7 @@
 import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
-import { addSupport } from "../services/supportService";
-import { saveAchievedGoal } from "../services/usersGoalsService"; // ⬅️ importar
+import { addSupport } from "../services/supportService.js";
+import { saveAchievedGoal } from "../services/usersGoalsService.js"; // ⬅️ importar
 
 // Render dashboardSupport view
 export function renderDashboardSupport(app) {

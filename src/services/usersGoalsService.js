@@ -1,4 +1,4 @@
-const API_URL = "https://artemisa-production.up.railway.app/api/metas"; 
+const API_URL = "http://localhost:3000/api/metas"; 
 
 // Obtain all goals
 

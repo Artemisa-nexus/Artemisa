@@ -1,6 +1,6 @@
 import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
-import { GetAllRollUSer} from "../services/servicesUser";
+import { GetAllRollUSer} from "../services/servicesUser.js";
 
 export function renderDashboardProfileVolunteer(app) {
   const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" };

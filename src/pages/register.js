@@ -1,5 +1,5 @@
 import { alertError, alertSuccess } from "../components/alerts";
-import { addUser } from "../services/registerService";
+import { addUser } from "../services/registerService.js";
 
 
 export default function renderRegister(div) {

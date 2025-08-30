@@ -1,7 +1,5 @@
-import 'dotenv/config';
 import express from "express";
 import cors from "cors";
-import morgan from 'morgan';
 
 // importar rutas
 import userRouter from "./api/users.js";
@@ -17,17 +15,20 @@ import { probarConexionBaseDatos } from './db.js';
 
 const app = express();
 
-// Middlewares
-app.use(cors({
-  origin: 'https://artemisa-one.vercel.app', // solo permite tu frontend
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
-}));
-app.use(express.json());
-app.use(morgan('dev'));
+const allowedOrigins = [
+  "https://artemisa-one.vercel.app", // tu front en producción
+  "http://localhost:5173"            // tu front en local
+];
 
-// Healthcheck endpoint
-app.get('/health', (_req, res) => res.json({ ok: true }));
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS no permitido"));
+    }
+  }
+}));
 
 // Test DB connection
 probarConexionBaseDatos();
@@ -43,19 +44,11 @@ app.use("/api", objetivesApi);
 app.use("/api", supportApi);
 app.use("/api", volunteerApi);
 
-// Handle 404 - Not Found
-app.use((_req, res) => {
-  res.status(404).json({ error: 'Endpoint no encontrado' });
+app.use((req, res) => {
+  res.status(404).json({ error: "Endpoint no encontrado" });
 });
 
-// Global error handler middleware
-app.use((err, _req, res, _next) => {
-  console.error('Error inesperado:', err);
-  res.status(500).json({ error: 'Error interno del servidor' });
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor en puerto ${PORT}`);
+app.listen(3000, () => {
+  console.log("Servidor corriendo en http://localhost:3000");
 });
 

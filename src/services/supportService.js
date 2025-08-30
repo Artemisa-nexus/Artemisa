@@ -1,4 +1,4 @@
-const API_URL = "https://artemisa-production.up.railway.app/api";
+const API_URL = "http://localhost:3000/api";
 
 //Obtain support by id
 export async function getSupport(id) {
