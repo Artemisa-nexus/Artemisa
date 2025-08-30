@@ -1,3 +1,4 @@
+import { alertError, alertSuccess } from "../components/alerts";
 import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
 import { fetchEvents } from "../services/enventsVolunteerService";
@@ -9,7 +10,7 @@ export function renderDashboardEvents(app) {
   const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" };
 
   if (!user.user_id) {
-    alert("Debes iniciar sesión para unirte a eventos");
+    alertError("Debes iniciar sesión para unirte a eventos");
   }
 
   app.innerHTML = `
@@ -59,7 +60,7 @@ export function renderDashboardEvents(app) {
 
   joinBtn.addEventListener("click", async () => {
     if (evt.available_capacity <= 0) {
-      alert("Lo sentimos, no hay cupos disponibles para este evento.");
+      alertError("Lo sentimos, no hay cupos disponibles para este evento.");
       return;
     }
 
@@ -68,7 +69,7 @@ export function renderDashboardEvents(app) {
         event_id: evt.event_id,
         user_id: user.user_id,
       });
-      alert(`Te has unido al evento: ${evt.event_name}`);
+      alertSuccess(`Te has unido al evento: ${evt.event_name}`);
 
       // Meta alcanzada
       await saveAchievedGoal({
@@ -83,7 +84,7 @@ export function renderDashboardEvents(app) {
 
     } catch (err) {
       console.error("Error al unirse al evento:", err);
-      alert(err.message || "No se pudo unir al evento. Intenta nuevamente.");
+      alertError(err.message || "No se pudo unir al evento. Intenta nuevamente.");
     }
   });
 
