@@ -4,7 +4,7 @@ import { pool } from "../db.js";
 const router = Router();
 
 // GET all publicaciones
-router.get("/", async (req, res) => {
+router.get("/publications", async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT * FROM publications");
     res.json(rows);
@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
 
 
 // CREATE publicacion
-router.post("/", async (req, res) => {
+router.post("/publications", async (req, res) => {
   try {
     const { user_id, content, image, publication_date, reference_id } = req.body;
 
@@ -63,7 +63,7 @@ router.post("/", async (req, res) => {
 
 
 // GET publicacion por ID
-router.get("/:id", async (req, res) => {
+router.get("/publications/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const [publication] = await pool.query(
@@ -95,7 +95,7 @@ router.get("/:id", async (req, res) => {
 
 
 // UPDATE publicacion
-router.put("/:id", async (req, res) => {
+router.put("/publications/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { user_id, content, image, publication_type, reference_id } = req.body;
@@ -127,7 +127,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // DELETE publicacion
-router.delete("/:id", async (req, res) => {
+router.delete("/publications/:id", async (req, res) => {
   try {
     const { id } = req.params;
 

@@ -14,11 +14,10 @@ export const pool = mysql.createPool({
 export async function probarConexionBaseDatos() {
   try {
     const connection = await pool.getConnection();
-    console.log('Conexión a la base de datos exitosa');
     connection.release();
+    console.log('Conexión a la base de datos exitosa');
   } catch (error) {
     console.error('Error al conectar a la base de datos:', error.message);
   }
 }
 
-probarConexionBaseDatos();

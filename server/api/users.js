@@ -6,7 +6,7 @@ const router = Router();
 // =============================
 // GET all users
 // =============================
-router.get("/", async (req, res) => {
+router.get("/users", async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT * FROM users");
     res.json(rows);
@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
 // =============================
 // GET users by role (role_id = 1)
 // =============================
-router.get("/role/1", async (req, res) => {
+router.get("/users/role/1", async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT * FROM users WHERE role_id = 1");
 
@@ -45,7 +45,7 @@ router.get("/role/1", async (req, res) => {
 // =============================
 // GET users by role (role_id = 2)
 // =============================
-router.get("/role/2", async (req, res) => {
+router.get("/users/role/2", async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT * FROM users WHERE role_id = 2");
     res.json(rows);
@@ -62,7 +62,7 @@ router.get("/role/2", async (req, res) => {
 // =============================
 // GET user by ID (ESTE VA AL FINAL)
 // =============================
-router.get("/:id", async (req, res) => {
+router.get("/users/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const [rows] = await pool.query("SELECT * FROM users WHERE user_id = ?", [id]);
@@ -85,7 +85,7 @@ router.get("/:id", async (req, res) => {
 // =============================
 // POST - Crear usuario
 // =============================
-router.post("/", async (req, res) => {
+router.post("/users", async (req, res) => {
   try {
     const { fullname, identification, email, password_, role_id } = req.body;
 
@@ -116,7 +116,7 @@ router.post("/", async (req, res) => {
 // =============================
 // PUT - Actualizar usuario
 // =============================
-router.put("/:user_id", async (req, res) => {
+router.put("/users/:user_id", async (req, res) => {
   try {
     const { user_id } = req.params;
     const { fullname, identification, email, password_ } = req.body;
@@ -153,7 +153,7 @@ router.put("/:user_id", async (req, res) => {
 // =============================
 // DELETE - Eliminar usuario
 // =============================
-router.delete("/:user_id", async (req, res) => {
+router.delete("/users/:user_id", async (req, res) => {
   try {
     const { user_id } = req.params;
 

@@ -19,7 +19,7 @@ const toIntOrDefault = (v, d = 0) => {
 // ========================
 // GET all events
 // ========================
-api.get("/", async (req, res) => {
+api.get("/events", async (req, res) => {
   try {
     const [rows] = await pool.query(
       `SELECT event_id, event_name, description, category, event_date, city, organizer_id,
@@ -41,7 +41,7 @@ api.get("/", async (req, res) => {
 // ========================
 // GET event by ID
 // ========================
-api.get("/:id", async (req, res) => {
+api.get("/events/:id", async (req, res) => {
   try {
     const [rows] = await pool.query(
       `SELECT event_id, event_name, description, category, event_date, city, organizer_id,
@@ -65,7 +65,7 @@ api.get("/:id", async (req, res) => {
 // ========================
 // GET event image
 // ========================
-api.get("/:id/image", async (req, res) => {
+api.get("/events/:id/image", async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT image FROM events WHERE event_id = ?", [req.params.id]);
     if (rows.length === 0 || !rows[0].image) return res.status(404).send("Imagen no encontrada");
@@ -82,7 +82,7 @@ api.get("/:id/image", async (req, res) => {
 // ========================
 // CREATE event (con cupos + imagen)
 // ========================
-api.post("/", upload.single("image"), async (req, res) => {
+api.post("/events", upload.single("image"), async (req, res) => {
   try {
     // Log para depuración (borra en producción si quieres)
     console.log("POST /events req.body =", req.body);
@@ -149,7 +149,7 @@ api.post("/", upload.single("image"), async (req, res) => {
 // ========================
 // UPDATE event (con imagen opcional)
 // ========================
-api.put("/:id", upload.single("image"), async (req, res) => {
+api.put("/events/:id", upload.single("image"), async (req, res) => {
   try {
     console.log(`PUT /events/${req.params.id} req.body =`, req.body);
     console.log(`PUT /events/${req.params.id} req.file =`, !!req.file ? { size: req.file.size, mimetype: req.file.mimetype } : null);
@@ -215,7 +215,7 @@ api.put("/:id", upload.single("image"), async (req, res) => {
 // ========================
 // DELETE event
 // ========================
-api.delete("/:id", async (req, res) => {
+api.delete("/events/:id", async (req, res) => {
   try {
     const [result] = await pool.query("DELETE FROM events WHERE event_id = ?", [req.params.id]);
     if (result.affectedRows === 0) return res.status(404).json({ message: "Evento no encontrado" });
@@ -229,7 +229,7 @@ api.delete("/:id", async (req, res) => {
 // ========================
 // REGISTER to event (reduce cupos)
 // ========================
-api.post("/:id/register", async (req, res) => {
+api.post("/events/:id/register", async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT available_capacity FROM events WHERE event_id = ?", [req.params.id]);
     if (rows.length === 0) return res.status(404).json({ message: "Evento no encontrado" });

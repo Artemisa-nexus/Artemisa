@@ -4,7 +4,7 @@ import { pool } from "../db.js";
 const router = Router();
 
 //GET all supports
-router.get("/", async (req, res) => {
+router.get("/support", async (req, res) => {
     try{
         const [rows] = await pool.query("SELECT * FROM support");
         res.json(rows); 
@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
 });
 
 //GET support by ID
-router.get("/:id", async (req, res) => {
+router.get("/support/:id", async (req, res) => {
     try{
         const { id } = req.params;
         const [rows] = await pool.query("SELECT * FROM support WHERE support_id = ?", [id]);
@@ -43,7 +43,7 @@ router.get("/:id", async (req, res) => {
 });
 
 //CREATE support
-router.post("/", async (req, res) => {
+router.post("/support", async (req, res) => {
     try{
         const {support_name, description, email} = req.body;
 

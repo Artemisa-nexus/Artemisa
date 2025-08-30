@@ -6,7 +6,7 @@ const router = Router();
 // ======================
 // GET all volunteer_orgs
 // ======================
-router.get("/", async (req, res) => {
+router.get("/volunteers", async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT * FROM volunteer_orgs");
     res.json(rows);
@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
 // ======================
 // GET volunteer_org by ID
 // ======================
-router.get("/:id", async (req, res) => {
+router.get("/volunteers/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const [rows] = await pool.query(
@@ -52,7 +52,7 @@ router.get("/:id", async (req, res) => {
 // ======================
 // POST create volunteer_org
 // ======================
-router.post("/", async (req, res) => {
+router.post("/volunteers", async (req, res) => {
   try {
     const {
       business_name,
@@ -117,7 +117,7 @@ router.post("/", async (req, res) => {
 // ======================
 // PUT update volunteer_org
 // ======================
-router.put("/:id", async (req, res) => {
+router.put("/volunteers/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const {
@@ -177,7 +177,7 @@ router.put("/:id", async (req, res) => {
 // ======================
 // DELETE volunteer_org
 // ======================
-router.delete("/:id", async (req, res) => {
+router.delete("/volunteers/:id", async (req, res) => {
   try {
     const { id } = req.params;
 

@@ -6,7 +6,7 @@ const router = Router();
 // =============================
 // GET todas las metas
 // =============================
-router.get("/", async (req, res) => {
+router.get("/metas", async (req, res) => {
   try {
     const [results] = await pool.query("SELECT * FROM goals");
     res.json(results);
@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
 // =============================
 // POST - registrar meta alcanzada
 // =============================
-router.post("/achieved", async (req, res) => {
+router.post("/metas/achieved", async (req, res) => {
   try {
     const { user_id, goal_id } = req.body;
 
@@ -46,7 +46,7 @@ router.post("/achieved", async (req, res) => {
 // =============================
 // GET metas alcanzadas de un usuario
 // =============================
-router.get("/achieved/:user_id", async (req, res) => {
+router.get("/metas/achieved/:user_id", async (req, res) => {
   try {
     const { user_id } = req.params;
     const [results] = await pool.query(

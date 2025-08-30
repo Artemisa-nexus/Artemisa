@@ -34,15 +34,15 @@ app.get('/health', (_req, res) => res.json({ ok: true }));
 probarConexionBaseDatos();
 
 // ✅ Rutas con prefijo /api
-app.use("/api/users", userRouter);
-app.use("/api/events", eventApi);
-app.use("/api/event_participants", event_participantsApi);
-app.use("/api/course-blogs", course_blogsApi);
-app.use("/api/publications", publicationsApi);
-app.use("/api/metas", metasApi);
-app.use("/api/objetivos", objetivesApi);
-app.use("/api/support", supportApi);
-app.use("/api/volunteers", volunteerApi);
+app.use("/api", userRouter);
+app.use("/api", eventApi);
+app.use("/api", event_participantsApi);
+app.use("/api", course_blogsApi);
+app.use("/api", publicationsApi);
+app.use("/api", metasApi);
+app.use("/api", objetivesApi);
+app.use("/api", supportApi);
+app.use("/api", volunteerApi);
 
 // Handle 404 - Not Found
 app.use((_req, res) => {

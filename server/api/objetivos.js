@@ -6,7 +6,7 @@ const router = Router();
 /**
  * GET all achieved_goals
  */
-router.get("/", async (req, res) => {
+router.get("/objetivos", async (req, res) => {
   try {
     const [results] = await pool.query(`
       SELECT ag.achieved_id, ag.user_id, u.fullname, ag.goal_id, g.title AS goal_title, ag.achieved_date, ag.reward
@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
 /**
  * GET all achieved_goals for a specific user
  */
-router.get("/user/:user_id", async (req, res) => {
+router.get("/objetivos/user/:user_id", async (req, res) => {
   try {
     const { user_id } = req.params;
     const [results] = await pool.query(
@@ -45,7 +45,7 @@ router.get("/user/:user_id", async (req, res) => {
 /**
  * GET achieved_goal by ID
  */
-router.get("/:id", async (req, res) => {
+router.get("/objetivos/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const [result] = await pool.query(
@@ -72,7 +72,7 @@ router.get("/:id", async (req, res) => {
 /**
  * CREATE achieved_goal
  */
-router.post("/", async (req, res) => {
+router.post("/objetivos", async (req, res) => {
   try {
     const { user_id, goal_id, reward } = req.body;
 
@@ -90,7 +90,7 @@ router.post("/", async (req, res) => {
 /**
  * UPDATE achieved_goal
  */
-router.put("/:id", async (req, res) => {
+router.put("/objetivos/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { reward } = req.body;
@@ -113,7 +113,7 @@ router.put("/:id", async (req, res) => {
 /**
  * DELETE achieved_goal
  */
-router.delete("/:id", async (req, res) => {
+router.delete("/objetivos/:id", async (req, res) => {
   try {
     const { id } = req.params;
 

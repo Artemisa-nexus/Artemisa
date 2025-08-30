@@ -4,7 +4,7 @@ import { Router } from 'express';
 const api = Router();
 
 // GET all course blogs
-api.get('/', async (req, res) => {
+api.get('/course-blogs', async (req, res) => {
   try {
     const [rows] = await pool.query('SELECT * FROM course_blogs');
     res.json(rows);
@@ -19,7 +19,7 @@ api.get('/', async (req, res) => {
 });
 
 // CREATE a course blog
-api.post('/', async (req, res) => {
+api.post('/course-blogs', async (req, res) => {
   try {
     const { type, title, content, user_id } = req.body;
 

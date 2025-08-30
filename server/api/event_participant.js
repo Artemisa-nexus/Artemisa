@@ -4,7 +4,7 @@ import { pool } from "../db.js";
 const api = Router();
 
 // GET all event participants
-api.get("/", async (req, res) => {
+api.get("/event_participants", async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT * FROM event_participants");
     res.json(rows);
@@ -14,7 +14,7 @@ api.get("/", async (req, res) => {
 });
 
 // POST a new event participant
-api.post("/", async (req, res) => {
+api.post("/event_participants", async (req, res) => {
   const { user_id, event_id } = req.body;
 
   if (!user_id || !event_id) {
