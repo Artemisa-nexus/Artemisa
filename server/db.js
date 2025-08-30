@@ -11,7 +11,7 @@ export const pool = mysql.createPool({
   database: process.env.DB_NAME,
 });
 
-async function probarConexionBaseDatos() {
+export async function probarConexionBaseDatos() {
   try {
     const connection = await pool.getConnection();
     console.log('Conexión a la base de datos exitosa');

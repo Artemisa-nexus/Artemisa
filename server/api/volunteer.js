@@ -73,13 +73,16 @@ router.post("/", async (req, res) => {
       !phone ||
       !city
     ) {
-      return res.status(400).json({ message: "Faltan datos obligatorios" });
+      return res.status(400).json({
+        status: "error",
+        message: "Faltan datos obligatorios",
+      });
     }
 
     const [result] = await pool.query(
       `INSERT INTO volunteer_orgs 
-      (business_name, tax_id, legal_representative_name, legal_representative_id, email, phone, city) 
-      VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        (business_name, tax_id, legal_representative_name, legal_representative_id, email, phone, city) 
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
       [
         business_name,
         tax_id,
@@ -91,19 +94,21 @@ router.post("/", async (req, res) => {
       ]
     );
 
+    const [newOrg] = await pool.query(
+      "SELECT * FROM volunteer_orgs WHERE volunteer_org_id = ?",
+      [result.insertId]
+    );
+
     res.status(201).json({
-      volunteer_org_id: result.insertId,
-      business_name,
-      tax_id,
-      legal_representative_name,
-      legal_representative_id,
-      email,
-      phone,
-      city,
+      status: "ok",
+      message: "Organización creada",
+      volunteer_org: newOrg[0],
     });
   } catch (error) {
     res.status(500).json({
       status: "error",
+      endpoint: req.originalUrl,
+      method: req.method,
       message: error.message,
     });
   }
@@ -127,8 +132,8 @@ router.put("/:id", async (req, res) => {
 
     const [result] = await pool.query(
       `UPDATE volunteer_orgs 
-       SET business_name = ?, tax_id = ?, legal_representative_name = ?, legal_representative_id = ?, 
-           email = ?, phone = ?, city = ?
+         SET business_name = ?, tax_id = ?, legal_representative_name = ?, legal_representative_id = ?, 
+             email = ?, phone = ?, city = ?
        WHERE volunteer_org_id = ?`,
       [
         business_name,
@@ -149,15 +154,15 @@ router.put("/:id", async (req, res) => {
       });
     }
 
+    const [updatedOrg] = await pool.query(
+      "SELECT * FROM volunteer_orgs WHERE volunteer_org_id = ?",
+      [id]
+    );
+
     res.json({
-      volunteer_org_id: id,
-      business_name,
-      tax_id,
-      legal_representative_name,
-      legal_representative_id,
-      email,
-      phone,
-      city,
+      status: "ok",
+      message: "Organización actualizada",
+      volunteer_org: updatedOrg[0],
     });
   } catch (error) {
     res.status(500).json({
