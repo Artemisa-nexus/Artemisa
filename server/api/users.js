@@ -96,7 +96,7 @@ router.put("/:user_id", async (req, res) => {
       email
     });
   } catch (error) {
-    console.error("❌ Error en UPDATE:", error.message);
+    console.error("Error en UPDATE:", error.message);
     res.status(500).json({
       status: "error",
       endpoint: req.originalUrl,

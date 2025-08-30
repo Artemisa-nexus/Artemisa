@@ -32,7 +32,7 @@ const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" 
   function renderCitas() {
     container.innerHTML = "";
     if (citas.length === 0) {
-      container.innerHTML = `<p class="text-gray-500 text-center">No hay citas agendadas todavía.</p>`;
+      container.innerHTML = `<p class="text-gray-500 text-center">No hay ningun formulario recibido</p>`;
     } else {
       citas.forEach((cita, index) => {
         container.innerHTML += `

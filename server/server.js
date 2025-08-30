@@ -14,12 +14,24 @@ import objetivesApi from "./api/objetivos.js";
 import supportApi from "./api/support.js";
 import volunteerApi from "./api/volunteer.js";
 
-
 const app = express();
-app.use(cors());
+
+// Configuración de CORS
+const allowedOrigins = [
+  "http://localhost:5173",                // frontend local
+  "https://artemisa-production.up.railway.app" // dominio en Railway
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: true
+}));
+
+// Middlewares
 app.use(bodyParser.json());
 
-// rutas
+// Rutas
 app.use("/users", userRouter);
 app.use("/events", eventApi);
 app.use("/event_participants", event_participantsApi);
@@ -30,7 +42,10 @@ app.use("/objetivos", objetivesApi);
 app.use("/support", supportApi);
 app.use("/volunteers", volunteerApi);
 
-app.get("/", (req, res) => res.send("API Artemisa funcionando "));
+// Ruta raíz
+app.get("/", (req, res) => res.send("API Artemisa funcionando 🚀"));
 
-const PORT = 3000;
-app.listen(PORT, () => console.log(`Servidor en http://localhost:${PORT}`));
+// Servidor
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
+

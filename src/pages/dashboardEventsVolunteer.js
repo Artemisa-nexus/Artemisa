@@ -1,3 +1,4 @@
+import { alertError, alertSuccess } from "../components/alerts";
 import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
 import { fetchEvents } from "../services/enventsVolunteerService";
@@ -110,10 +111,10 @@ export function renderDashboardEventsVolunteer(app) {
         const res = await fetch(`http://localhost:3000/events/${evt.event_id}`, { method: "DELETE" });
         if (!res.ok) throw new Error("Error al eliminar");
         card.remove();
-        alert("Evento eliminado con éxito");
+        alertSuccess("Evento eliminado con éxito");
       } catch (err) {
         console.error(err);
-        alert("Error al eliminar evento");
+        alertError("Error al eliminar evento");
       }
     });
 
@@ -171,10 +172,10 @@ export function renderDashboardEventsVolunteer(app) {
       closeModal();
       document.getElementById("evtForm").reset();
       loadEvents(); 
-      alert(eventId ? "Evento actualizado con éxito" : "Evento creado con éxito");
+      alertSuccess(eventId ? "Evento actualizado con éxito" : "Evento creado con éxito");
     } catch (err) {
       console.error(err);
-      alert("Error al guardar evento");
+      alertError("Error al guardar evento");
     }
   });
 

@@ -7,7 +7,7 @@ export function renderLanding(app) {
       <article class="max-w-7xl h-20 mx-auto flex items-center justify-between">
         <div class="flex items-center space-x-3">
           <article class="w-20 h-20 m-4 relative cursor-pointer">
-            <img src="/public/assets/Icono.svg" class="w-full h-full">
+            <img src="/public/assets/icono.svg" class="w-full h-full">
           </article>
           <img src="/public/assets/logo_color.svg" class="w-35 h-40 m-4">
         </div>
@@ -221,6 +221,7 @@ export function renderLanding(app) {
         <a href="#" class="text-white hover:text-pink-200 transition-colors">
           <img src="../public/assets/icono_ig.svg" alt="Instagram" class="w-8 h-8">
         </a>
+        <p class="text-white">© 2025 Artemisa. All rights reserved</p>
       </div>
     </div>
   </div>

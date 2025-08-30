@@ -1,3 +1,4 @@
+import { alertError } from "../components/alerts";
 import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
 import { deleteUser, updateUser } from "../services/servicesUser";
@@ -102,7 +103,7 @@ export function renderDashboardProfile(app) {
       overlay.classList.add("hidden");
       renderDashboardProfile(app);
     } catch (err) {
-      alert("Error al actualizar usuario: " + err.message);
+      alertError("Error al actualizar usuario: " + err.message);
     }
   });
 
@@ -114,7 +115,7 @@ export function renderDashboardProfile(app) {
         await deleteUser(user.user_id);
         auth.logOut();
       } catch (err) {
-        alert("No se pudo eliminar el usuario: " + err.message);
+        alertError("No se pudo eliminar el usuario: " + err.message);
       }
     }
   });
