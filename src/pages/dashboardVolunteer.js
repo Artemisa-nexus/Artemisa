@@ -47,7 +47,7 @@ export function renderDashboardVolunteer(app) {
   `;
 
   navEvents();
-
+/*
   // Handler para publicar texto y foto
   const publishBtn = document.getElementById("publish-btn");
   const postTextarea = document.getElementById("post-textarea");
@@ -85,4 +85,5 @@ export function renderDashboardVolunteer(app) {
       console.error("Error al publicar:", error);
     }
   });
+  */
 }

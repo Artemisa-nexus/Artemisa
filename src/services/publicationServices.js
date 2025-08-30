@@ -1,3 +1,5 @@
+import { alertError } from "../components/alerts";
+
 const API_URL = "https://artemisa-production.up.railway.app/publications";
 
 // Crear una nueva publicacin
@@ -44,11 +46,11 @@ export async function getPublicationById(id) {
     return await res.json();
   } catch (error) {
     console.error("Error en getPublicationById:", error.message);
-    alert("No se pudo cargar la publicaciÃ³n.");
+    alertError("No se pudo cargar la publicación.");
   }
 }
 
-//  Actualizar una poblicacion 
+//  Actualizar una publicación
 
 export async function updatePublication(id, publication) {
   try {
