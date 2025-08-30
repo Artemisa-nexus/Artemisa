@@ -1,6 +1,6 @@
 // src/services/servicesVolunteerOrgs.js
 
-const API_URL = "https://artemisa-production.up.railway.app/volunteers"; 
+const API_URL = "https://artemisa-production.up.railway.app/api/volunteers"; 
 // 👆 cambia el puerto si tu backend corre en otro
 
 // Obtener todas las organizaciones

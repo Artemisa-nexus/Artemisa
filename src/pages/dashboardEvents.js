@@ -39,7 +39,7 @@ export function renderDashboardEvents(app) {
     "bg-white rounded-2xl border border-gray-200 shadow-md p-6 flex flex-col items-center text-center transition transform hover:-translate-y-1 hover:shadow-xl hover:border-4 hover:border-[#f56d95]";
 
   card.innerHTML = `
-    <img src="https://artemisa-production.up.railway.app${evt.image || "/uploads/default.jpg"}" 
+    <img src="https://artemisa-production.up.railway.app/api${evt.image || "/uploads/default.jpg"}" 
          alt="event" 
          class="w-72 h-72 object-cover rounded-xl shadow-md mb-4"/>
 

@@ -1,5 +1,5 @@
 // API for users and events
-const BASE_URL = "https://artemisa-production.up.railway.app";
+const BASE_URL = "https://artemisa-production.up.railway.app/api";
 
 // USERS API
 

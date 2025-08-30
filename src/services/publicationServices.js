@@ -1,6 +1,6 @@
 import { alertError } from "../components/alerts";
 
-const API_URL = "https://artemisa-production.up.railway.app/publications";
+const API_URL = "https://artemisa-production.up.railway.app/api/publications";
 
 // Crear una nueva publicacin
 export async function addPublication(publication) {

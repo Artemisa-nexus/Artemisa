@@ -1,4 +1,4 @@
-const API_URL = "https://artemisa-production.up.railway.app";
+const API_URL = "https://artemisa-production.up.railway.app/api";
 
 //Obtain support by id
 export async function getSupport(id) {

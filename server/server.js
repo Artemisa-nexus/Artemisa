@@ -19,18 +19,21 @@ import { probarConexionBaseDatos } from './db.js';
 const app = express();
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+  origin: 'https://artemisa-one.vercel.app', // solo permite tu frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
 app.use(express.json());
-app.use(morgan('dev')); // Log requests - opcional pero recomendado
+app.use(morgan('dev'));
 
 // Healthcheck endpoint
 app.get('/health', (_req, res) => res.json({ ok: true }));
 
 // Test DB connection
-
 probarConexionBaseDatos();
 
-// Rutas (prefijo /api para mantener consistencia)
+// ✅ Rutas con prefijo /api
 app.use("/api/users", userRouter);
 app.use("/api/events", eventApi);
 app.use("/api/event_participants", event_participantsApi);
@@ -56,6 +59,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor en puerto ${PORT}`);
 });
-
-
 

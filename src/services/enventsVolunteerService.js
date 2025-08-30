@@ -1,4 +1,4 @@
-const API_URL = "https://artemisa-production.up.railway.app/events";
+const API_URL = "https://artemisa-production.up.railway.app/api/events";
 
 export async function fetchEvents() {
   const res = await fetch(API_URL);

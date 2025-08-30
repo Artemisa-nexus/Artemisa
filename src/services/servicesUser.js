@@ -1,4 +1,4 @@
-const API_URL = "https://artemisa-production.up.railway.app/users"; 
+const API_URL = "https://artemisa-production.up.railway.app/api/users"; 
 
 export async function getAllUsers(){
   const res = await fetch(API_URL);
