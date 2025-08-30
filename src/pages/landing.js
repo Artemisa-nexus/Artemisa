@@ -7,7 +7,7 @@ export function renderLanding(app) {
       <article class="max-w-7xl h-20 mx-auto flex items-center justify-between">
         <div class="flex items-center space-x-3">
           <article class="w-20 h-20 m-4 relative cursor-pointer">
-            <img src="../assets/icono.svg" class="w-full h-full">
+            <img src="../assets/Icono.svg" class="w-full h-full">
           </article>
           <img src="../assets/logo_color.svg" class="w-35 h-40 m-4">
         </div>
