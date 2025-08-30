@@ -16,7 +16,7 @@ export function renderDashboardProfile(app) {
         <main class="flex-1 p-8 space-y-8">
           <!-- User Profile Section -->
           <article class="flex items-center space-x-4 mb-6">
-            <img src="/public/assets/profile_picture.svg" class="w-20 h-20">
+            <img src="../public/assets/profile_picture.svg" class="w-20 h-20">
             <h2 class="text-xl font-semibold text-artemisa-pink">${user.fullname}</h2>
           </article>
 
@@ -147,7 +147,7 @@ export function renderDashboardProfile(app) {
 
       article.innerHTML = `
         <div class="flex items-center space-x-2">
-          <img src="/public/assets/goal_icon.svg" class="w-10 h-10 inline-block">
+          <img src="../public/assets/goal_icon.svg" class="w-10 h-10 inline-block">
           <div>
             <h4 class="text-sm font-semibold text-artemisa-pink">${goal.title}</h4>
             <p class="text-gray-600 text-sm">${goal.description}</p>
@@ -182,7 +182,7 @@ async function renderGoals() {
       goalsContainer.innerHTML += `
         <article class="space-y-1 bg-white rounded-2xl border-l-4 border-[#f56d95] shadow-sm pl-2 pr-4 py-3 mb-2">
         <div class="flex items-center space-x-2">
-          <img src="/public/assets/goal_icon.svg" class="w-10 h-10 inline-block">
+          <img src="../public/assets/goal_icon.svg" class="w-10 h-10 inline-block">
           <div>
            <h4 class=" text-sm font-semibold text-artemisa-pink">${goal.title}</h4>
           <p class=" text-gray-600 text-sm">${goal.description}</p>

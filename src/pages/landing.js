@@ -26,7 +26,7 @@ export function renderLanding(app) {
     <div class="max-w-5xl mx-auto text-center">
       <!-- Flor central -->
         <article id="logoHero" class=""w-40 h-40 mx-auto mb-6 logo-animate cursor-pointer">
-            <img src="/public/assets/Icono.svg" alt="logo artemisa" class="w-40 h-40 mx-auto mb-6">
+            <img src="../public/assets/Icono.svg" alt="logo artemisa" class="w-40 h-40 mx-auto mb-6">
         </article>
 
       <!-- Título con Ole en 'Bienvenida' -->
@@ -34,7 +34,7 @@ export function renderLanding(app) {
                     <h2 class="text-8xl md:text-10xl font-ole mb-4  text-center">Bienvenida a</h2> 
                     <div class="w-50 ml-1.5">
 
-                        <img src="/public/assets/logo_color.svg" alt="logo de artemisa " class="w-full" >
+                        <img src="../public/assets/logo_color.svg" alt="logo de artemisa " class="w-full" >
                     </div>
                 </div>
      
@@ -64,7 +64,7 @@ export function renderLanding(app) {
       <!-- Voluntariados (principal) -->
       <article class="w-50 rounded-lg shadow-lg p-6 bg-white border-t-4 border-[#f56d95]">
         <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-          <img src="/public/assets/icono_voluntariado.svg" alt="icono voluntariado" class="w-40 h-40">
+          <img src="../public/assets/icono_voluntariado.svg" alt="icono voluntariado" class="w-40 h-40">
         </div>
         <h3 class="font-bold text-[#f56d95] text-lg mb-2 text-center">Voluntariados</h3>
         <p class="text-sm text-gray-600 text-center">
@@ -75,7 +75,7 @@ export function renderLanding(app) {
       <!-- Comunidad -->
       <article class="w-50 rounded-lg shadow-lg p-6 bg-white border-t-4 border-[#f6c6fa]">
         <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-          <img src="/public/assets/comunidad.png" alt="icono de comunidad" class="w-15 h-20">
+          <img src="../public/assets/comunidad.png" alt="icono de comunidad" class="w-15 h-20">
         </div>
         <h3 class="text-lg font-bold text-[#8a518f] mb-2 text-center">Comunidad</h3>
         <p class="text-sm text-gray-600 text-center">
@@ -86,7 +86,7 @@ export function renderLanding(app) {
       <!-- Eventos -->
       <article class="w-50 rounded-lg shadow-md p-6 bg-white border-t-4 border-[#f56d95]">
         <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-          <img src="/public/assets/icono_eventos.svg" alt="icono de eventos" class="w-40 h-40">
+          <img src="../public/assets/icono_eventos.svg" alt="icono de eventos" class="w-40 h-40">
         </div>
         <h3 class="font-bold text-[#f56d95] text-lg mb-2 text-center">Eventos</h3>
         <p class="text-sm text-gray-600 text-center">
@@ -97,7 +97,7 @@ export function renderLanding(app) {
       <!-- Apoyo -->
       <article class="w-50 rounded-lg shadow-md p-6 bg-white border-t-4 border-[#f6c6fa]">
         <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-          <img src="/public/assets/icono_apoyo.svg" alt="icono de apoyo" class="w-40 h-40">
+          <img src="../public/assets/icono_apoyo.svg" alt="icono de apoyo" class="w-40 h-40">
         </div>
         <h3 class="font-bold text-[#8a518f] text-lg mb-2 text-center">Apoyo</h3>
         <p class="text-sm text-gray-600 text-center">
@@ -212,14 +212,14 @@ export function renderLanding(app) {
    <!-- Footer -->
 <footer class="bg-[#f56d95] py-6 px-4">
   <div class="max-w-3xl mx-auto text-center">
-    <img src="/public/assets/logo_blanco.svg" alt="logo artemisa blanco" class="w-28 h-auto mx-auto">
+    <img src="../public/assets/logo_blanco.svg" alt="logo artemisa blanco" class="w-28 h-auto mx-auto">
     <div class="border-t border-white/30 pt-4 mt-4">
       <div class="flex justify-center space-x-4">
         <a href="#" class="text-white hover:text-pink-200 transition-colors">
-          <img src="/public/assets/icono_linkedin.svg" alt="LinkedIn" class="w-8 h-8">
+          <img src="../public/assets/icono_linkedin.svg" alt="LinkedIn" class="w-8 h-8">
         </a>
         <a href="#" class="text-white hover:text-pink-200 transition-colors">
-          <img src="/public/assets/icono_ig.svg" alt="Instagram" class="w-8 h-8">
+          <img src="../public/assets/icono_ig.svg" alt="Instagram" class="w-8 h-8">
         </a>
       </div>
     </div>
