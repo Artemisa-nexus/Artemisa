@@ -15,6 +15,15 @@ router.get("/metas", async (req, res) => {
   }
 });
 
+router.get("/metas/achieved", async (req, res) => {
+  try {
+    const [results] = await pool.query("SELECT * FROM achieved_goals");
+    res.json(results);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // =============================
 // POST - registrar meta alcanzada
 // =============================
