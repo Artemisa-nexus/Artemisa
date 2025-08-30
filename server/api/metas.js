@@ -3,9 +3,7 @@ import { pool } from "../db.js";
 
 const router = Router();
 
-// =============================
-// GET todas las metas
-// =============================
+// GET todas alll the goals
 router.get("/metas", async (req, res) => {
   try {
     const [results] = await pool.query("SELECT * FROM goals");
@@ -25,13 +23,13 @@ router.get("/metas/achieved", async (req, res) => {
 });
 
 // =============================
-// POST - registrar meta alcanzada
+// POST - register achieved goal
 // =============================
 router.post("/metas/achieved", async (req, res) => {
   try {
     const { user_id, goal_id } = req.body;
 
-    // Verificar si ya existe (evitar duplicados)
+    // Verify if the goal has already been achieved
     const [existing] = await pool.query(
       "SELECT * FROM achieved_goals WHERE user_id=? AND goal_id=?",
       [user_id, goal_id]
@@ -53,7 +51,7 @@ router.post("/metas/achieved", async (req, res) => {
 });
 
 // =============================
-// GET metas alcanzadas de un usuario
+// GET goals achived by user
 // =============================
 router.get("/metas/achieved/:user_id", async (req, res) => {
   try {

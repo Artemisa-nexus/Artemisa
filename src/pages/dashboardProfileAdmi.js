@@ -16,7 +16,7 @@ export function renderDashboardProfileAdmi(app) {
         <main class="flex-1 p-8 space-y-8">
           <!-- User Profile Section -->
           <article class="flex items-center space-x-4 mb-6">
-            <img src="../public/assets/profile_picture.svg" class="w-20 h-20">
+            <img src="../assets/profile_picture.svg" class="w-20 h-20">
             <h2 class="text-xl font-semibold text-artemisa-pink">${user.fullname}</h2>
           </article>
 
@@ -42,7 +42,7 @@ export function renderDashboardProfileAdmi(app) {
 
   navEvents();
   
-  // === Renderizar todas las usuarias ===
+  // === Render all the users ===
   const usersContainer = document.getElementById("users-container");
   const addVolunteerBtn = document.getElementById("add-volunteer");
   const volunteersContainer = document.getElementById("volunteers-container");
@@ -50,7 +50,7 @@ export function renderDashboardProfileAdmi(app) {
 
   GetAllRollUSer()
     .then(users => {
-      usersContainer.innerHTML = ""; // limpiar antes
+      usersContainer.innerHTML = ""; 
       users.forEach(u => {
         usersContainer.innerHTML += `
           <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
@@ -63,9 +63,9 @@ export function renderDashboardProfileAdmi(app) {
       console.error("Error fetching users:", error);
       usersContainer.innerHTML = `<p class="text-red-500">Error cargando usuarias</p>`;
     });
-
+  // Render all the volunteers registered
     getAllRollVolunteers().then(volunteers => {
-      volunteersContainer.innerHTML = ""; // limpiar antes
+      volunteersContainer.innerHTML = "";
       volunteers.forEach(v => {
         volunteersContainer.innerHTML += `
           <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
@@ -75,8 +75,10 @@ export function renderDashboardProfileAdmi(app) {
       });
     });
 
+    // Show all the volunteer organizations to accept
+
    getAllVolunteerOrgs().then(volunteers => {
-  volunteersContainerToAccept.innerHTML = ""; // limpiar antes
+  volunteersContainerToAccept.innerHTML = ""; 
   volunteers.forEach(v => {
     volunteersContainerToAccept.innerHTML += `
       <article class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
@@ -100,10 +102,10 @@ export function renderDashboardProfileAdmi(app) {
 });
 
 
-// === Delegación de eventos ===
+// === Event Delegation ===
 volunteersContainerToAccept.addEventListener("click", async (e) => {
   if (e.target.id.startsWith("add-volunteer-")) {
-    const volunteerId = e.target.id.split("-")[2]; // aquí ya tienes el ID correcto
+    const volunteerId = e.target.id.split("-")[2]; 
 
     const selected = await getVolunteerOrgById(volunteerId);
 
@@ -123,7 +125,7 @@ volunteersContainerToAccept.addEventListener("click", async (e) => {
     try {
       const created = await addUser(newUserData);
       alertSuccess(`Usuario creado con éxito: ${created.fullname}`);
-      // actualizar la lista de voluntariados sin recargar la página
+      // Update volunteersContainer
       const newVolunteerArticle = document.createElement("article");
       newVolunteerArticle.className = "bg-white rounded-2xl shadow-sm border border-gray-200 p-4";
       newVolunteerArticle.innerHTML = `

@@ -1,4 +1,3 @@
-// src/pages/dashboard.js
 import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
 import { 
@@ -8,24 +7,24 @@ import {
   deletePublication 
 } from "../services/publicationServices.js";
 
-// Tarjeta de publicación con botones
+// CARD OF PUBLICATION WITH BUTTONS
 function renderPublicationCard(publication) {
   return `
     <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 space-y-2" data-id="${publication.publication_id}">
       <p class="text-gray-700">${publication.content}</p>
       <div class="flex justify-end space-x-2 text-sm">
-        <button class="edit-btn text-blue-500 hover:underline">Editar</button>
-        <button class="delete-btn text-red-500 hover:underline">Eliminar</button>
+        <button class="edit-btn text-[#d08306] hover:underline">Editar</button>
+        <button class="delete-btn text-[#ef366d] hover:underline">Eliminar</button>
       </div>
     </div>
   `;
 }
 
-// Dashboard para usuarios
+// Dashboard for the users and admi
 export async function renderDashboard(app) {
   const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada", user_id: 1 };
 
-  // Traer publicaciones
+  // show publications
   let publications = [];
   try {
     publications = await getAllPublications();
@@ -40,7 +39,7 @@ export async function renderDashboard(app) {
         No hay publicaciones aún.
       </section>
     `;
-
+//render all the dashboard
   app.innerHTML = `
     ${renderNav()}
     <div class="flex">
@@ -49,7 +48,7 @@ export async function renderDashboard(app) {
         <div class="max-w-2xl mx-auto space-y-6">
           <!-- Bienvenida -->
           <h2 class="text-xl font-semibold text-gray-800">
-            Bienvenida nuevamente, <span class="text-blue-600">${user.fullname}</span> 👋
+            Bienvenida nuevamente, <span class="text-[#f56d95]">${user.fullname}</span>
           </h2>
 
           <!-- Formulario de nueva publicación -->
@@ -60,7 +59,7 @@ export async function renderDashboard(app) {
               rows="3" 
               placeholder="¿Qué estás pensando hoy, ${user.fullname}?">
             </textarea>
-            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+            <button type="submit" class="px-4 py-2 bg-[#f56d95] text-white rounded-lg hover:bg-[#ef366d]/80">
               Publicar
             </button>
           </form>
@@ -81,7 +80,7 @@ export async function renderDashboard(app) {
   const textarea = document.getElementById("publication-content");
   const postsContainer = document.getElementById("posts-container");
 
-  // Crear publicación
+  // Create publication
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const content = textarea.value.trim();
@@ -96,13 +95,13 @@ export async function renderDashboard(app) {
     }
   });
 
-  // Delegación de eventos para editar/eliminar
+  // delete or update element
   postsContainer.addEventListener("click", async (e) => {
     const card = e.target.closest("[data-id]");
     if (!card) return;
     const pubId = card.dataset.id;
 
-    // Eliminar
+    // Delete
     if (e.target.classList.contains("delete-btn")) {
       try {
         await deletePublication(pubId);
@@ -112,7 +111,7 @@ export async function renderDashboard(app) {
       }
     }
 
-    // Editar
+    // Update
     if (e.target.classList.contains("edit-btn")) {
       const contentEl = card.querySelector("p");
       const oldContent = contentEl.textContent;

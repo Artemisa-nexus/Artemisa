@@ -22,7 +22,7 @@ api.post("/event_participants", async (req, res) => {
   }
 
   try {
-    // verificar duplicado
+    // verify if user is already registered for the event
     const [existing] = await pool.query(
       "SELECT * FROM event_participants WHERE user_id = ? AND event_id = ?",
       [user_id, event_id]
@@ -40,7 +40,7 @@ api.post("/event_participants", async (req, res) => {
         [user_id, event_id]
       );
 
-      // Descontar cupo
+      // substract the availability of the event
       const [update] = await conn.query(
         "UPDATE events SET available_capacity = available_capacity - 1 WHERE event_id = ? AND available_capacity > 0",
         [event_id]

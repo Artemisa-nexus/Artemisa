@@ -59,9 +59,7 @@ router.get("/users/role/2", async (req, res) => {
   }
 });
 
-// =============================
-// GET user by ID (ESTE VA AL FINAL)
-// =============================
+// GET user by ID 
 router.get("/users/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -82,9 +80,8 @@ router.get("/users/:id", async (req, res) => {
   }
 });
 
-// =============================
-// POST - Crear usuario
-// =============================
+// POST - Create a user
+
 router.post("/users", async (req, res) => {
   try {
     const { fullname, identification, email, password_, role_id } = req.body;
@@ -114,7 +111,7 @@ router.post("/users", async (req, res) => {
 });
 
 // =============================
-// PUT - Actualizar usuario
+// PUT - Update a user
 // =============================
 router.put("/users/:user_id", async (req, res) => {
   try {
@@ -151,7 +148,7 @@ router.put("/users/:user_id", async (req, res) => {
 });
 
 // =============================
-// DELETE - Eliminar usuario
+// DELETE - delete a user
 // =============================
 router.delete("/users/:user_id", async (req, res) => {
   try {

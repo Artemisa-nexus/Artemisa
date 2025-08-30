@@ -46,7 +46,7 @@ export function renderSideBar(user = { fullname: "Usuaria" }) {
       <div class="mt-8">
         <button id="profileBtn"
           class="flex items-center gap-3 mb-4">
-          <img src="../public/assets/profile_picture.svg" class="w-10 h-10">
+          <img src="../assets/profile_picture.svg" class="w-10 h-10">
           <span class="text-white font-medium">${user.fullname}</span>
         </button>
 
@@ -73,16 +73,11 @@ export function navEvents() {
   if (logoutBtn) {
     logoutBtn.addEventListener("click", () => auth.logOut());
   }
-
   // Event: navigate to community view
   if (comunidadBtn) {
     comunidadBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      if(user.role_id === 2 || user.role_id === 3){
-        history.pushState(null, null, "/artemisa/dashboard/volunteer");
-      }else{
-        history.pushState(null, null, "/artemisa/dashboard");
-      }
+      history.pushState(null, null, "/artemisa/dashboard");
       window.dispatchEvent(new PopStateEvent("popstate"));
     });
   }
@@ -104,9 +99,9 @@ export function navEvents() {
   if (supportBtn) {
     supportBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      if(user.role_id===2 || user.role_id === 3){
+      if (user.role_id === 2 || user.role_id === 3) {
         history.pushState(null, null, "/artemisa/dashboard/apoyo/volunteer");
-      }else{
+      } else {
         history.pushState(null, null, "/artemisa/dashboard/support");
       }
       window.dispatchEvent(new PopStateEvent("popstate"));
@@ -118,17 +113,18 @@ export function navEvents() {
     profileBtn.addEventListener("click", (e) => {
       e.preventDefault();
 
-      if(user.role_id == 3){
-        history.pushState(null, null, "/artemisa/dashboard/profile/administrador");
-      }else if(user.role_id ==2){
+      if (user.role_id == 3) {
+        history.pushState(
+          null,
+          null,
+          "/artemisa/dashboard/profile/administrador"
+        );
+      } else if (user.role_id == 2) {
         history.pushState(null, null, "/artemisa/dashboard/profile/voluntario");
-      }else{
+      } else {
         history.pushState(null, null, "/artemisa/dashboard/profile");
       }
       window.dispatchEvent(new PopStateEvent("popstate"));
     });
   }
 }
-
-
-

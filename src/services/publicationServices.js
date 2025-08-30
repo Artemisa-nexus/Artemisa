@@ -1,41 +1,41 @@
-// src/services/servicesPublications.js
 import { alertError } from "../components/alerts.js";
 
 const API_URL = "https://artemisa-production.up.railway.app/api/publications"; 
-// 👆 cambia el puerto si tu backend corre en otro
 
-// Obtener todas las publicaciones
+// Obtain all publications
 export async function getAllPublications() {
   const res = await fetch(API_URL);
   if (!res.ok) throw new Error("Error al obtener publicaciones");
   return await res.json();
 }
 
-// Obtener una publicación por ID
+// Obtain a publication by ID
 export async function getPublicationById(id) {
   const res = await fetch(`${API_URL}/${id}`);
   if (!res.ok) throw new Error("Publicación no encontrada");
   return await res.json();
 }
 
-// Crear una nueva publicación
-export async function createPublication(pubData) {
-  const res = await fetch(API_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(pubData),
-  });
+// Create a new publication
+export async function createPublication(data) {
+  try {
+    const res = await fetch("https://artemisa-production.up.railway.app/api/publications", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",  // Important
+      },
+      body: JSON.stringify(data),  // Send JSON
+    });
 
-  if (!res.ok) {
-    const error = await res.json();
-    alertError(error.message || "Error al crear publicación");
-    throw new Error(error.message);
+    if (!res.ok) throw new Error("Error creating publication");
+    return await res.json();
+  } catch (error) {
+    console.error("Error creando publicación:", error.message);
+    throw error;
   }
-
-  return await res.json();
 }
 
-// Actualizar una publicación
+// Update a publication
 export async function updatePublication(id, pubData) {
   const res = await fetch(`${API_URL}/${id}`, {
     method: "PUT",
@@ -47,7 +47,7 @@ export async function updatePublication(id, pubData) {
   return await res.json();
 }
 
-// Eliminar una publicación
+// Delete a publication
 export async function deletePublication(id) {
   const res = await fetch(`${API_URL}/${id}`, {
     method: "DELETE",

@@ -51,7 +51,7 @@ export function renderDashboardEventsVolunteer(app) {
     `;
     document.body.appendChild(overlay);
   }
-
+//modal for add events
   const closeModal = () => overlay.classList.remove("is-open");
   const openModal = (title = "Agregar Evento") => {
     document.getElementById("evtModalTitle").textContent = title;
@@ -67,7 +67,7 @@ export function renderDashboardEventsVolunteer(app) {
     openModal("Agregar Evento");
   });
 
-  // ===== Renderizar Tarjeta =====
+  // ===== Render the events card =====
   function renderEventCard(evt) {
     const container = document.getElementById("events-container");
     const card = document.createElement("article");
@@ -92,7 +92,7 @@ export function renderDashboardEventsVolunteer(app) {
       </div>
     `;
 
-    // Botón Editar
+  // Update button
     card.querySelector(".edit-btn").addEventListener("click", () => {
       document.getElementById("eventId").value = evt.event_id;
       document.getElementById("name").value = evt.event_name;
@@ -104,7 +104,7 @@ export function renderDashboardEventsVolunteer(app) {
       openModal("Editar Evento");
     });
 
-    // Botón Eliminar
+    // Delete button
     card.querySelector(".delete-btn").addEventListener("click", async () => {
       if (!confirm("¿Seguro que deseas eliminar este evento?")) return;
       try {
@@ -121,7 +121,7 @@ export function renderDashboardEventsVolunteer(app) {
     container.appendChild(card);
   }
 
-  // ===== Cargar eventos existentes =====
+  // ===== Load existing events =====
   async function loadEvents() {
     try {
       const events = await fetchEvents();
@@ -133,7 +133,7 @@ export function renderDashboardEventsVolunteer(app) {
     }
   }
 
-  // ===== Guardar/Editar evento =====
+  // ===== Save/Update event =====
   document.getElementById("evtForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -147,7 +147,6 @@ export function renderDashboardEventsVolunteer(app) {
     formData.append("organizer_id", user.user_id);
     formData.append("max_capacity", document.getElementById("max_capacity").value);
 
-    // si es nuevo, que los cupos disponibles arranquen igual
     if (!eventId) {
       formData.append("available_capacity", document.getElementById("max_capacity").value);
     }
@@ -179,6 +178,6 @@ export function renderDashboardEventsVolunteer(app) {
     }
   });
 
-  // Primera carga
+  // Load existing events
   loadEvents();
 }

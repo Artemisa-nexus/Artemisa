@@ -21,7 +21,7 @@ export async function UserGuard() {
 
     if (!result.length) {
       // User no longer exists in the database → clear localStorage and block
-      localStorage.removeItem('currentUser');  // ✅ fixed
+      localStorage.removeItem('currentUser'); 
       return redirectNotFound();
     }
   } catch (err) {

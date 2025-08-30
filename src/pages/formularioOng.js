@@ -1,7 +1,7 @@
 import { alertError, alertSuccess } from "../components/alerts";
 import { createVolunteerOrg } from "../services/volunteerService.js";
 
-
+//form for the volunteer organization registration
 export default function renderForm(div) {
   div.innerHTML = `
      <main class="min-h-screen p-6 bg-[#FBF7FC]">
@@ -14,7 +14,7 @@ export default function renderForm(div) {
     <div class="max-w-md mx-auto mt-8 bg-white p-8 rounded-2xl ">
         <!-- Lily flower illustration -->
         <section class="flex justify-center mb-8">
-            <img src="../public/assets/Icono.svg" alt="Decorative lily flower" class="w-32 h-32 object-contain" />
+            <img src="../assets/Icono.svg" alt="Decorative lily flower" class="w-32 h-32 object-contain" />
         </section>
 
         <!-- Registration form -->
@@ -64,14 +64,14 @@ export default function renderForm(div) {
     </main>
   `;
 
-  // Botón regresar
+  // Back button
   document.getElementById("backBtn").addEventListener("click", (e) => {
     e.preventDefault();
     history.pushState(null, null, "/artemisa/landing");
     window.dispatchEvent(new PopStateEvent("popstate"));
   });
 
-  // Capturar formulario
+  // Submit the form
   document.getElementById("registrationForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -89,7 +89,6 @@ export default function renderForm(div) {
       const created = await createVolunteerOrg(orgData);
       alertSuccess("Formulario enviado, gracias por registrar sus datos en 5 días recibirá una respuesta.");
       
-      // Opcional: redirigir después de crear
       history.pushState(null, null, "/artemisa/landing");
       window.dispatchEvent(new PopStateEvent("popstate"));
     } catch (err) {

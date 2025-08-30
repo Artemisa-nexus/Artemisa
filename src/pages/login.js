@@ -15,7 +15,7 @@ export function loginPage() {
       <article class="flex flex-col items-center justify-center min-h-[calc(100vh-120px)] max-w-md mx-auto">
         <!-- Flower Illustration -->
         <div class="mb-16">
-          <img id="logoLogin" src="../public/assets/Icono.svg" alt="Decorative lily flower" class="w-32 h-32">
+          <img id="logoLogin" src="../assets/Icono.svg" alt="Decorative lily flower" class="w-32 h-32">
         </div>
 
         <!-- Login Form -->
@@ -54,7 +54,7 @@ export function loginPage() {
 
       const user = JSON.parse(localStorage.getItem("user"));
 
-      // 👉 Revisar si viene de un registro
+      // Check if the user just registered
       if (localStorage.getItem("justRegistered") && user.user_id === 1) {
         try {
           await saveAchievedGoal({
@@ -67,7 +67,7 @@ export function loginPage() {
         localStorage.removeItem("justRegistered"); // limpiar la bandera
       }
 
-      // 👉 Contador de logins
+      // Login count
       let loginCount = parseInt(localStorage.getItem("loginCount") || "0", 10);
       loginCount++;
       localStorage.setItem("loginCount", loginCount);
@@ -76,14 +76,14 @@ export function loginPage() {
         try {
           await saveAchievedGoal({
             user_id: user.user_id,
-            goal_id: 6 // 👈 "Constancia digital"
+            goal_id: 6 // goal achievement
           });
         } catch (err) {
           console.warn("Meta de login ya alcanzada o error:", err.message);
         }
       }
 
-      // Redirigir al dashboard
+      // Redirect to dashboard
       history.pushState(null, null, '/artemisa/dashboard');
       window.dispatchEvent(new PopStateEvent('popstate'));
 

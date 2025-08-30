@@ -17,7 +17,7 @@ export function renderDashboardProfile(app) {
         <main class="flex-1 p-8 space-y-8">
           <!-- User Profile Section -->
           <article class="flex items-center space-x-4 mb-6">
-            <img src="../public/assets/profile_picture.svg" class="w-20 h-20">
+            <img src="../assets/profile_picture.svg" class="w-20 h-20">
             <h2 class="text-xl font-semibold text-artemisa-pink">${user.fullname}</h2>
           </article>
 
@@ -67,24 +67,24 @@ export function renderDashboardProfile(app) {
 
   navEvents();
 
-  // Referencias a botones
+  // References to buttons
   const editBtn = document.getElementById("editBtn");
   const deleteBtn = document.getElementById("deleteBtn");
   const overlay = document.getElementById("editOverlay");
   const cancelBtn = document.getElementById("cancelEdit");
   const editForm = document.getElementById("editForm");
 
-  //Mostrar overlay
+  //show the overlay
   editBtn.addEventListener("click", () => {
     overlay.classList.remove("hidden");
   });
 
-  // Cerrar overlay
+  // Close overlay
   cancelBtn.addEventListener("click", () => {
     overlay.classList.add("hidden");
   });
 
-  // Guardar cambios
+  // Save changes
   editForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -98,7 +98,7 @@ export function renderDashboardProfile(app) {
     try {
       await updateUser(user.user_id, updatedData);
 
-      // Guardar cambios en localStorage
+      // Save changes to localStorage
       localStorage.setItem("user", JSON.stringify({ ...user, ...updatedData }));
       overlay.classList.add("hidden");
       renderDashboardProfile(app);
@@ -107,7 +107,7 @@ export function renderDashboardProfile(app) {
     }
   });
 
-  // 👉 Eliminar usuario
+  // Delete user
   deleteBtn.addEventListener("click", async () => {
     const confirmation = confirm("¿Seguro que quieres eliminar tu cuenta? Esta acción no se puede deshacer.");
     if (confirmation) {
@@ -120,7 +120,7 @@ export function renderDashboardProfile(app) {
     }
   });
 
-
+//Goals container that show all the goals and the goals achived
   const goalsContainer = document.getElementById("goals-container");
   const goalsAchivedContainer = document.getElementById("goals-achived-container");
 
@@ -132,7 +132,7 @@ export function renderDashboardProfile(app) {
     console.table(goalsAchived);
 
     goalsAchivedContainer.innerHTML = "";
-
+    // Check if there are any achieved goals
     if (goalsAchived.length === 0) {
       const msg = document.createElement("p");
       msg.className = "text-gray-500 text-center";
@@ -140,7 +140,7 @@ export function renderDashboardProfile(app) {
       goalsAchivedContainer.appendChild(msg);
       return;
     }
-
+//
     goalsAchived.forEach((goal) => {
       const article = document.createElement("article");
       article.className =
@@ -148,7 +148,7 @@ export function renderDashboardProfile(app) {
 
       article.innerHTML = `
         <div class="flex items-center space-x-2">
-          <img src="../public/assets/goal_icon.svg" class="w-10 h-10 inline-block">
+          <img src="../assets/goal_icon.svg" class="w-10 h-10 inline-block">
           <div>
             <h4 class="text-sm font-semibold text-artemisa-pink">${goal.title}</h4>
             <p class="text-gray-600 text-sm">${goal.description}</p>
@@ -183,7 +183,7 @@ async function renderGoals() {
       goalsContainer.innerHTML += `
         <article class="space-y-1 bg-white rounded-2xl border-l-4 border-[#f56d95] shadow-sm pl-2 pr-4 py-3 mb-2">
         <div class="flex items-center space-x-2">
-          <img src="../public/assets/goal_icon.svg" class="w-10 h-10 inline-block">
+          <img src="../assets/goal_icon.svg" class="w-10 h-10 inline-block">
           <div>
            <h4 class=" text-sm font-semibold text-artemisa-pink">${goal.title}</h4>
           <p class=" text-gray-600 text-sm">${goal.description}</p>
@@ -197,6 +197,8 @@ async function renderGoals() {
     goalsContainer.innerHTML = `<p class="text-red-500 text-center">Error al cargar metas.</p>`;
   }
 }
+
+// Goals container that show all the goals and the goals achieved
   renderGoals();
   renderGoalsAchived();
 }

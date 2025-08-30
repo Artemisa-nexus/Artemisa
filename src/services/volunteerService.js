@@ -1,23 +1,19 @@
-// src/services/servicesVolunteerOrgs.js
-
 const API_URL = "https://artemisa-production.up.railway.app/api/volunteers"; 
-// 👆 cambia el puerto si tu backend corre en otro
 
-// Obtener todas las organizaciones
+// Obtain all organizations
 export async function getAllVolunteerOrgs() {
   const res = await fetch(API_URL);
   if (!res.ok) throw new Error("Error al obtener organizaciones");
   return await res.json();
 }
-
-// Obtener una organización por ID
+// Obtain a volunteer organization by ID
 export async function getVolunteerOrgById(id) {
   const res = await fetch(`${API_URL}/${id}`);
   if (!res.ok) throw new Error("Organización no encontrada");
   return await res.json();
 }
 
-// Crear una nueva organización
+  // Create a new organization
 export async function createVolunteerOrg(orgData) {
   const res = await fetch(API_URL, {
     method: "POST",
@@ -29,7 +25,7 @@ export async function createVolunteerOrg(orgData) {
   return await res.json();
 }
 
-// Actualizar una organización
+// Update a volunteer organization
 export async function updateVolunteerOrg(id, orgData) {
   const res = await fetch(`${API_URL}/${id}`, {
     method: "PUT",
@@ -41,7 +37,7 @@ export async function updateVolunteerOrg(id, orgData) {
   return await res.json();
 }
 
-// Eliminar una organización
+// Delete a volunteer organization
 export async function deleteVolunteerOrg(id) {
   const res = await fetch(`${API_URL}/${id}`, {
     method: "DELETE",

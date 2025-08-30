@@ -8,7 +8,7 @@ export async function getGoals() {
   return await res.json();
 }
 
-// Guardar meta alcanzada
+// Save a achieved goal
 export async function saveAchievedGoal({ user_id, goal_id }) {
   const res = await fetch(`${API_URL}/achieved`, {
     method: "POST",
@@ -20,7 +20,7 @@ export async function saveAchievedGoal({ user_id, goal_id }) {
   return await res.json();
 }
 
-// Mostrar metas alcanzadas por usuario
+// Show achieved goals by user
 export async function showAchievedGoal(user_id) {
   const res = await fetch(`${API_URL}/achieved/${user_id}`);
   if (!res.ok) throw new Error("Error al obtener metas alcanzadas");

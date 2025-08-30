@@ -2,6 +2,7 @@ import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
 import { GetAllRollUSer} from "../services/servicesUser.js";
 
+// Render the volunteer dashboard
 export function renderDashboardProfileVolunteer(app) {
   const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" };
 
@@ -13,7 +14,7 @@ export function renderDashboardProfileVolunteer(app) {
         <main class="flex-1 p-8 space-y-8">
           <!-- User Profile Section -->
           <article class="flex items-center space-x-4 mb-6">
-            <img src="../public/assets/profile_picture.svg" class="w-20 h-20">
+            <img src="../assets/profile_picture.svg" class="w-20 h-20">
             <h2 class="text-xl font-semibold text-artemisa-pink">${user.fullname}</h2>
           </article>
 
@@ -30,7 +31,7 @@ export function renderDashboardProfileVolunteer(app) {
 
   navEvents();
   
-  // === Renderizar todas las usuarias ===
+  // === render all the users that are registered ===
   const usersContainer = document.getElementById("users-container");
 
   GetAllRollUSer()

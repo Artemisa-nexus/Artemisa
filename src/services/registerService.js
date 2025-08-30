@@ -1,5 +1,6 @@
 const API_URL = "https://artemisa-production.up.railway.app/api";
 
+// Add a new user
 export async function addUser(user) {
   try {
     const res = await fetch(`${API_URL}/users`, {

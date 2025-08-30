@@ -1,5 +1,6 @@
 const API_URL = "https://artemisa-production.up.railway.app/api/users"; 
 
+// Obtain all users
 export async function getAllUsers(){
   const res = await fetch(API_URL);
   if (!res.ok) {
@@ -24,16 +25,15 @@ export async function updateUser(user_id, data) {
   });
 
   if (!res.ok) {
-    // Si falla, lanza el error con el mensaje que devuelve el backend
     const errorData = await res.json();
     throw new Error(errorData.message || "Error al actualizar usuario");
   }
 
-  return res.json(); // Usuario actualizado (lo que mandamos desde el backend)
+  return res.json(); 
 }
 
 
-//delete
+//delete User
 export async function deleteUser(user_id) {
   const res = await fetch(`${API_URL}/${user_id}`, {
     method: "DELETE",
@@ -47,7 +47,7 @@ export async function deleteUser(user_id) {
   return res.json();
 }
 
-//mostrar todos los usuarios
+// Obtain all the users with the role of user
 
 export async function GetAllRollUSer() {
   const res = await fetch(`${API_URL}/role/1`, {
@@ -59,7 +59,7 @@ export async function GetAllRollUSer() {
   return await res.json();
 }
 
-//Obtener todos los usuarios role volunteer
+//Obtain all the users with the rol of volunteer
 
 export async function getAllRollVolunteers() {
   const res = await fetch(`${API_URL}/role/2`, {

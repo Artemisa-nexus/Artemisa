@@ -9,16 +9,16 @@ export const auth = {
       throw new Error("There aren't users");
     }
 
-    // Buscar un usuario que coincida
+    // Search for a user that matches
     const user = users.find(
       (element) => element.email === email && element.password_ === password
     );
 
     if (user) {
-      // Guardar el usuario en localStorage
+      // Save the user in localStorage
       localStorage.setItem("user", JSON.stringify(user));
 
-      // Redirigir al dashboard
+      // Redirect to the dashboard
       history.pushState({}, "", "/artemisa/dashboard");
       renderRouter(document.getElementById("app"));
     } else {

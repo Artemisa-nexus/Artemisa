@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 
-// importar rutas
+// Import routes
 import userRouter from "./api/users.js";
 import eventApi from "./api/events.js";
 import event_participantsApi from "./api/event_participant.js";
@@ -15,11 +15,15 @@ import { probarConexionBaseDatos } from './db.js';
 
 const app = express();
 
+// Middleware to parse JSON request body
+app.use(express.json());
+// Define allowed origins for CORS
 const allowedOrigins = [
-  "https://artemisa-one.vercel.app", // tu front en producción
-  "http://localhost:5173"            // tu front en local
+  "https://artemisa-one.vercel.app", 
+  "http://localhost:5173"            
 ];
 
+// CORS middleware
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -30,10 +34,10 @@ app.use(cors({
   }
 }));
 
-// Test DB connection
+// Test database connection when server starts
 probarConexionBaseDatos();
 
-// ✅ Rutas con prefijo /api
+//  Routes with "/api" prefix
 app.use("/api", userRouter);
 app.use("/api", eventApi);
 app.use("/api", event_participantsApi);
@@ -44,11 +48,13 @@ app.use("/api", objetivesApi);
 app.use("/api", supportApi);
 app.use("/api", volunteerApi);
 
+// Middleware for handling 404 errors (non-existent endpoints)
 app.use((req, res) => {
-  res.status(404).json({ error: "Endpoint no encontrado" });
+  res.status(404).json({ error: "Endpoint not found" });
 });
 
+// Start server on port 3000
 app.listen(3000, () => {
-  console.log("Servidor corriendo en http://localhost:3000");
+  console.log("Server running at http://localhost:3000");
 });
 

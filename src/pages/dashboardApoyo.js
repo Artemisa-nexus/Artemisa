@@ -123,7 +123,7 @@ export function renderDashboardSupport(app) {
 
   renderCitas();
 
-  // Evento submit del formulario
+  // Event to submit the form
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const nuevaCita = {
@@ -139,11 +139,11 @@ export function renderDashboardSupport(app) {
       return;
     }
 
-    // Guardar cita en localStorage
+    // Keep track of citas
     citas.push(nuevaCita);
     localStorage.setItem("citas", JSON.stringify(citas));
 
-    // ✅ Registrar meta alcanzada (ejemplo: goal_id = 3 => "Solicitar apoyo")
+    // goal achievement tracking
     try {
       if (user.user_id) {
         await saveAchievedGoal({
@@ -160,7 +160,7 @@ export function renderDashboardSupport(app) {
     renderCitas();
   });
 
-  // Delegar eventos para cancelar citas
+  // Delete dates
   container.addEventListener("click", (e) => {
     if (e.target.classList.contains("deleteBtn")) {
       const index = e.target.dataset.index;

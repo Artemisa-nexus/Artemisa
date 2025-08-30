@@ -5,7 +5,7 @@ import multer from "multer";
 
 const api = Router();
 
-// Multer en memoria (guardamos buffer para LONGBLOB)
+// Multer in memory (keep the buffer for LONGBLOB)
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
@@ -16,9 +16,7 @@ const toIntOrDefault = (v, d = 0) => {
   return Number.isNaN(n) ? d : n;
 };
 
-// ========================
 // GET all events
-// ========================
 api.get("/events", async (req, res) => {
   try {
     const [rows] = await pool.query(
@@ -38,9 +36,9 @@ api.get("/events", async (req, res) => {
   }
 });
 
-// ========================
+
 // GET event by ID
-// ========================
+
 api.get("/events/:id", async (req, res) => {
   try {
     const [rows] = await pool.query(
@@ -62,15 +60,12 @@ api.get("/events/:id", async (req, res) => {
   }
 });
 
-// ========================
 // GET event image
-// ========================
 api.get("/events/:id/image", async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT image FROM events WHERE event_id = ?", [req.params.id]);
     if (rows.length === 0 || !rows[0].image) return res.status(404).send("Imagen no encontrada");
 
-    // Nota: si permites png/jpg distintos, podrías guardar content-type en DB o detectarlo. Aquí asumimos jpeg.
     res.setHeader("Content-Type", "image/jpeg");
     res.send(rows[0].image);
   } catch (error) {
@@ -79,16 +74,14 @@ api.get("/events/:id/image", async (req, res) => {
   }
 });
 
-// ========================
-// CREATE event (con cupos + imagen)
-// ========================
+// CREATE event 
 api.post("/events", upload.single("image"), async (req, res) => {
   try {
-    // Log para depuración (borra en producción si quieres)
+
     console.log("POST /events req.body =", req.body);
     console.log("POST /events req.file =", !!req.file ? { size: req.file.size, mimetype: req.file.mimetype } : null);
 
-    // Extraer campos (vienen como strings desde FormData)
+    // convert the data types into their respective formats
     const {
       event_name,
       description = null,
@@ -98,25 +91,20 @@ api.post("/events", upload.single("image"), async (req, res) => {
       organizer_id
     } = req.body;
 
-    // convertir los cupos a enteros de forma segura
     const max_capacity = toIntOrDefault(req.body.max_capacity, 0);
-    // si no se envía available_capacity, arrancará igual a max_capacity
     const available_capacity = req.body.available_capacity !== undefined
       ? toIntOrDefault(req.body.available_capacity, max_capacity)
       : max_capacity;
 
     const image = req.file ? req.file.buffer : null;
 
-    // Validaciones básicas
+    // validate
     if (!event_name || !event_date || !city) {
       return res.status(400).json({ message: "Faltan campos obligatorios: event_name, event_date o city" });
     }
     if (max_capacity < 0) return res.status(400).json({ message: "max_capacity inválido" });
     if (available_capacity < 0) return res.status(400).json({ message: "available_capacity inválido" });
     if (available_capacity > max_capacity) {
-      // opcional: ajustar available_capacity a max_capacity
-      // return res.status(400).json({ message: "available_capacity no puede ser mayor que max_capacity" });
-      // en lugar de error, lo corregimos automáticamente:
       console.warn("available_capacity > max_capacity, ajustando available_capacity = max_capacity");
     }
 
@@ -141,13 +129,12 @@ api.post("/events", upload.single("image"), async (req, res) => {
     res.status(201).json(newEvent);
   } catch (error) {
     console.error("Error al crear evento:", error);
-    // Mostrar error concreto para debugging (puedes ocultar detalles en producción)
     res.status(500).json({ message: error.message });
   }
 });
 
 // ========================
-// UPDATE event (con imagen opcional)
+// UPDATE event (with optional image)
 // ========================
 api.put("/events/:id", upload.single("image"), async (req, res) => {
   try {
@@ -160,27 +147,24 @@ api.put("/events/:id", upload.single("image"), async (req, res) => {
     const organizer_id = req.body.organizer_id ? toIntOrDefault(req.body.organizer_id) : null;
     const image = req.file ? req.file.buffer : null;
 
-    // Obtener estado actual del evento para ajustes de available_capacity si hace falta
+    // Obtain the current state of the event for adjustments to available_capacity if needed
     const [currentRows] = await pool.query("SELECT max_capacity, available_capacity FROM events WHERE event_id = ?", [req.params.id]);
     if (currentRows.length === 0) return res.status(404).json({ message: "Evento no encontrado" });
     const current = currentRows[0];
 
-    // Si no mandaron max_capacity, mantener el anterior
     if (max_capacity === undefined) max_capacity = current.max_capacity;
     if (available_capacity === undefined) {
-      // ajustar available_capacity proporcionalmente al cambio de max_capacity
+      // adjust the available_capacity proportionally to the change in max_capacity
       const diff = max_capacity - current.max_capacity;
       let newAvailable = current.available_capacity + diff;
       if (newAvailable < 0) newAvailable = 0;
       if (newAvailable > max_capacity) newAvailable = max_capacity;
       available_capacity = newAvailable;
     } else {
-      // si mandaron available, asegurar límites
+      // assurance the limits capacity
       if (available_capacity < 0) available_capacity = 0;
       if (available_capacity > max_capacity) available_capacity = max_capacity;
     }
-
-    // Construir query dinámicamente (si image presente lo añadimos)
     let query = `UPDATE events SET event_name=?, description=?, category=?, event_date=?, city=?, organizer_id=?, max_capacity=?, available_capacity=?`;
     const values = [event_name, description, category, event_date, city, organizer_id, max_capacity, available_capacity];
 
@@ -195,7 +179,7 @@ api.put("/events/:id", upload.single("image"), async (req, res) => {
     const [result] = await pool.query(query, values);
     if (result.affectedRows === 0) return res.status(404).json({ message: "Evento no encontrado" });
 
-    // devolver evento actualizado
+    // give back the updated event
     const [rows] = await pool.query(
       `SELECT event_id, event_name, description, category, event_date, city, organizer_id, max_capacity, available_capacity, image IS NOT NULL AS has_image
        FROM events WHERE event_id = ?`,
@@ -212,9 +196,9 @@ api.put("/events/:id", upload.single("image"), async (req, res) => {
   }
 });
 
-// ========================
+
 // DELETE event
-// ========================
+
 api.delete("/events/:id", async (req, res) => {
   try {
     const [result] = await pool.query("DELETE FROM events WHERE event_id = ?", [req.params.id]);
@@ -226,9 +210,8 @@ api.delete("/events/:id", async (req, res) => {
   }
 });
 
-// ========================
-// REGISTER to event (reduce cupos)
-// ========================
+// REGISTER to event (reduce availability)
+
 api.post("/events/:id/register", async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT available_capacity FROM events WHERE event_id = ?", [req.params.id]);

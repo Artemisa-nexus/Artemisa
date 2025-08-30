@@ -1,8 +1,10 @@
+//import mysql and dotenv to load environment variables from .env file
 import mysql from "mysql2/promise";
 import dotenv from "dotenv";
 
 dotenv.config();
 
+// Create a MySQL connection pool using environment variables
 export const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -11,6 +13,7 @@ export const pool = mysql.createPool({
   database: process.env.DB_NAME,
 });
 
+// Function to test the database connection
 export async function probarConexionBaseDatos() {
   try {
     const connection = await pool.getConnection();
@@ -21,4 +24,5 @@ export async function probarConexionBaseDatos() {
   }
 }
 
+// Call the test function immediately when the file is run
 probarConexionBaseDatos();

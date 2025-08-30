@@ -1,11 +1,13 @@
 const API_URL = "https://artemisa-production.up.railway.app/api/event_participants";
 
+// Obtain all event participants
 export async function fetchEventParticipants() {
   const res = await fetch(API_URL);
   if (!res.ok) throw new Error("Error fetching event participants");
   return res.json();
 }
 
+// Create a new event participant
 export async function createEventParticipant(participantData) {
   try {
     const res = await fetch(API_URL, {

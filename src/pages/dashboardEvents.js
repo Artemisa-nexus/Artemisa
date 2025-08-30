@@ -55,9 +55,10 @@ export function renderDashboardEvents(app) {
     </button>
   `;
 
-  // ⬇️ Aquí sí seleccionamos el botón
+  //
   const joinBtn = card.querySelector(".join-btn");
 
+  //button that allows user to join event
   joinBtn.addEventListener("click", async () => {
     if (evt.available_capacity <= 0) {
       alertError("Lo sentimos, no hay cupos disponibles para este evento.");
@@ -71,13 +72,13 @@ export function renderDashboardEvents(app) {
       });
       alertSuccess(`Te has unido al evento: ${evt.event_name}`);
 
-      // Meta alcanzada
+      // goal achievement tracking
       await saveAchievedGoal({
         user_id: user.user_id,
         goal_id: 2
       });
 
-      // Refrescar cupos disponibles
+      // Refresh available spots
       evt.available_capacity = Math.max(0, evt.available_capacity - 1);
       card.querySelector(".capacity").innerHTML =
         `<span class="font-medium">Cupos disponibles:</span> ${evt.available_capacity}`;
@@ -92,7 +93,7 @@ export function renderDashboardEvents(app) {
 }
 
 
-  // Cargar lista de eventos
+  // Load events
   async function loadEvents() {
     try {
       const events = await fetchEvents();
@@ -103,7 +104,7 @@ export function renderDashboardEvents(app) {
     }
   }
 
-  // Ejecutar funciones iniciales
+  // Execute initial functions
   loadEvents();
   navEvents();
 }
