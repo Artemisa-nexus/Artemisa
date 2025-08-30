@@ -19,9 +19,6 @@ export const auth = {
       localStorage.setItem("user", JSON.stringify(user));
 
       // Redirigir al dashboard
-      if(user.role_id === 2)
-      history.pushState({}, "", "/artemisa/dashboard/volunteer");
-      else
       history.pushState({}, "", "/artemisa/dashboard");
       renderRouter(document.getElementById("app"));
     } else {

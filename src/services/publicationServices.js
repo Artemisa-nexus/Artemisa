@@ -1,7 +1,7 @@
 // src/services/servicesPublications.js
 import { alertError } from "../components/alerts.js";
 
-const API_URL = "http://localhost:3000/api/publications"; 
+const API_URL = "https://artemisa-production.up.railway.app/api/publications"; 
 // 👆 cambia el puerto si tu backend corre en otro
 
 // Obtener todas las publicaciones
