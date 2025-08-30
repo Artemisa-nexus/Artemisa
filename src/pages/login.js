@@ -1,3 +1,4 @@
+import { alertError } from '../components/alerts.js';
 import { saveAchievedGoal } from '../services/usersGoalsService.js';
 import { auth } from '../utils/auth.js';
 
@@ -87,7 +88,7 @@ export function loginPage() {
       window.dispatchEvent(new PopStateEvent('popstate'));
 
     } catch (err) {
-      alert(err.message || "Credenciales inválidas");
+      alertError(err.message || "Credenciales inválidas");
     }
   };
 

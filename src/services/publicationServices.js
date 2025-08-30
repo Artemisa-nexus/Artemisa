@@ -1,6 +1,6 @@
 const API_URL = "https://artemisa-production.up.railway.app/publications";
 
-// Crear una nueva publicaciÃ³n
+// Crear una nueva publicacin
 export async function addPublication(publication) {
   if (!publication.user_id || !publication.content) {
     console.error("FALTAN CAMPOS");

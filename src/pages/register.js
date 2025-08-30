@@ -1,3 +1,4 @@
+import { alertError, alertSuccess } from "../components/alerts";
 import { addUser } from "../services/registerService";
 
 
@@ -106,21 +107,21 @@ export default function renderRegister(div) {
       const confirmPassword = document.getElementById("confirmPassword").value;
 
       if (!fullName || !identification || !email || !password || !confirmPassword) {
-      alert("Debes rellenar todos los campos!");
+      alertError("Debes rellenar todos los campos!");
       return;
     }
 
     // Validate name format (only letters and spaces, at least 3 characters)
     const fullNameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,}$/;
     if (!fullNameRegex.test(fullName)) {
-      alert("Nombre de usuario inválido");
+      alertError("Nombre de usuario inválido");
       return;
     }
 
     // Validate email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      alert("Correo Electrónico inválido");
+      alertError("Correo Electrónico inválido");
       return;
     }
 
@@ -140,7 +141,7 @@ export default function renderRegister(div) {
       role_id: 1
     });
     if (newUser) {
-      alert("✅ Usuario creado con éxito");
+      alertSuccess("Usuario creado con éxito");
       history.pushState({}, "", "/artemisa/login");
       window.dispatchEvent(new PopStateEvent("popstate"));
     }

@@ -1,3 +1,4 @@
+import { alertError, alertSuccess } from "../components/alerts";
 import { renderNav } from "../components/nav";
 import { navEvents, renderSideBar } from "../components/siderBar";
 import { addUser } from "../services/registerService";
@@ -107,7 +108,7 @@ volunteersContainerToAccept.addEventListener("click", async (e) => {
     const selected = await getVolunteerOrgById(volunteerId);
 
     if (!selected) {
-      alert("❌ Voluntariado no encontrado");
+      alertError("Voluntariado no encontrado");
       return;
     }
 
@@ -121,7 +122,7 @@ volunteersContainerToAccept.addEventListener("click", async (e) => {
 
     try {
       const created = await addUser(newUserData);
-      alert(`✅ Usuario creado con éxito: ${created.fullname}`);
+      alertSuccess(`Usuario creado con éxito: ${created.fullname}`);
       // actualizar la lista de voluntariados sin recargar la página
       const newVolunteerArticle = document.createElement("article");
       newVolunteerArticle.className = "bg-white rounded-2xl shadow-sm border border-gray-200 p-4";
@@ -133,7 +134,7 @@ volunteersContainerToAccept.addEventListener("click", async (e) => {
 
     } catch (err) {
       console.error(err);
-      alert("❌ Error al crear usuario desde voluntariado");
+      alertError("Error al crear usuario desde voluntariado");
     }
   }
 });

@@ -1,3 +1,4 @@
+import { alertError, alertSuccess } from "../components/alerts";
 import { createVolunteerOrg } from "../services/volunteerService";
 
 
@@ -86,13 +87,13 @@ export default function renderForm(div) {
 
     try {
       const created = await createVolunteerOrg(orgData);
-      alert("Formulario enviado, gracias por registrar sus datos en 5 días recibirá una respuesta.");
+      alertSuccess("Formulario enviado, gracias por registrar sus datos en 5 días recibirá una respuesta.");
       
       // Opcional: redirigir después de crear
       history.pushState(null, null, "/artemisa/landing");
       window.dispatchEvent(new PopStateEvent("popstate"));
     } catch (err) {
-      alert("Error al registrar la organización: " + err.message);
+      alertError("Error al registrar la organización: " + err.message);
       console.error(err);
     }
   });
