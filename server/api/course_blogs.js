@@ -1,4 +1,3 @@
-import cors from 'cors';
 import { pool } from "../db.js";
 import { Router } from 'express';
 
