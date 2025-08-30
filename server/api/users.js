@@ -3,7 +3,9 @@ import { pool } from "../db.js";
 
 const router = Router();
 
+// =============================
 // GET all users
+// =============================
 router.get("/", async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT * FROM users");
@@ -18,7 +20,48 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET user by ID
+// =============================
+// GET users by role (role_id = 1)
+// =============================
+router.get("/role/1", async (req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT * FROM users WHERE role_id = 1");
+
+    if (rows.length === 0) {
+      return res.status(404).json({ status: "error", message: "No se encontraron usuarios" });
+    }
+
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      endpoint: req.originalUrl,
+      method: req.method,
+      message: error.message
+    });
+  }
+});
+
+// =============================
+// GET users by role (role_id = 2)
+// =============================
+router.get("/role/2", async (req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT * FROM users WHERE role_id = 2");
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      endpoint: req.originalUrl,
+      method: req.method,
+      message: error.message
+    });
+  }
+});
+
+// =============================
+// GET user by ID (ESTE VA AL FINAL)
+// =============================
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -39,8 +82,9 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-
-// POST crear usuario
+// =============================
+// POST - Crear usuario
+// =============================
 router.post("/", async (req, res) => {
   try {
     const { fullname, identification, email, password_, role_id } = req.body;
@@ -55,10 +99,10 @@ router.post("/", async (req, res) => {
     );
 
     res.status(201).json({
+      user_id: result.insertId,
       fullname,
       identification,
       email,
-      password_,
       role_id
     });
   } catch (error) {
@@ -69,17 +113,18 @@ router.post("/", async (req, res) => {
   }
 });
 
-
-// UPDATE user
+// =============================
+// PUT - Actualizar usuario
+// =============================
 router.put("/:user_id", async (req, res) => {
   try {
     const { user_id } = req.params;
     const { fullname, identification, email, password_ } = req.body;
 
-  const [result] = await pool.query(`UPDATE users SET fullname = ?, identification = ?, email = ?, password_ = ? WHERE user_id = ?`,
-    [fullname, identification, email,password_, user_id]
-  );
-
+    const [result] = await pool.query(
+      "UPDATE users SET fullname = ?, identification = ?, email = ?, password_ = ? WHERE user_id = ?",
+      [fullname, identification, email, password_, user_id]
+    );
 
     if (result.affectedRows === 0) {
       return res.status(404).json({
@@ -88,7 +133,6 @@ router.put("/:user_id", async (req, res) => {
       });
     }
 
-    // Devolvemos los datos ya actualizados
     res.json({
       user_id,
       fullname,
@@ -106,9 +150,9 @@ router.put("/:user_id", async (req, res) => {
   }
 });
 
-
-
-// DELETE user
+// =============================
+// DELETE - Eliminar usuario
+// =============================
 router.delete("/:user_id", async (req, res) => {
   try {
     const { user_id } = req.params;
@@ -139,41 +183,5 @@ router.delete("/:user_id", async (req, res) => {
   }
 });
 
-//GET ALL THE USER WITH TE ROL USER
-
-router.get("/role/1", async (req, res) => {
-  try {
-    const [rows] = await pool.query("SELECT * FROM users WHERE role_id = 1");
-
-    if (rows.length === 0) {
-      return res.status(404).json({ status: "error", message: "No se encontraron usuarios" });
-    }
-
-    res.json(rows);
-  } catch (error) {
-    res.status(500).json({
-      status: "error",
-      endpoint: req.originalUrl,
-      method: req.method,
-      message: error.message
-    });
-  }
-});
-
-
-//USER ROLE ID VOLUNTEER
-router.get("/role/2", async (req, res) => {
-  try {
-    const [rows] = await pool.query("SELECT * FROM users WHERE role_id = 2");
-
-    res.json(rows);
-  } catch (error) {
-    res.status(500).json({
-      status: "error",
-      endpoint: req.originalUrl,
-      method: req.method,
-      message: error.message
-    });
-  }
-});
 export default router;
+
