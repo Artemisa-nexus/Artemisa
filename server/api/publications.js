@@ -23,7 +23,7 @@ router.get("/publications", async (req, res) => {
 // CREATE publicacion
 router.post("/publications", async (req, res) => {
   try {
-    const { user_id, content, image, publication_date, reference_id } = req.body;
+    const { user_id, content, publication_date, reference_id } = req.body;
 
     if (!user_id || !content) {
       return res.status(400).json({
@@ -36,9 +36,9 @@ router.post("/publications", async (req, res) => {
 
     const [result] = await pool.query(
       `INSERT INTO publications 
-        (user_id, content, image, publication_date, reference_id) 
-       VALUES (?, ?, ?, ?, ?)`,
-      [user_id, content, image || null, pubDate, reference_id || null]
+        (user_id, content, publication_date, reference_id) 
+       VALUES (?, ?, ?, ?)`,
+      [user_id, content, pubDate, reference_id || null]
     );
 
     const [newPub] = await pool.query(
@@ -98,11 +98,11 @@ router.get("/publications/:id", async (req, res) => {
 router.put("/publications/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { user_id, content, image, publication_type, reference_id } = req.body;
+    const { user_id, content, publication_type, reference_id } = req.body;
 
     const [result] = await pool.query(
-      "UPDATE publications SET user_id=?, content=?, image=?, publication_type=?, reference_id=? WHERE publication_id=?",
-      [user_id, content, image, publication_type, reference_id, id]
+      "UPDATE publications SET user_id=?, content=?, publication_type=?, reference_id=? WHERE publication_id=?",
+      [user_id, content, publication_type, reference_id, id]
     );
 
     if (result.affectedRows === 0) {
