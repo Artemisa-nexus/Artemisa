@@ -18,15 +18,26 @@ const app = express();
 
 // Configuración de CORS
 const allowedOrigins = [
-  "http://localhost:5173",                // frontend local
-  "https://artemisa-production.up.railway.app" // dominio en Railway
+  "http://localhost:5173",              // frontend local
+  "https://artemisa-one.vercel.app"     // frontend en Vercel
 ];
 
 app.use(cors({
-  origin: "https://artemisa-one.vercel.app",
+  origin: function (origin, callback) {
+    // permitir requests sin origin (ej: Postman) o si está en la lista
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
+
+// Soporte para preflight OPTIONS
+app.options("*", cors());
 
 // Middlewares
 app.use(bodyParser.json());
