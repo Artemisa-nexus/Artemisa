@@ -19,7 +19,7 @@ const app = express();
 
 // Middlewares
 app.use(cors({
-  origin: 'https://artemisa-one.vercel.app', // solo permite tu frontend
+  origin: 'http://localhost:5173',//'https://artemisa-one.vercel.app', // solo permite tu frontend
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));

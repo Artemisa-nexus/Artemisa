@@ -16,7 +16,7 @@ export async function renderDashboard(app) {
   const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" };
 
   // Obtener publicaciones
-  const publications = await getPublicationById();
+  //const publications = await getPublicationById();
 
   const postsHtml = publications.length > 0
     ? publications.map(renderPublicationCard).join("")
