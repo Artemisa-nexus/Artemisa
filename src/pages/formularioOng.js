@@ -13,7 +13,7 @@ export default function renderForm(div) {
     <div class="max-w-md mx-auto mt-8 bg-white p-8 rounded-2xl ">
         <!-- Lily flower illustration -->
         <section class="flex justify-center mb-8">
-            <img src="/public/assets/Icono.svg" alt="Decorative lily flower" class="w-32 h-32 object-contain" />
+            <img src="../public/assets/Icono.svg" alt="Decorative lily flower" class="w-32 h-32 object-contain" />
         </section>
 
         <!-- Registration form -->
