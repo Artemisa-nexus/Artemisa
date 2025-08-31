@@ -1,5 +1,3 @@
-import { alertError } from "../components/alerts.js";
-
 const API_URL = "https://artemisa-production.up.railway.app/api/publications"; 
 
 // Obtain all publications

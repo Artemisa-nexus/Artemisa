@@ -1,3 +1,5 @@
+import { alertError } from "../components/alerts";
+
 const API_URL = "https://artemisa-production.up.railway.app/api";
 
 //Obtain support by id
@@ -23,6 +25,6 @@ export async function addSupport(support) {
         return await res.json();
     } catch (error) {
         console.error("Error en addSupport:", error.message);
-        alert("No se pudo crear el soporte. Intenta nuevamente.");
+        alertError("No se pudo crear el soporte. Intenta nuevamente.");
     }
 }
