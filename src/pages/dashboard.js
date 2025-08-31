@@ -23,7 +23,9 @@ function renderPublicationCard(publication) {
 // Dashboard for the users and admi
 export async function renderDashboard(app) {
   const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada", user_id: 1 };
-
+  if (!user.user_id) {
+      alertError("Debes iniciar sesión para unirte a eventos");
+    }
   // show publications
   let publications = [];
   try {

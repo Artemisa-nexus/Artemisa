@@ -78,8 +78,8 @@ api.get("/events/:id/image", async (req, res) => {
 api.post("/events", upload.single("image"), async (req, res) => {
   try {
 
-    console.log("POST /events req.body =", req.body);
-    console.log("POST /events req.file =", !!req.file ? { size: req.file.size, mimetype: req.file.mimetype } : null);
+    //console.log("POST /events req.body =", req.body);
+    //console.log("POST /events req.file =", !!req.file ? { size: req.file.size, mimetype: req.file.mimetype } : null);
 
     // convert the data types into their respective formats
     const {
@@ -138,8 +138,8 @@ api.post("/events", upload.single("image"), async (req, res) => {
 // ========================
 api.put("/events/:id", upload.single("image"), async (req, res) => {
   try {
-    console.log(`PUT /events/${req.params.id} req.body =`, req.body);
-    console.log(`PUT /events/${req.params.id} req.file =`, !!req.file ? { size: req.file.size, mimetype: req.file.mimetype } : null);
+    //console.log(`PUT /events/${req.params.id} req.body =`, req.body);
+    //console.log(`PUT /events/${req.params.id} req.file =`, !!req.file ? { size: req.file.size, mimetype: req.file.mimetype } : null);
 
     const { event_name, description = null, category = null, event_date, city } = req.body;
     let max_capacity = req.body.max_capacity !== undefined ? toIntOrDefault(req.body.max_capacity) : undefined;

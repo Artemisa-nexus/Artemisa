@@ -5,7 +5,9 @@ import { GetAllRollUSer} from "../services/servicesUser.js";
 // Render the volunteer dashboard
 export function renderDashboardProfileVolunteer(app) {
   const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" };
-
+  if (!user.user_id) {
+      alertError("Debes iniciar sesión para unirte a eventos");
+    }
   app.innerHTML = `
       ${renderNav()}
       <div class="flex">

@@ -5,7 +5,9 @@ import { fetchEvents } from "../services/enventsVolunteerService.js";
 
 export function renderDashboardEventsVolunteer(app) {
   const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada", user_id: 1 };
-
+  if (!user.user_id) {
+    alertError("Debes iniciar sesión para unirte a eventos");
+  }
   app.innerHTML = `
     ${renderNav()}
     <div class="flex">

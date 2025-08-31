@@ -25,7 +25,7 @@ export async function UserGuard() {
       return redirectNotFound();
     }
   } catch (err) {
-    console.error("Error validating user:", err);
+    //console.error("Error validating user:", err);
     return redirectNotFound();
   }
 }

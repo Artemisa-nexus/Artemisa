@@ -6,7 +6,9 @@ import { saveAchievedGoal } from "../services/usersGoalsService.js"; // ⬅️ i
 // Render dashboardSupport view
 export function renderDashboardSupport(app) {
   const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" };
-  
+  if (!user.user_id) {
+      alertError("Debes iniciar sesión para unirte a eventos");
+    }
   app.innerHTML = `
       ${renderNav()}
       <div class="flex">

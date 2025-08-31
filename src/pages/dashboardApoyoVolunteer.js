@@ -4,6 +4,9 @@ import { navEvents, renderSideBar } from "../components/siderBar";
 // Render dashboardSupport view
 export function renderDashboardSupportVolunteer(app) {
 const user = JSON.parse(localStorage.getItem("user")) || { fullname: "Invitada" };
+if (!user.user_id) {
+    alertError("Debes iniciar sesión para unirte a eventos");
+  }
   app.innerHTML = `
       ${renderNav()}
       <div class="flex">

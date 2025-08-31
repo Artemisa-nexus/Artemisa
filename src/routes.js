@@ -52,21 +52,38 @@ export let renderRouter = () => {
      // If the route does NOT exist → render a 404 page
     else {
         app.innerHTML = `
-        <header>
-            <nav>
-                <a href="/artemisa/home" data-link>Home</a>
-                <a href="/artemisa/login" data-link>Log in</a>
-                <a href="/artemisa/register" data-link>Sign up</a>
-            </nav>
-        </header>
+        <div class="min-h-screen bg-gradient-to-br from-custom-pink to-custom-yellow font-sans">
+             <main class="min-h-screen flex items-center justify-center px-4">
+                 <section class="text-center max-w-2xl mx-auto">
+                    <!-- Número 404 grande -->
+                    <article class="mb-8">
+                     <h1 class="text-9xl md:text-[12rem] font-bold text-white drop-shadow-lg leading-none">
+                     404
+                     </h1>
+                     <div class="w-32 h-2 bg-custom-coral mx-auto rounded-full shadow-lg"></div>
+                     </article>
 
-        <main>
-            <h1>HTTP NOT FOUND</h1>
+                <!-- Mensaje principal -->
+                <article class="mb-12 space-y-4">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 text-balance">
+                        ¡Oops! Página no encontrada
+                    </h2>
+                    <p class="text-lg md:text-xl text-gray-700 max-w-md mx-auto text-pretty">
+                        La página que buscas parece haber desaparecido en el espacio digital.
+                    </p>
+                </article>
 
-        </main>
+                <!-- Elementos decorativos -->
+                <article class="relative">
+                    <div class="absolute -top-20 -left-10 w-20 h-20 bg-custom-orange rounded-full opacity-60 animate-pulse"></div>
+                    <div class="absolute -top-32 -right-16 w-16 h-16 bg-custom-pink rounded-full opacity-40 animate-pulse delay-1000"></div>
+                    <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-custom-yellow rounded-full opacity-50 animate-pulse delay-500"></div>
+                </article>
+                </section>
+            </main>
+        </div>
         
         `
-
     }
 
 }

@@ -1,5 +1,6 @@
 import { renderRouter } from "../routes.js";
 import { loginUser } from "../js/api.js";
+import { alertError } from "../components/alerts.js";
 
 export const auth = {
   login: async (email, password) => {
@@ -22,7 +23,7 @@ export const auth = {
       history.pushState({}, "", "/artemisa/dashboard");
       renderRouter(document.getElementById("app"));
     } else {
-      alert("Email or password incorrect");
+      alertError("Email or password incorrect");
       throw new Error("Email or password incorrect");
     }
   },
