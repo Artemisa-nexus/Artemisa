@@ -1,31 +1,77 @@
-import { auth } from './auth.js';
+import { auth } from "./auth.js";
 
-function redirectNotFound() {
-  history.replaceState({}, '', '/not-found');
-  location.reload();
+// Helper function to handle redirection to a given path
+function redirect(path = "/artemisa/login") {
+  history.replaceState({}, "", path);
+  window.dispatchEvent(new PopStateEvent("popstate"));
 }
 
-// Block access if no user in localStorage
+// Guard that checks if the user is authenticated
 export function authGuard() {
-  if (!auth.isAuthenticated()) redirectNotFound();
+  if (!auth.isAuthenticated()) {
+    redirect();
+    return false;
+  }
+  return true;
 }
 
-// Block access if user does not exist in localStorage or API
+// Guard that verifies if the user exists both locally and in the API
 export async function UserGuard() {
   const localUser = auth.getCurrentUser();
-  if (!localUser) return redirectNotFound();
+  if (!localUser) {
+    redirect();
+    return false;
+  }
 
   try {
-    // Validate against the API that it really exists
-    const result = await auth.api.get(`/users?email=${encodeURIComponent(localUser.email)}`);
+    const result = await auth.api.get(
+      `/users?email=${encodeURIComponent(localUser.email)}`
+    );
 
+    // If the user does not exist in the API, clear local data and redirect
     if (!result.length) {
-      // User no longer exists in the database → clear localStorage and block
-      localStorage.removeItem('currentUser'); 
-      return redirectNotFound();
+      localStorage.removeItem("currentUser");
+      redirect();
+      return false;
     }
+
+    // Update localStorage with the user info (including role_id and role_name)
+    localStorage.setItem("currentUser", JSON.stringify(result[0]));
+
+    return true;
   } catch (err) {
     console.error("Error validating user:", err);
-    return redirectNotFound();
+    redirect();
+    return false;
   }
+}
+
+// Guard that checks if the user has the required role
+export function RoleGuard(roleParam) {
+  const user = auth.getCurrentUser();
+  if (!user) {
+    redirect();
+    return false;
+  }
+
+  // Case 1: Validate by role_id (number)
+  if (typeof roleParam === "number") {
+    if (user.role_id !== roleParam) {
+      redirect();
+      return false;
+    }
+    return true;
+  }
+
+  // Case 2: Validate by role_name (string)
+  if (typeof roleParam === "string") {
+    if (user.role_name?.toLowerCase() !== roleParam.toLowerCase()) {
+      redirect();
+      return false;
+    }
+    return true;
+  }
+
+  // If roleParam is neither a number nor a string, deny access
+  return false;
 }
