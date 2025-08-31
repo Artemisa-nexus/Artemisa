@@ -1,3 +1,5 @@
+import { alertError } from "../components/alerts";
+
 const API_URL = "https://artemisa-production.up.railway.app/api";
 
 // Add a new user
@@ -17,6 +19,6 @@ export async function addUser(user) {
     return await res.json();
   } catch (error) {
     console.error("Error en addUser:", error.message);
-    alert("No se pudo registrar el usuario. Intenta nuevamente.");
+    alertError("No se pudo registrar el usuario. Intenta nuevamente.");
   }
 }
