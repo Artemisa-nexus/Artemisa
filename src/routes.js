@@ -93,7 +93,7 @@ export let renderRouter = async () => {
           </section>
         </main>
         <footer>
-          <p class="text-center text-gray-600">© 2023 Artemisa. Todos los derechos reservados.</p>
+          <p class="text-center text-gray-600">© 2025 Artemisa. Todos los derechos reservados.</p>
         </footer>
       </div>
     `;
