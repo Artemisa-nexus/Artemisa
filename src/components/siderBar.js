@@ -1,5 +1,4 @@
 import { auth } from "../utils/auth";
-import profilePicture from "../assets/profile_picture.svg";
 
 // Render navigation bar in the dashboard
 export function renderSideBar(user = { fullname: "Usuaria" }) {
@@ -47,7 +46,7 @@ export function renderSideBar(user = { fullname: "Usuaria" }) {
       <div class="mt-8">
         <button id="profileBtn"
           class="flex items-center gap-3 mb-4">
-          <img src=${profilePicture} class="w-10 h-10">
+          <img src="/assets/profile_picture.svg" class="w-10 h-10">
           <span class="text-white font-medium">${user.fullname}</span>
         </button>
 
