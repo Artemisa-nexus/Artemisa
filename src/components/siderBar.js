@@ -28,21 +28,21 @@ export function renderSideBar(user = { fullname: "Usuaria" }) {
       <nav class="space-y-4">
         <button id="comunidadBtn"
           class="${getBtnClass("#comunidad")}">
-          Comunidad
+          Community
         </button>
 
         <button id="eventsBtn"
           class="${getBtnClass("#eventos")}">
-          Eventos
+          Events
         </button>
 
         <button id="supportBtn"
           class="${getBtnClass("#apoyo")}">
-          Apoyo
+          Support
         </button>
       </nav>
 
-      <!-- Usuario y botón de cerrar sesión -->
+      <!-- User and button to logout -->
       <div class="mt-8">
         <button id="profileBtn"
           class="flex items-center gap-3 mb-4">
@@ -52,7 +52,7 @@ export function renderSideBar(user = { fullname: "Usuaria" }) {
 
         <button id="logoutBtn"
           class="w-full px-4 py-2 bg-white hover:bg-red text-gray-600 font-semibold rounded-lg shadow-md transition duration-200 ease-in-out">
-          Cerrar sesión
+          Log out
         </button>
       </div>
     </aside>
