@@ -40,14 +40,14 @@ let routes = {
   // Route protected only for admins
   "/artemisa/dashboard/profile/administrador": {
     render: () => renderDashboardProfileAdmi(app),
-    guard: [authGuard, UserGuard, () => RoleGuard("admin")] 
+    guard: [authGuard, UserGuard, () => RoleGuard(3)] 
   },
 
 
   // Route protected only for volunteers
   "/artemisa/dashboard/profile/voluntario": {
     render: () => renderDashboardProfileVolunteer(app),
-    guard: [authGuard, UserGuard, () => RoleGuard("volunteer")]
+    guard: [authGuard, UserGuard, () => RoleGuard(2)]
   },
 };
 
