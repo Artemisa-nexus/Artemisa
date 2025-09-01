@@ -63,14 +63,6 @@ export function RoleGuard(roleParam) {
     return true;
   }
 
-  // Case 2: Validate by role_name (string)
-  if (typeof roleParam === "string") {
-    if (user.role_name?.toLowerCase() !== roleParam.toLowerCase()) {
-      redirect();
-      return false;
-    }
-    return true;
-  }
 
   // If roleParam is neither a number nor a string, deny access
   return false;
