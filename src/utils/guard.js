@@ -30,13 +30,13 @@ export async function UserGuard() {
 
     // If the user does not exist in the API, clear local data and redirect
     if (!result.length) {
-      localStorage.removeItem("currentUser");
+      localStorage.removeItem("user"); // 👈 cambiado
       redirect();
       return false;
     }
 
     // Update localStorage with the user info (including role_id and role_name)
-    localStorage.setItem("currentUser", JSON.stringify(result[0]));
+    localStorage.setItem("user", JSON.stringify(result[0])); // 👈 cambiado
 
     return true;
   } catch (err) {
@@ -62,7 +62,6 @@ export function RoleGuard(roleParam) {
     }
     return true;
   }
-
 
   // If roleParam is neither a number nor a string, deny access
   return false;
