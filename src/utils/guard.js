@@ -28,15 +28,18 @@ export async function UserGuard() {
       `/users?email=${encodeURIComponent(localUser.email)}`
     );
 
+    // Dependiendo de cómo responda tu API:
+    const users = Array.isArray(result) ? result : result.data;
+
     // If the user does not exist in the API, clear local data and redirect
-    if (!result.length) {
+    if (!users || !users.length) {
       localStorage.removeItem("currentUser");
       redirect();
       return false;
     }
 
     // Update localStorage with the user info (including role_id and role_name)
-    localStorage.setItem("currentUser", JSON.stringify(result[0]));
+    localStorage.setItem("currentUser", JSON.stringify(users[0]));
 
     return true;
   } catch (err) {
@@ -62,6 +65,7 @@ export function RoleGuard(roleParam) {
     }
     return true;
   }
+
   // If roleParam is neither a number nor a string, deny access
   return false;
 }
