@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS artemisa;
-CREATE DATABASE IF NOT EXISTS artemisa;
-USE artemisa;
+DROP DATABASE IF EXISTS railway;
+CREATE DATABASE IF NOT EXISTS railway;
+USE railway;
 
 -- =============================
 -- ROLES TABLE 
@@ -115,7 +115,7 @@ CREATE TABLE achieved_goals (
     user_id INT NOT NULL,
     goal_id INT NOT NULL,
     achieved_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (goal_id) REFERENCES goals(goal_id) ON DELETE CASCADE
 );
 

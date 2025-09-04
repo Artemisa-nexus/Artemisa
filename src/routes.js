@@ -40,14 +40,14 @@ let routes = {
   // Route protected only for admins
   "/artemisa/dashboard/profile/administrador": {
     render: () => renderDashboardProfileAdmi(app),
-    guard: [authGuard, UserGuard, () => RoleGuard("admin")] 
+    guard: [authGuard, UserGuard, () => RoleGuard(3)] 
   },
 
 
   // Route protected only for volunteers
   "/artemisa/dashboard/profile/voluntario": {
     render: () => renderDashboardProfileVolunteer(app),
-    guard: [authGuard, UserGuard, () => RoleGuard("volunteer")]
+    guard: [authGuard, UserGuard, () => RoleGuard(2)]
   },
 };
 
@@ -93,7 +93,7 @@ export let renderRouter = async () => {
           </section>
         </main>
         <footer>
-          <p class="text-center text-gray-600">© 2023 Artemisa. Todos los derechos reservados.</p>
+          <p class="text-center text-gray-600">© 2025 Artemisa. Todos los derechos reservados.</p>
         </footer>
       </div>
     `;

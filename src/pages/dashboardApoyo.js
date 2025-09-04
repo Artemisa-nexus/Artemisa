@@ -26,18 +26,18 @@ export function renderDashboardSupport(app) {
               <article class="bg-white rounded-2xl border-l-4 border-[#f56d95] shadow-sm p-6">
                 <h2 class="text-xl font-bold text-gray-800 mb-2">Línea Púrpura</h2>
                 <p class="text-gray-600 mb-2">
-                  La <span class="font-semibold text-[#f56d95]">Línea Púrpura</span> es un servicio de orientación
-                  gratuito para mujeres víctimas de violencia de género, que ofrece apoyo psicosocial, 
-                  orientación jurídica y información sobre sus derechos.
+                  La <span class="font-semibold text-[#f56d95]">Línea Púrpura</span> is a free guidance service
+              for women who are victims of gender-based violence, offering psychosocial support, 
+              legal guidance, and information about their rights.
                 </p>
                 <p class="text-gray-500 text-sm mb-4">
-                  📞 Teléfono: <span class="font-semibold">018000 112 137</span> <br>
+                  📞 Phone: <span class="font-semibold">018000 112 137</span> <br>
                   📱 WhatsApp: <span class="font-semibold">300 755 1846</span> <br>
-                  🕒 Disponible 24 horas al día, 7 días a la semana
+                  🕒 Available 24 hours a day, 7 days a week
                 </p>
                 <a href="https://www.sdmujer.gov.co/lineapurpura" target="_blank"
                  class="inline-block px-4 py-2 bg-[#f56d95] text-white rounded-lg shadow hover:bg-[#d94b73] transition">
-                  Ir al sitio oficial
+                  Go to the official website
                 </a>
               </article>
               
@@ -46,13 +46,13 @@ export function renderDashboardSupport(app) {
                 <h2 class="text-xl font-bold text-gray-800 mb-2">Casa de la Mujer – Barranquilla</h2>
                 <p class="text-gray-600 mb-2">
                   La <span class="font-semibold text-[#f56d95]">Casa de la Mujer</span> es un espacio de la 
-                  <span class="font-semibold">Alcaldía de Barranquilla</span> que brinda atención integral a mujeres 
-                  víctimas de violencias de género. Ofrece orientación psicológica, asesoría jurídica 
-                  y acompañamiento social.
+                  <span class="font-semibold">Barranquilla City Hall</span> which provides comprehensive care to women 
+                  who are victims of gender-based violence. It offers psychological counseling, legal advice, 
+                  and social support.
                 </p>
                 <p class="text-gray-500 text-sm mb-4">
-                  📍 Dirección: Carrera 43 #44-35, Barrio El Prado, Barranquilla <br>
-                  📞 Teléfono: <span class="font-semibold">(605) 379 1234</span> <br>
+                  📍 Address: Carrera 43 #44-35, Barrio El Prado, Barranquilla <br>
+                  📞 Phone: <span class="font-semibold">(605) 379 1234</span> <br>
                   🕒 Horario: Lunes a Viernes, 8:00 a.m. – 5:00 p.m.
                 </p>
                 <a href="https://www.barranquilla.gov.co/mujer" target="_blank"
@@ -61,22 +61,22 @@ export function renderDashboardSupport(app) {
                 </a>
               </article>
                     
-              <!-- Formulario para agendar cita -->
+              <!-- Form for the appoinment -->
               <article class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-                <h2 class="text-xl font-semibold text-[#f56d95] mb-4">Agendar una cita</h2>
+                <h2 class="text-xl font-semibold text-[#f56d95] mb-4">Schedule an appointment</h2>
                 <form id="citaForm" class="space-y-4">
                   <div>
-                    <label class="block text-gray-600 mb-1">Nombre</label>
+                    <label class="block text-gray-600 mb-1">Name</label>
                     <input type="text" id="nombre" required
                       class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#f56d95]" />
                   </div>
                   <div>
-                    <label class="block text-gray-600 mb-1">Descripción</label>
+                    <label class="block text-gray-600 mb-1">Description</label>
                     <textarea id="descripcion" rows="3" required
                       class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#f56d95]"></textarea>
                   </div>
                   <div>
-                    <label class="block text-gray-600 mb-1">Email o Teléfono</label>
+                    <label class="block text-gray-600 mb-1">Email or Phone </label>
                     <input type="text" id="contacto" required
                       class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#f56d95]" />
                   </div>
@@ -106,7 +106,7 @@ export function renderDashboardSupport(app) {
   function renderCitas() {
     container.innerHTML = "";
     if (citas.length === 0) {
-      container.innerHTML = `<p class="text-gray-500 text-center">No hay ningun formulario enviado</p>`;
+      container.innerHTML = `<p class="text-gray-500 text-center">No form has been submitted.</p>`;
     } else {
       citas.forEach((cita, index) => {
         container.innerHTML += `
@@ -114,7 +114,7 @@ export function renderDashboardSupport(app) {
             <h3 class="text-lg font-bold text-gray-800">${cita.support_name}</h3>
             <p class="text-gray-600 mb-2">${cita.description}</p>
             <p class="text-gray-500 text-sm">📞 ${cita.email}</p>
-            <button data-index="${index}" class="deleteBtn mt-3 text-sm text-red-600 hover:underline">cancelar</button>
+            <button data-index="${index}" class="deleteBtn mt-3 text-sm text-red-600 hover:underline">cancel</button>
           </article>
         `;
       });
@@ -141,7 +141,7 @@ export function renderDashboardSupport(app) {
 
     // Keep track of citas
     citas.push(nuevaCita);
-    localStorage.setItem("citas", JSON.stringify(citas));
+    localStorage.setItem("appointments", JSON.stringify(citas));
 
     // goal achievement tracking
     try {
