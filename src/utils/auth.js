@@ -50,7 +50,9 @@ export const auth = {
   // Add API reference for guards
   api: {
     async get(url) {
-      const res = await fetch(`https://artemisa-production.up.railway.app/api${url}`);
+      const res = await fetch(
+        `https://artemisa-production.up.railway.app/api${url}`
+      );
       if (!res.ok) throw new Error("Error fetching data from API");
       return res.json();
     },
